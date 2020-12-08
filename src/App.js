@@ -1,25 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import Routes from './Routes';
+import React, { Component } from "react";
 
-function App() {
+export default class App extends Component{
+
+	componentDidMount() {
+		document.title = "ketabbaz"
+		document.icon = "./public/images/logo1.png"
+	}
+	render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div className="App">
+      <Routes />
     </div>
-  );
+  )};
 }
 
-export default App;
