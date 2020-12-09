@@ -8,7 +8,7 @@ export default class AdDetails extends Component {
 	state = {
 		   title: "طراحی الگوریتم",
 		    author: "دکتر محمد ابراهیم ابوکاظمی",
-            image: "public/images/default.jpg",
+            image: "/images/default.jpg",
             description: "قیمت بسیار ارزان - ویرایش چهارم",
             sell: "فروش"
 	  };
@@ -42,10 +42,10 @@ export default class AdDetails extends Component {
 
 				{/*  author title + sell/buy */}
 				<div className="item">
-				  <div className="content" dir="rtl">
+				  <div className="content" dir="rtl"  style={{textAlign:"right"}}>
 					<a className="ui large header"> {this.state.title }</a>
 					<div className="meta" dir="rtl">
-					{sell == "فروش"? <a>- خرید - </a>:<a> - فروش -</a> }
+					{sell == "فروش"?  <div className="ui label">فروش</div>:<div className="ui label">خرید</div> }
 					  <a> {this.state.author} </a>
 					</div>
 				  </div>
@@ -55,12 +55,12 @@ export default class AdDetails extends Component {
 				<div className="item">
 				  {/* book image */}
 				  <div className="ui medium image">
-					<img className="info_container__image" src="{%  '/bookapp_front/public/images/books.jpg' %}" alt="image" />
+					<img className="info_container__image" src={this.state.image} alt="image" />
 				  </div>
 				  {/* general information */}
 				  
 				  <div className="ui text container float right">
-					<div className="ui segments">
+					<div className="ui segments" style={{textAlign:"right"}}>
 					  <div className="ui segment" dir="rtl">
 						<strong>آگهی‌دهنده: علی حیدری</strong>
 					  </div>
