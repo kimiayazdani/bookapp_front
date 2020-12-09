@@ -21,34 +21,35 @@ import {
 
 import "./new_ad.css"
 
-export default class AdForm extends Component {
+export default class AccForm extends Component {
 	state = {
-	    bookName:"",
-	    authorName:"",
-	    image: "/images/books.jpg",
-	    description:"",
-	    error_message:"مسئله",
-	    for_sale: false,
+	    user:"",
+      pass:"",
+      number:"",
+      name:"",
+      image:"",
       redirect: false,
       redirectBack: false,
-      adId: 0,
   	};
 
   	fileInputRef = React.createRef();
 
   	componentDidMount() {
-  		if (this.props.classIn==="editad") {
+  		if (this.props.classIn==="editacc") {
   			this.setState({
-  				bookName: "جنایات و مکافات",
-  				authorName: "داستایوفسکی",
-  				image: "باید این رو درست کنم",
-  				description: "وضیحات",
-  				for_sale: true,
-          adId: 2
+  			user:"سیام",
+        pass:"شسیبشس",
+        number:"09121406265",
+        name:"کیمیا یزدانی",
+        image:"/images/books.jpg",
   			})
   		}
   	};
-
+ redirectToReg = (e) => {
+    this.setState({
+      redirectBack: true
+    })
+  };
 
 	fileChange = (e) => {
 	    this.setState({ image: e.target.files[0] }, () => {
@@ -85,12 +86,7 @@ export default class AdForm extends Component {
   renderRedirectBack = (e) => {
         if (this.state.redirectBack) {
             return (
-            <Redirect to={{
-                                          pathname: '/ad/detail',
-                                          state: {
-                                            adId: this.state.adId
-                                          }
-                                        }} />
+            <Redirect to={{pathname: '/acc/'}} />
             )
         }
         if (this.state.redirect) {
@@ -109,22 +105,16 @@ export default class AdForm extends Component {
 
 	  axios 
 	      .post("http://localhost:8000/api/asknima", { 
-	          bookName: this.state.bookName, 
-	          authorName: this.state.authorName,
-	          image: this.state.image,
-	          description: this.state.description,
-	          for_sale: this.state.for_sale
+	          user: this.state.user, 
+            pass: this.state.pass, 
+            name: this.state.name,
+            number: this.state.number,
+            image: this.state.image
 	      }) 
         .then((res) => { 
-            if(this.props.classIn==="editad") {
-              this.setState({
-                redirectBack: true
-              })
-            } else {
               this.setState({
                 redirect: true
               })
-            }
             })
 	      .catch((err) => {
 	        
@@ -155,9 +145,9 @@ export default class AdForm extends Component {
             
     <Form onSubmit={this.handleSubmit} class="ui right">
     <Form.Field>
-      <label style={{textAlign:"right"}}>تصویر:</label>
+      <label style={{textAlign:"right"}}>تصویر پروفایل:</label>
       <Form.Input
-        placeHolder= "تصویر"
+        placeHolder= "تصویر پروفایل"
       	ref={this.fileInputRef}
       	type="file"
       	name="image"
@@ -166,39 +156,58 @@ export default class AdForm extends Component {
     </Form.Field>
     <Form.Field>
 
-      <label style={{textAlign:"right"}}>نام کتاب:</label>
+      <label style={{textAlign:"right"}}>نام و نام خانوادگی:</label>
       <input
-        placeHolder= "نام کتاب"
-      	name="bookName"
-      	value={this.state.bookName}
+        placeHolder= "نام و نام خانوادگی"
+        name="name"
+        value={this.state.name}
+        onChange= {this.handleInput}
+
+      />
+      </Form.Field>
+       <Form.Field>
+
+      <label style={{textAlign:"right"}}>شماره‌ی همراه:</label>
+      <input
+        placeHolder= "شماره‌ی همراه"
+        name="number"
+        value={this.state.number}
+        onChange= {this.handleInput}
+
+      />
+      </Form.Field>
+    <Form.Field>
+
+      <label style={{textAlign:"right"}}>نام کاربری:</label>
+      <input
+        placeHolder= "نام کاربری"
+      	name="user"
+      	value={this.state.user}
       	onChange= {this.handleInput}
 
       />
     </Form.Field>
     <Form.Field>
-      <label style={{textAlign:"right"}}>نام نویسنده:</label>
+      <label style={{textAlign:"right"}}>رمز عبور:</label>
       <input
         dir="rtl"
-      	name="authorName"
-      	value={this.state.authorName}
+      	name="pass"
+        type="password"
+      	value={this.state.pass}
       	onChange= {this.handleInput}
-        placeHolder="نام نویسنده"
+        placeHolder="رمز عبور"
       />
     </Form.Field>
-    <Form.Field>
-      <label style={{textAlign:"right"}}>توضیحات:</label>
-      <Form.TextArea 
-      	name="description"
-      	value={this.state.description}
-      	onChange= {this.handleInput}
-        placeHolder="توضیحات"
-      /> 
-    </Form.Field>
-    <Form.Field style={{textAlign:"right"}}>
-      <Checkbox label='فروشی' name="for_sale" checked={this.state.for_sale} onChange={this.handleToggle.bind(this)}/>
-    </Form.Field>
+  
+    
+    
 
-    <Button type='submit' color="green" >ثبت</Button>
+    {this.props.classIn==="editacc"? <Button type='submit' color="green" >ثبت</Button>:
+    <Button.Group>
+    <Button primary onClick={this.redirectToReg.bind(this)}>عضو هستید</Button>
+    <Button.Or text='یا' />
+    <Button positive onClick={this.handleSubmit}>ساخت اکانت</Button>
+  </Button.Group>}
 
   </Form>
   {this.renderRedirectBack()}

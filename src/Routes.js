@@ -6,7 +6,8 @@ import AdDetails from "./Pages/AdDetails";
 import AdAll from "./Pages/AdAll";
 import AdForm from "./Pages/AdForm";
 import DeleteAd from "./Pages/deleteAd";
-
+import SignIn from "./Pages/SignIn"
+import AccForm from "./Pages/SignUp"
 
 class Routes extends Component {
     render() {
@@ -27,7 +28,13 @@ class Routes extends Component {
                     <Route path="/ad/edit" render={(props) => (
                             <AdForm {...props} classIn={"editad"} />
                             )}/> />
-
+                    <Route path="/acc/" exact component={SignIn} />
+                    <Route path="/acc/edit" render={(props) => (
+                            <AccForm {...props} classIn={"editacc"} />
+                            )}/>
+                    <Route path="/acc/register" render={(props) => (
+                            <AccForm {...props} classIn={"regacc"} />
+                            )}/>
                    </Switch>
             </Router>
 
