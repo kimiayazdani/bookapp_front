@@ -54,6 +54,7 @@ export default class AdForm extends Component {
 	  	const url = "http://localhost:8000/api/asknima";
 	    const formData = new FormData();
 	    formData.append("file", file);
+
 	    const config = {
 	      headers: {
 	        "Content-type": "multipart/form-data"
@@ -62,16 +63,25 @@ export default class AdForm extends Component {
 	    return put(url, formData, config);
   	};
 
+  	handleToggle = (e) => {
+  		this.setState ({
+  			for_sale: !this.state.for_sale
+  		})
+  	};
+
 	handleInput = (e) => { 
+		
 	    this.setState({ 
 	        [e.target.name]: e.target.value, 
 	    }); 
+		
 	}; 
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
 	  this.fileUpload(this.state.file).then(response => {
       	console.log(response.data);
     });
+
 
 	  axios 
 	      .post("http://localhost:8000/api/asknima", { 
@@ -104,7 +114,6 @@ export default class AdForm extends Component {
     </div>
     <br />
     <br />
-
 
     <Grid textAlign="center" verticalAlign="middle" >
     <Grid.Column style={{ maxWidth: 700, backgroundColor:"#e0e0eb"}} >
@@ -146,7 +155,7 @@ export default class AdForm extends Component {
       /> 
     </Form.Field>
     <Form.Field style={{textAlign:"right"}}>
-      <Checkbox label='فروشی' name="for_sale" checked={this.state.for_sale}/>
+      <Checkbox label='فروشی' name="for_sale" checked={this.state.for_sale} onChange={this.handleToggle.bind(this)}/>
     </Form.Field>
 
     <Button type='submit' color="green" >ثبت</Button>
