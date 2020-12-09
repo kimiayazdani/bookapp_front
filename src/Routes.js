@@ -16,7 +16,7 @@ class Routes extends Component {
                     <Route path="/" exact component={HomePage} />
                     <Route path="/ad/" exact component={AdAll} />
                     <Route path="/ad/del" render={(props) => (
-                        <DeleteAd {...props} bookName={"طراحی الگوریتم"}/>
+                        <DeleteAd {...props} bookName={"طراحی الگوریتم"} adId={1}/>
                         )} />
                     <Route path="/ad/detail" render={(props) => (
                         <AdDetails {...props}  />

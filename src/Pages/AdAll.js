@@ -115,10 +115,3 @@ export default class AdAll extends Component {
         )
     }
 }
-
-
-// <a target="_blank" href="/ad/detail" adId="1"
-//                                            className="ui right floated primary button">
-//                                             اطلاعات بیشتر
-//                                             <i className="right chevron icon"></i>
-//                                         </a>
