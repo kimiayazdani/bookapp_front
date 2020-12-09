@@ -153,9 +153,9 @@ export default class AdForm extends Component {
     <Grid.Column style={{ maxWidth: 700, backgroundColor:"#e0e0eb"}} >
            
             
-    <Form onSubmit={this.handleSubmit}>
+    <Form onSubmit={this.handleSubmit} class="ui right">
     <Form.Field>
-      <label style={{textAlign:"right"}}>:تصویر</label>
+      <label style={{textAlign:"right"}}>تصویر:</label>
       <Form.Input
 
       	ref={this.fileInputRef}
@@ -166,9 +166,8 @@ export default class AdForm extends Component {
     </Form.Field>
     <Form.Field>
 
-      <label style={{textAlign:"right"}}>:نام کتاب</label>
-      <Form.Input
-        dir="rtl"
+      <label style={{textAlign:"right"}}>نام کتاب:</label>
+      <input
       	name="bookName"
       	value={this.state.bookName}
       	onChange= {this.handleInput}
@@ -176,8 +175,8 @@ export default class AdForm extends Component {
       />
     </Form.Field>
     <Form.Field>
-      <label style={{textAlign:"right"}}>:نام نویسنده</label>
-      <Form.Input
+      <label style={{textAlign:"right"}}>نام نویسنده:</label>
+      <input
         dir="rtl"
       	name="authorName"
       	value={this.state.authorName}
@@ -185,7 +184,7 @@ export default class AdForm extends Component {
       />
     </Form.Field>
     <Form.Field>
-      <label style={{textAlign:"right"}}>:توضیحات</label>
+      <label style={{textAlign:"right"}}>توضیحات:</label>
       <Form.TextArea 
       	name="description"
       	value={this.state.description}
