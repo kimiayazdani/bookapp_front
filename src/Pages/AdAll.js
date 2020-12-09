@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import SideMenu from './../SideMenu';
-// import './AddAll.css'
+import './AddAll.css'
 import 'semantic-ui-css/semantic.min.css';
 
 export default class AdAll extends Component {
@@ -10,7 +10,7 @@ export default class AdAll extends Component {
             id: 1,
             title: "طراحی الگوریتم",
             author: ["ریچارد نیپولیتان"],
-            image: "public/images/default.jpg",
+            image: "/images/buy_default.png",
             description: "قیمت بسیار ارزان - ویرایش چهارم",
             sell: "خرید"
 
@@ -19,7 +19,7 @@ export default class AdAll extends Component {
                 id: 2,
                 title: "هالیدی۱ ",
                 author: "دکتر محمد ابراهیم ابوکاظمی",
-                image: "public/images/default.jpg",
+                image: "/images/buy_default.png",
                 description: "کتاب هالیدی ۱ مخصوص درس فیزیک ۱ ویرایش هشتم قیمت مناسب بسیار تمیز",
                 sell: "فروش",
             }],
@@ -42,7 +42,7 @@ export default class AdAll extends Component {
                     </div>
                 </div>
                 <br/>
-                <div className="ui container" dir="ltr">
+                <div className="ui container" >
                     <div className="ui relaxed divided items">
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
@@ -51,7 +51,7 @@ export default class AdAll extends Component {
                                 </div>
                                 <div className="content">
 
-                                    <a target="_blank" href="/ads/" className="header" dir="rtl">{ad.title}</a>
+                                    <a target="_blank" className="header" dir="rtl">{ad.title}</a>
                                     <div className="meta">
                                         <a>{ad.author}</a>
                                     </div>

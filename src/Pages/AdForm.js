@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import axios, {put} from "axios"; 
+import axios, {put} from "axios";
+
 
 
 import SideMenu from './../SideMenu';
 
 
 import "semantic-ui-css/semantic.min.css";
+
 
 import {
   Button,
@@ -91,7 +93,9 @@ export default class AdForm extends Component {
 	}; 
 	render () {
 		return (
-			<div className="App">
+
+			<div dir="rtl" className="App">
+
 				<SideMenu classIn={this.props.classIn}/>
 				<div class="ui container">
 
@@ -121,6 +125,7 @@ export default class AdForm extends Component {
       />
     </Form.Field>
     <Form.Field>
+
       <label style={{textAlign:"right"}}>:نام کتاب</label>
       <Form.Input
       	name="bookName"
