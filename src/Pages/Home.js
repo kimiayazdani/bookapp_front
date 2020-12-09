@@ -12,13 +12,13 @@ render() {
         <div class="ui inverted vertical masthead center aligned segment" dir="rtl">
             <div class="ui text container" dir="rtl">
                 <h1 class="ui inverted header">
-                    ﺪﻨﻤﺷﻮﻫ ﺏﺎﺘﮐ ﻝﺩﺎﺒﺗ ﯼﻪﻧﺎﻣﺎﺳ
+                     سامانه‌ی تبادل کتاب هوشمند
                 </h1>
-                <h2>ﺪﯿﺷﺎﺒﻧ ﺩﻮﺧ ﯽﺳﺭﺩ ﻊﺑﺎﻨﻣ ﻥاﺮﮕﻧ ﺮﮕﯾﺩ! </h2>
+                <h2>دیگر نگران منابع درسی خود نباشید!</h2>
                 <br />
                 <a target="_blank" href="" class="ui huge primary button">
                     <i class="right arrow icon"></i>
-                    ﺎﻫﯽﻬﮔﺁ ﯼﻩﺪﻫﺎﺸﻣ
+                    مشاهده‌ی آگهی‌ها
                 </a>
 
             </div>
@@ -28,10 +28,10 @@ render() {
             <div class="ui middle aligned stackable grid container" dir="rtl">
                 <div class="row" dir="rtl">
                     <div class="eight wide column" dir="rtl">
-                        <h3 class="ui header">ﺪﯿﺷﻭﺮﻔﺑ اﺭ ﺩﻮﺧ ﯽﻤﯾﺪﻗ ﯽﺳﺭﺩ ﯼﺎﻫﺏﺎﺘﮐ</h3>
-                        <p>ﺪﯿﺷﻭﺮﻔﺑ ﺮﮕﯾﺩ ﯼﻩﺩﺯﮏﻠﻓ ﯼﻮﺠﺸﻧاﺩ ﮏﯾ ﻪﺑ اﺭ ﻥﺁ ...ﺪﯿﺷﺎﺑ ﺩﻮﺧ ﻢﯾﺭﻮﮕﻟا ﯽﺣاﺮﻃ ﺏﺎﺘﮐ ﻥﺩﺭﻮﺧﮎﺎﺧ ﻥاﺮﮕﻧ ﺖﺴﯿﻧ ﻡﺯﻻ ﺮﮕﯾﺩ!</p>
-                        <h3 class="ui header">ﺪﯾﺮﺨﺑ ﻥاﺯﺭا اﺭ ﺩﻮﺧ ﺯﺎﯿﻧﺩﺭﻮﻣ ﺏﺎﺘﮐ</h3>
-                        <p>ﺪﯿﻨﮐ ﺰﮔ اﺭ ﺏﻼﻘﻧا ﻥاﺪﯿﻣ ﻞﮐ ﺎﯾ ﺪﯿﻫﺪﺑ ﺩﻮﺧ ﯽﺳﺭﺩ ﯼﺎﻫﺏﺎﺘﮐ ﯼاﺮﺑ ﯽﻣﻮﺠﻧ ﯼﺎﻫﻪﻨﯾﺰﻫ ﺖﺴﯿﻧ ﻡﺯﻻ ﺮﮕﯾﺩ ،ﻪﻠﺑ!</p>
+                        <h3 class="ui header">کتاب‌های درسی قدیمی خود را بفروشید</h3>
+                        <p>دیگر لازم نیست نگران خاک‌خوردن کتاب طراحی الگوریم خود باشید... آن را به یک دانشجوی فلک‌زده‌ی دیگر بفروشید!</p>
+                        <h3 class="ui header">کتاب موردنیاز خود را ارزان بخرید</h3>
+                        <p>بله، دیگر لازم نیست هزینه‌های نجومی برای کتاب‌های درسی خود بدهید یا کل میدان انقلاب را گز کنید!</p>
                     </div>
                     <div class="six wide left floated column">
                         <img src="images/landing-left.jpg" class="ui huge bordered rounded image" />
@@ -39,7 +39,7 @@ render() {
                 </div>
                 <div class="row" dir="rtl">
                     <div class="center aligned column" dir="rtl">
-                        <a target="_blank" href="" class="ui huge button">ﯽﻬﮔﺁ ﺖﺒﺛ</a>
+                        <a target="_blank" href="" class="ui huge button">ثبت آگهی</a>
                     </div>
                 </div>
             </div>
@@ -49,11 +49,11 @@ render() {
             <div class="ui equal width stackable internally celled grid" dir="rtl">
                 <div class="center aligned row" dir="rtl">
                     <div class="column" dir="rtl">
-                        <h3>"ﻢﺘﺴﯿﻧ ﺪﯾﺪﺟ ﻡﺮﺗ ﻉﻭﺮﺷ ﻥاﺮﮕﻧ ﺮﮕﯾﺩ"</h3>
-                        <p>- ﺭﻮﺸﮐ ﻥﺎﯾﻮﺠﺸﻧاﺩ ﯼﻪﯿﻠﮐ ﻝﺎﻗ</p>
+                        <h3>"دیگر نگران شروع ترم جدید نیستم"</h3>
+                        <p>- قال کلیه‌ی دانشجویان کشور</p>
                     </div>
                     <div class="column" dir="rtl">
-                        <h3>"ﻢﻣﺎﻫﻩﺮﻤﻧ ﻥاﺮﮕﻧ ﻂﻘﻓ ﻪﮕﯾﺩ"</h3>
+                        <h3>"دیگه فقط نگران نمره‌هامم"</h3>
                     </div>
                 </div>
             </div>
