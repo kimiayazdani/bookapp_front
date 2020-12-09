@@ -11,6 +11,7 @@ export default class AdDetails extends Component {
         image: "/images/default.jpg",
         description: "قیمت بسیار ارزان - ویرایش چهارم",
         sell: "فروش"
+
     };
 
     componentDidMount = () => {
