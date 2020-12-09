@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios"; 
 import SideMenu from './../SideMenu';
 
+
 export default class AdDetails extends Component {
 	render () {
 		return (
