@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import axios, {put} from "axios"; 
+import axios, {put} from "axios";
 
+import { Redirect } from 'react-router';
 
 import SideMenu from './../SideMenu';
 
 
 import "semantic-ui-css/semantic.min.css";
+
 
 import {
   Button,
@@ -27,6 +29,9 @@ export default class AdForm extends Component {
 	    description:"",
 	    error_message:"مسئله",
 	    for_sale: false,
+      redirect: false,
+      redirectBack: false,
+      adId: 0,
   	};
 
   	fileInputRef = React.createRef();
@@ -38,7 +43,8 @@ export default class AdForm extends Component {
   				authorName: "داستایوفسکی",
   				image: "باید این رو درست کنم",
   				description: "وضیحات",
-  				for_sale: true
+  				for_sale: true,
+          adId: 2
   			})
   		}
   	};
@@ -76,6 +82,24 @@ export default class AdForm extends Component {
 	    }); 
 		
 	}; 
+  renderRedirectBack = (e) => {
+        if (this.state.redirectBack) {
+            return (
+            <Redirect to={{
+                                          pathname: '/ad/detail',
+                                          state: {
+                                            adId: this.state.adId
+                                          }
+                                        }} />
+            )
+        }
+        if (this.state.redirect) {
+            return (
+                <Redirect to={{
+                    pathname:'/ad/',
+                }} /> )
+        }
+    };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
 	  this.fileUpload(this.state.file).then(response => {
@@ -91,17 +115,27 @@ export default class AdForm extends Component {
 	          description: this.state.description,
 	          for_sale: this.state.for_sale
 	      }) 
+        .then((res) => { 
+            if(this.props.classIn==="editad") {
+              this.setState({
+                redirectBack: true
+              })
+            } else {
+              this.setState({
+                redirect: true
+              })
+            }
+            })
 	      .catch((err) => {
 	        
-	          this.setState({ 
-	              error_message:err.response.data.error
-	           });
 	        
 	      }); 
 	}; 
 	render () {
 		return (
-			<div className="App">
+
+			<div dir="rtl" className="App">
+
 				<SideMenu classIn={this.props.classIn}/>
 				<div class="ui container">
 
@@ -123,6 +157,7 @@ export default class AdForm extends Component {
     <Form.Field>
       <label style={{textAlign:"right"}}>:تصویر</label>
       <Form.Input
+
       	ref={this.fileInputRef}
       	type="file"
       	name="image"
@@ -130,8 +165,10 @@ export default class AdForm extends Component {
       />
     </Form.Field>
     <Form.Field>
+
       <label style={{textAlign:"right"}}>:نام کتاب</label>
       <Form.Input
+        dir="rtl"
       	name="bookName"
       	value={this.state.bookName}
       	onChange= {this.handleInput}
@@ -141,6 +178,7 @@ export default class AdForm extends Component {
     <Form.Field>
       <label style={{textAlign:"right"}}>:نام نویسنده</label>
       <Form.Input
+        dir="rtl"
       	name="authorName"
       	value={this.state.authorName}
       	onChange= {this.handleInput}
@@ -161,6 +199,7 @@ export default class AdForm extends Component {
     <Button type='submit' color="green" >ثبت</Button>
 
   </Form>
+  {this.renderRedirectBack()}
  {this.state.error_message && <Message
       error
       header='مشکل در ثبت اطلاعات'
