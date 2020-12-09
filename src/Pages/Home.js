@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import axios from "axios"; 
 
 import "./Home.css"
+import SideMenu from './../SideMenu';
 class Login extends Component {
 
 render() {
  return (
   <div className="App">
+  	<SideMenu classIn={"Home"} />
       <div class="pusher" dir="rtl">
 
         <div class="ui inverted vertical masthead center aligned segment" dir="rtl">
