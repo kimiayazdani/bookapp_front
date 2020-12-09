@@ -9,7 +9,7 @@ export default class AdDetails extends Component {
 			<div className="App">
 				<SideMenu />
 				<h1> <br/> <br/> <br/> <br /> <br/>
-  details page </h1>
+  details page {this.props.location.state.adId} </h1>
 			</div>
 			)
 	}
