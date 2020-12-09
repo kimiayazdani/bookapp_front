@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios"; 
+import axios, {put} from "axios"; 
+
+
 import SideMenu from './../SideMenu';
+
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -20,43 +23,72 @@ export default class AdForm extends Component {
 	state = {
 	    bookName:"",
 	    authorName:"",
-	    image: "",
+	    image: "/images/books.jpg",
 	    description:"",
 	    error_message:"مسئله",
+	    for_sale: false,
   	};
+
+  	fileInputRef = React.createRef();
+
   	componentDidMount() {
   		if (this.props.classIn==="editad") {
   			this.setState({
   				bookName: "جنایات و مکافات",
   				authorName: "داستایوفسکی",
   				image: "باید این رو درست کنم",
-  				description: "وضیحات"
+  				description: "وضیحات",
+  				for_sale: true
   			})
   		}
   	};
-  handleInput = (e) => { 
-        this.setState({ 
-            [e.target.name]: e.target.value, 
-        }); 
-  }; 
-  handleSubmit = (e) => { 
-      e.preventDefault(); 
 
-      axios 
-          .post("http://localhost:8000/api/asknima", { 
-              bookName: this.state.bookName, 
-              authorName: this.state.authorName,
-              image: this.state.image,
-              description: this.state.description 
-          }) 
-          .catch((err) => {
-            
-              this.setState({ 
-                  error_message:err.response.data.error
-               });
-            
-          }); 
-  }; 
+
+	fileChange = (e) => {
+	    this.setState({ image: e.target.files[0] }, () => {
+	      console.log("File uploaded --->", this.state.image);
+	    });
+  	};
+
+  	fileUpload = file => {
+	  	const url = "http://localhost:8000/api/asknima";
+	    const formData = new FormData();
+	    formData.append("file", file);
+	    const config = {
+	      headers: {
+	        "Content-type": "multipart/form-data"
+	      }
+	    };
+	    return put(url, formData, config);
+  	};
+
+	handleInput = (e) => { 
+	    this.setState({ 
+	        [e.target.name]: e.target.value, 
+	    }); 
+	}; 
+	handleSubmit = (e) => { 
+	  e.preventDefault(); 
+	  this.fileUpload(this.state.file).then(response => {
+      	console.log(response.data);
+    });
+
+	  axios 
+	      .post("http://localhost:8000/api/asknima", { 
+	          bookName: this.state.bookName, 
+	          authorName: this.state.authorName,
+	          image: this.state.image,
+	          description: this.state.description,
+	          for_sale: this.state.for_sale
+	      }) 
+	      .catch((err) => {
+	        
+	          this.setState({ 
+	              error_message:err.response.data.error
+	           });
+	        
+	      }); 
+	}; 
 	render () {
 		return (
 			<div className="App">
@@ -82,9 +114,10 @@ export default class AdForm extends Component {
     <Form.Field>
       <label style={{textAlign:"right"}}>:تصویر</label>
       <Form.Input
+      	ref={this.fileInputRef}
+      	type="file"
       	name="image"
-      	value={this.state.image}
-      	onChange= {this.handleInput}
+      	onChange= {this.fileChange}
       />
     </Form.Field>
     <Form.Field>
@@ -113,7 +146,7 @@ export default class AdForm extends Component {
       /> 
     </Form.Field>
     <Form.Field style={{textAlign:"right"}}>
-      <Checkbox label='فروشی' />
+      <Checkbox label='فروشی' name="for_sale" checked={this.state.for_sale}/>
     </Form.Field>
 
     <Button type='submit' color="green" >ثبت</Button>
@@ -132,40 +165,3 @@ export default class AdForm extends Component {
 			)
 	}
 }
-
-
- // <Header as="h2" color="teal" textAlign="center">
-              // <img src="/static/images/HappyAnimals.png" alt="logo" className="image" />{" "}
-              // به حساب کاربری خود وارد شوید.
-            // </Header>
-// <Form size="large" onSubmit={this.handleSubmit}>
-//               <Segment stacked>
-//                 <Form.Input
-//                   fluid
-//                   icon="user"
-//                   iconPosition="left"
-//                   placeholder="آدرس ایمیل"
-//                   name = "user"
-//                   value={this.state.user}
-//                   onChange = {this.handleInput}
-//                 />
-//                 <Form.Input
-//                   fluid
-//                   icon="lock"
-//                   iconPosition="left"
-//                   placeholder="پسورد"
-//                   type="password"
-//                   name = "pass"
-//                   value = {this.state.pass}
-//                   onChange = {this.handleInput}
-//                 />
-//                 <Button type="submit" color="teal" fluid size="large">
-//                   وارد شوید
-//                 </Button>
-//               </Segment>
-//             </Form>
-
-// <Message>
-              // جدیدید؟ <a href="/SignUp">به ما بپیوندید</a>
-              // <p background-color="coral"> error message: {this.state.error_message? this.state.error_message : "none"} </p>
-            // </Message>
