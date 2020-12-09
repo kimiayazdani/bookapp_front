@@ -18,7 +18,7 @@ render() {
                 </h1>
                 <h2>دیگر نگران منابع درسی خود نباشید!</h2>
                 <br />
-                <a target="_blank" href="" class="ui huge primary button">
+                <a target="_blank" href="/ad/" class="ui huge primary button">
                     <i class="right arrow icon"></i>
                     مشاهده‌ی آگهی‌ها
                 </a>
@@ -30,10 +30,10 @@ render() {
             <div class="ui middle aligned stackable grid container" dir="rtl">
                 <div class="row" dir="rtl">
                     <div class="eight wide column" dir="rtl">
-                        <h3 class="ui header">کتاب‌های درسی قدیمی خود را بفروشید</h3>
-                        <p>دیگر لازم نیست نگران خاک‌خوردن کتاب طراحی الگوریم خود باشید... آن را به یک دانشجوی فلک‌زده‌ی دیگر بفروشید!</p>
-                        <h3 class="ui header">کتاب موردنیاز خود را ارزان بخرید</h3>
-                        <p>بله، دیگر لازم نیست هزینه‌های نجومی برای کتاب‌های درسی خود بدهید یا کل میدان انقلاب را گز کنید!</p>
+                        <h3 class="ui header" style={{textAlign:"right"}}>کتاب‌های درسی قدیمی خود را بفروشید</h3>
+                        <p style={{textAlign:"right"}}>دیگر لازم نیست نگران خاک‌خوردن کتاب طراحی الگوریم خود باشید... آن را به یک دانشجوی فلک‌زده‌ی دیگر بفروشید!</p>
+                        <h3 class="ui header" style={{textAlign:"right"}}>کتاب موردنیاز خود را ارزان بخرید</h3>
+                        <p style={{textAlign:"right"}}>بله، دیگر لازم نیست هزینه‌های نجومی برای کتاب‌های درسی خود بدهید یا کل میدان انقلاب را گز کنید!</p>
                     </div>
                     <div class="six wide left floated column">
                         <img src="images/landing-left.jpg" class="ui huge bordered rounded image" />
@@ -41,7 +41,7 @@ render() {
                 </div>
                 <div class="row" dir="rtl">
                     <div class="center aligned column" dir="rtl">
-                        <a target="_blank" href="" class="ui huge button">ثبت آگهی</a>
+                        <a target="_blank" href="/ad/new" class="ui huge button">ثبت آگهی</a>
                     </div>
                 </div>
             </div>
