@@ -26,10 +26,9 @@ export default class SignIn extends Component {
 	    user: "",
       pass: "",
       redirect: false,
-      redirectBack: false
+      redirectBack: false,
+      error_message: this.props.location? this.props.location.state.error_message:'',
   	};
-
-  	fileInputRef = React.createRef();
 
 
 	handleInput = (e) => { 
@@ -43,7 +42,7 @@ export default class SignIn extends Component {
     this.setState({
       redirectBack: true
     })
-  }
+  };
   renderRedirectBack = (e) => {
         if (this.state.redirectBack) {
             return (
@@ -59,22 +58,17 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
+    // var res = this.props.handle_login(this.state.user, this.state.pass);
 
-
-	  axios 
-	      .post("http://localhost:8000/api/asknima", { 
-	          user: this.state.user, 
-	          pass: this.state.pass,
-	      }) 
-        .then((res) => { 
-            this.setState({
-                redirect: true
-              })
-            })
-	      .catch((err) => {
-	        
-	        
-	      }); 
+    // if (this.props.logged_in) {
+    //   this.setState({
+    //     redirect: true
+    //   });
+    // } else {
+    //   this.setState({
+    //     error_message: "با شکست مواجه شد."
+    //   })
+    // }
 	}; 
 	render () {
 		return (
@@ -136,7 +130,7 @@ export default class SignIn extends Component {
   {this.renderRedirectBack()}
  {this.state.error_message && <Message
       error
-      header='مشکل در ثبت اطلاعات'
+      header='درخواست انجام نشد'
       content= {this.state.error_message}
     />}
 

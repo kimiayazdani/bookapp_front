@@ -32,7 +32,7 @@ class Routes extends Component {
                     <Route path="/ad/edit" render={(props) => (
                             <AdForm {...this.props} classIn={"editad"} />
                             )}/> />
-                    <Route path="/acc/" exact ender={(props) => (
+                    <Route path="/acc/" exact render={(props) => (
                         <SignIn {...this.props} />
                       )}/>
                     <Route path="/acc/edit" render={(props) => (

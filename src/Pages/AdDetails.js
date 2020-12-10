@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import SideMenu from './../SideMenu';
+import { Redirect } from 'react-router';
 
 import "./AdDetails.css"
 
@@ -11,11 +12,16 @@ export default class AdDetails extends Component {
         author: "دکتر محمد ابراهیم ابوکاظمی",
         image: "/images/default.jpg",
         description: "قیمت بسیار ارزان - ویرایش چهارم",
-        sell: "فروش"
+        sell: "فروش",
+        redirect: false,
 
     };
 
     componentDidMount = () => {
+    	if(this.props.logged_in === "f") {
+
+    		this.setState({redirect:true})
+    	}
         axios
             .get("http://localhost:8000/api/asknima")
             .then((res) => {
@@ -24,6 +30,19 @@ export default class AdDetails extends Component {
             })
             .catch((err) => {
             });
+    };
+
+    renderRedirectBack = (e) => {
+        if (this.state.redirect) {
+            return (
+            <Redirect to={{
+                                          pathname: '/acc/',
+                                          state: {
+                                            error_message: "برای باز کردن این صفحه باید ابتدا وارد شوید."
+                                          }
+                                        }} />
+            )
+        }
     };
 
     render() {
@@ -115,7 +134,7 @@ export default class AdDetails extends Component {
                         </button>
 
                     </div>
-
+                    {this.renderRedirectBack()}
                 </div>
 
             </div>

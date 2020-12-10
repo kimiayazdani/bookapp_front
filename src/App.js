@@ -9,7 +9,6 @@ export default class App extends Component{
 	state = {
 			logged_in: localStorage.getItem('token') ? true : false,
 			username: '',
-			error_mess: ''
 		};
 	constructor (props) {
 		super(props);	
@@ -45,13 +44,11 @@ export default class App extends Component{
         		logged_in: true,
         		username: res.user.username
         	});
-            return true;
+            return res;
             })
 	      .catch((err) => {
-	      	this.setState({
-	      		error_mess: err
-	      	});
-	        return false;
+	      	
+	        return err;
 	        
 	      }); 
 
@@ -90,7 +87,8 @@ export default class App extends Component{
 		    <link rel="stylesheet" type="text/css" href="./public/css/fonts.css"/>
 		    <link rel="stylesheet" type="text/css" href="./public/css/semantic.css"/>
      	</Helmet>
-      	<Routes logged_in={this.state.logged_in? "t": "f"} handle_login={this.handle_login} handle_logout={this.handle_logout}/>
+      	<Routes logged_in={this.state.logged_in? "t": "f"} handle_login={this.handle_login}
+      	 handle_logout={this.handle_logout} error_mess={this.error_mess} username={this.username} />
     </div>
   )};
 }
