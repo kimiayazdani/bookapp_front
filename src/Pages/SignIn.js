@@ -82,7 +82,7 @@ export default class SignIn extends Component {
 	render () {
 		return (
 
-			<div dir="rtl" className="App">
+			<div className="App">
 
 				<SideMenu classIn="login" logged_in={this.props.logged_in}/>
 				<div class="ui container">
@@ -97,7 +97,7 @@ export default class SignIn extends Component {
     <br />
     <br />
 
-    <Grid textAlign="center" verticalAlign="middle" >
+    <Grid textAlign="center" verticalAlign="middle" dir="rtl" >
     <Grid.Column style={{ maxWidth: 700, backgroundColor:"#e0e0eb"}} >
            
             

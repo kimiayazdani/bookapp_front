@@ -14,8 +14,12 @@ class Routes extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/" exact component={HomePage} />
-                    <Route path="/ad/" exact component={AdAll} />
+                    <Route path="/" exact ender={(props) => (
+                        <HomePage {...props} />
+                      )}/> 
+                    <Route path="/ad/" exact render={(props) => (
+                        <AdAll {...props} />
+                      )}/>
                     <Route path="/ad/del" render={(props) => (
                         <DeleteAd {...props} bookName={"طراحی الگوریتم"} adId={1}/>
                         )} />
@@ -28,7 +32,9 @@ class Routes extends Component {
                     <Route path="/ad/edit" render={(props) => (
                             <AdForm {...props} classIn={"editad"} />
                             )}/> />
-                    <Route path="/acc/" exact component={SignIn} />
+                    <Route path="/acc/" exact ender={(props) => (
+                        <SignIn {...props} />
+                      )}/>
                     <Route path="/acc/edit" render={(props) => (
                             <AccForm {...props} classIn={"editacc"} />
                             )}/>

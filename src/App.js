@@ -3,8 +3,63 @@ import './App.css';
 import Routes from './Routes';
 import React, { Component } from "react";
 import {Helmet} from 'react-helmet';
+import axios from 'axios'
 
 export default class App extends Component{
+	constructor (props) {
+		super(props);
+		this.state = {
+			logged_in: localStorage.getItem('token') ? true : false,
+			username: '',
+			error_mess: ''
+		}
+	};
+
+	componentDidMount() {
+		if (this.state.logged_in) {
+			fetch('http://localhost:8000/curuser/', {
+				headers: {
+					Authorization: `JWT ${localStorage.getItem('token')} `
+				}
+			})
+			.then(res => res.json())
+			.then(json=>{
+				this.setState({username:json.username});
+			});
+		};
+		this.setState({logged_in:true})
+	};
+
+	handle_login(users, passs) {
+		
+
+	  axios 
+	      .post("http://localhost:8000/api/asknima", { 
+	          user: users,
+	          pass: passs,
+	      }) 
+        .then((res) => { 
+        	localStorage.setItem('token', res.token);
+        	this.setState({
+        		logged_in: true,
+        		username: res.user.username
+        	});
+            return true;
+            })
+	      .catch((err) => {
+	      	this.setState({
+	      		error_mess: err
+	      	});
+	        return false;
+	        
+	      }); 
+
+	}
+
+	handle_logout() {
+		localStorage.removeItem('token');
+		this.setState({logged_in:false, username:''});
+	}
 
 	render() {
   return (
@@ -34,7 +89,7 @@ export default class App extends Component{
 		    <link rel="stylesheet" type="text/css" href="./public/css/fonts.css"/>
 		    <link rel="stylesheet" type="text/css" href="./public/css/semantic.css"/>
      	</Helmet>
-      	<Routes />
+      	<Routes logged_in={this.state.logged_in} handle_login={this.handle_login} handle_logout={this.handle_logout}/>
     </div>
   )};
 }
