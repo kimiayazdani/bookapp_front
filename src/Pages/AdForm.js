@@ -31,12 +31,16 @@ export default class AdForm extends Component {
 	    for_sale: false,
       redirect: false,
       redirectBack: false,
+      redirectAcc: false,
       adId: 0,
   	};
 
   	fileInputRef = React.createRef();
 
   	componentDidMount() {
+      if (this.props.logged_in==='f') {
+        this.setState({redirectAcc: true});
+      }
   		if (this.props.classIn==="editad") {
   			this.setState({
   				bookName: "جنایات و مکافات",
@@ -98,6 +102,17 @@ export default class AdForm extends Component {
                 <Redirect to={{
                     pathname:'/ad/',
                 }} /> )
+        }
+        if (this.state.redirectAcc) {
+          console.log("redirecting")
+            return (
+            <Redirect to={{
+                                          pathname: '/acc/',
+                                          state: {
+                                            error_message: 'برای دیدن صفحه‌ی مورد نظر باید ابتدا وارد شوید.'
+                                          }
+                                        }} />
+            )
         }
     };
 	handleSubmit = (e) => { 

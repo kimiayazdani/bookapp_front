@@ -10,6 +10,7 @@ export default class DeleteAd extends Component {
     state = {
         redirectBack:false,
         redirect: false,
+        redirectAcc: false,
     };
 
 	handleDelete = (e) => {
@@ -33,6 +34,12 @@ export default class DeleteAd extends Component {
         });
     };
 
+    componentDidMount() {
+        if (this.props.logged_in === "f") {
+            this.setState({redirectAcc:true});
+        } 
+    };
+
     renderRedirectBack = (e) => {
         if (this.state.redirectBack) {
             return (
@@ -49,6 +56,17 @@ export default class DeleteAd extends Component {
                 <Redirect to={{
                     pathname:'/ad/',
                 }} /> )
+        }
+        if (this.state.redirectAcc) {
+            console.log("redirecting")
+            return (
+            <Redirect to={{
+                                          pathname: '/acc/',
+                                          state: {
+                                            error_message: 'برای دیدن صفحه‌ی مورد نظر باید ابتدا وارد شوید.'
+                                          }
+                                        }} />
+            )
         }
     };
 	render() {
