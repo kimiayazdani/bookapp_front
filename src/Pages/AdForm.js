@@ -28,6 +28,7 @@ export default class AdForm extends Component {
 	    image: "/images/books.jpg",
 	    description:"",
 	    error_message:"مسئله",
+      price: 0,
 	    for_sale: false,
       redirect: false,
       redirectBack: false,
@@ -43,6 +44,7 @@ export default class AdForm extends Component {
       }
   		if (this.props.classIn==="editad") {
   			this.setState({
+          price: 20,
   				bookName: "جنایات و مکافات",
   				authorName: "داستایوفسکی",
   				image: "باید این رو درست کنم",
@@ -128,7 +130,8 @@ export default class AdForm extends Component {
 	          authorName: this.state.authorName,
 	          image: this.state.image,
 	          description: this.state.description,
-	          for_sale: this.state.for_sale
+	          for_sale: this.state.for_sale,
+            price: this.state.price
 	      }, { headers: {'token': localStorage.getItem('token')}}) 
         .then((res) => { 
             if(this.props.classIn==="editad") {
@@ -209,6 +212,16 @@ export default class AdForm extends Component {
         placeholder="توضیحات"
       /> 
     </Form.Field>
+    {this.state.for_sale && <Form.Field>
+      <label style={{textAlign:"right"}}>قیمت:</label>
+      <input
+        dir="rtl"
+        name="price"
+        value={this.state.price}
+        onChange= {this.handleInput}
+        placeholder="نام نویسنده"
+      />
+    </Form.Field>}
     <Form.Field style={{textAlign:"right"}}>
       <Checkbox label='فروشی' name="for_sale" checked={this.state.for_sale} onChange={this.handleToggle.bind(this)}/>
     </Form.Field>

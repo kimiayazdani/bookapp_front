@@ -61,7 +61,7 @@ export default class AdAll extends Component {
     }
     componentDidMount = () => {
         axios
-            .get("http://localhost:8000/api/asknima" , { headers: {'token': localStorage.getItem('token')}})
+            .get("http://localhost:8000/api/asknima")
             .then((res) => {
                 var a = this.state.list
                 for (var i = 0; i < res.data.length; i++) {

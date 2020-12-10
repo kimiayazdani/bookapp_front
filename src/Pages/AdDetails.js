@@ -15,6 +15,14 @@ export default class AdDetails extends Component {
         description: "قیمت بسیار ارزان - ویرایش چهارم",
         sell: "فروش",
         redirect: false,
+        price: 0,
+
+        user_name: 'علی حیدری',
+        user_number: '09121406265',
+        user_univ: 'صنعتی شریف',
+        user_dep: 'کامپیوتر'
+
+        
 
     };
 
@@ -26,10 +34,11 @@ export default class AdDetails extends Component {
             .get("http://localhost:8000/api/asknima" + this.state.id, { headers: {'token': localStorage.getItem('token')}} )
             .then((res) => {
                 this.setState({ title: res.title, author: res.author, image: res.image? res.image: "/images/default.jpg",
-                description: res.description, sell: res.sell})
+                description: res.description, sell: res.sell, price: res.price, user_name: res.user_name, user_dep: res.user_dep,
+                user_number: res.user_number, user_univ: res.user_univ})
             })
             .catch((err) => {
-            	this.setState({redirect:true})
+            	this.setState({redirect:false})
             });
     };
 
@@ -80,7 +89,7 @@ export default class AdDetails extends Component {
                             <div className="content" dir="rtl" style={{textAlign: "right"}}>
                                 <a className="ui large header"> {this.state.title}</a>
                                 <div className="meta" dir="rtl">
-                                    {sell == "فروش" ? <div className="ui label">فروش</div> :
+                                    {sell == "sell" ? <div className="ui label">فروش</div> :
                                         <div className="ui label">خرید</div>}
                                     <a> {this.state.author} </a>
                                 </div>
@@ -98,20 +107,20 @@ export default class AdDetails extends Component {
                             <div className="ui text container float right">
                                 <div className="ui segments" style={{textAlign: "right"}}>
                                     <div className="ui segment" dir="rtl">
-                                        <strong>آگهی‌دهنده: علی حیدری</strong>
+                                        <strong>آگهی‌دهنده: {this.state.user_name}</strong>
                                     </div>
                                     <div className="ui segment" dir="rtl">
-                                        <strong>شماره تماس: 09120123456</strong>
+                                        <strong>شماره تماس: {this.state.user_number}</strong>
                                     </div>
                                     <div className="ui segment" dir="rtl">
-                                        <strong>دانشکده: کامپیوتر</strong>
+                                        <strong>دانشکده: {this.state.user_dep}</strong>
                                     </div>
                                     <div className="ui segment" dir="rtl">
-                                        <strong>دانشگاه: صنعتی شریف</strong>
+                                        <strong>دانشگاه: {this.state.user_univ}</strong>
                                     </div>
-                                    <div className="ui segment" dir="rtl">
-                                        <strong>قیمت: 20000 تومان</strong>
-                                    </div>
+                                    {this.state.sell==='sell'? <div className="ui segment" dir="rtl">
+                                        <strong>قیمت: {this.state.price} تومان</strong> </div>: ''}
+                                    
                                 </div>
                             </div>
                         </div>
