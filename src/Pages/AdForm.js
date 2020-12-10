@@ -129,7 +129,7 @@ export default class AdForm extends Component {
 	          image: this.state.image,
 	          description: this.state.description,
 	          for_sale: this.state.for_sale
-	      }) 
+	      }, { headers: {'token': localStorage.getItem('token')}}) 
         .then((res) => { 
             if(this.props.classIn==="editad") {
               this.setState({
@@ -143,7 +143,7 @@ export default class AdForm extends Component {
             })
 	      .catch((err) => {
 	        
-	        
+	        this.setState({redirectAcc: true});
 	      }); 
 	}; 
 	render () {

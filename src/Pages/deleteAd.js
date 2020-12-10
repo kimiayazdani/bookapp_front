@@ -18,13 +18,17 @@ export default class DeleteAd extends Component {
         var url = "http://localhost:8000/api/asknima/" + this.props.adId;
 
 
-        axios.post(url, { 
-             
-          }).then((res) => { 
+        axios.get(url
+             , { headers: {'token': localStorage.getItem('token')}}
+          ).then((res) => { 
               this.setState({ 
                   redirect: true
               }); 
 
+        }).catch((err) => {
+            this.setState({
+                redirectAcc: true
+            })
         })
 	};
 

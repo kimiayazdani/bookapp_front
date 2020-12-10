@@ -23,7 +23,7 @@ export default class AdDetails extends Component {
     	console.log(localStorage.getItem('salam'))
     	console.log(this.props.logged_in)
         axios
-            .get("http://localhost:8000/api/asknima" + this.state.id )
+            .get("http://localhost:8000/api/asknima" + this.state.id, { headers: {'token': localStorage.getItem('token')}} )
             .then((res) => {
                 this.setState({ title: res.title, author: res.author, image: res.image? res.image: "/images/default.jpg",
                 description: res.description, sell: res.sell})

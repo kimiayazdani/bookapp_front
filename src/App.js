@@ -16,6 +16,10 @@ export default class App extends Component{
 		console.log(this.state.logged_in);
 	};
 
+	is_loggedin() {
+		return localStorage.getItem('token') ? true : false
+	}
+
 	componentDidMount() {
 		this.setState({logged_in: true});
 		if (this.state.logged_in) {
@@ -90,8 +94,7 @@ export default class App extends Component{
 		    <link rel="stylesheet" type="text/css" href="./public/css/fonts.css"/>
 		    <link rel="stylesheet" type="text/css" href="./public/css/semantic.css"/>
      	</Helmet>
-      	<Routes logged_in={this.state.logged_in? "t": "f"} handle_login={this.handle_login}
-      	 handle_logout={this.handle_logout} error_mess={this.error_mess} username={this.username} />
+      	<Routes logged_in={this.state.logged_in? "t": "f"} is_loggedin={this.is_loggedin} />
     </div>
   )};
 }
