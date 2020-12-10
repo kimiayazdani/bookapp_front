@@ -59,9 +59,6 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-	  this.fileUpload(this.state.file).then(response => {
-      	console.log(response.data);
-    });
 
 
 	  axios 

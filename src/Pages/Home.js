@@ -8,13 +8,13 @@ class Login extends Component {
 render() {
  return (
   <div className="App">
-  	<SideMenu classIn={"Home"} />
+  	<SideMenu classIn={"Home"} logged_in={this.props.logged_in}/>
       <div class="pusher" dir="rtl">
 
         <div class="ui inverted vertical masthead center aligned segment" dir="rtl">
             <div class="ui text container" dir="rtl">
                 <h1 class="ui inverted header">
-                     سامانه‌ی تبادل کتاب هوشمند
+                     سامانه‌ی تبادل کتاب هوشمند 
                 </h1>
                 <h2>دیگر نگران منابع درسی خود نباشید!</h2>
                 <br />

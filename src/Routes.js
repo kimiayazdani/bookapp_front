@@ -14,32 +14,32 @@ class Routes extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/" exact ender={(props) => (
-                        <HomePage {...props} />
+                    <Route path="/" exact render={(props) => (
+                        <HomePage {...this.props} />
                       )}/> 
                     <Route path="/ad/" exact render={(props) => (
-                        <AdAll {...props} />
+                        <AdAll {...this.props} />
                       )}/>
                     <Route path="/ad/del" render={(props) => (
-                        <DeleteAd {...props} bookName={"طراحی الگوریتم"} adId={1}/>
+                        <DeleteAd {...this.props} bookName={"طراحی الگوریتم"} adId={1}/>
                         )} />
                     <Route path="/ad/detail" render={(props) => (
-                        <AdDetails {...props}  />
+                        <AdDetails {...this.props}  />
                         )} />
                     <Route path="/ad/new" render={(props) => (
-                            <AdForm {...props} classIn={"newad"} />
+                            <AdForm {...this.props} classIn={"newad"} />
                             )}/>
                     <Route path="/ad/edit" render={(props) => (
-                            <AdForm {...props} classIn={"editad"} />
+                            <AdForm {...this.props} classIn={"editad"} />
                             )}/> />
                     <Route path="/acc/" exact ender={(props) => (
-                        <SignIn {...props} />
+                        <SignIn {...this.props} />
                       )}/>
                     <Route path="/acc/edit" render={(props) => (
-                            <AccForm {...props} classIn={"editacc"} />
+                            <AccForm {...this.props} classIn={"editacc"} />
                             )}/>
                     <Route path="/acc/register" render={(props) => (
-                            <AccForm {...props} classIn={"regacc"} />
+                            <AccForm {...this.props} classIn={"regacc"} />
                             )}/>
                    </Switch>
             </Router>

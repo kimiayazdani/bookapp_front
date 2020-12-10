@@ -6,13 +6,14 @@ import {Helmet} from 'react-helmet';
 import axios from 'axios'
 
 export default class App extends Component{
-	constructor (props) {
-		super(props);
-		this.state = {
+	state = {
 			logged_in: localStorage.getItem('token') ? true : false,
 			username: '',
 			error_mess: ''
-		}
+		};
+	constructor (props) {
+		super(props);	
+		console.log(this.state.logged_in);
 	};
 
 	componentDidMount() {
@@ -26,8 +27,8 @@ export default class App extends Component{
 			.then(json=>{
 				this.setState({username:json.username});
 			});
+
 		};
-		this.setState({logged_in:true})
 	};
 
 	handle_login(users, passs) {
@@ -89,7 +90,7 @@ export default class App extends Component{
 		    <link rel="stylesheet" type="text/css" href="./public/css/fonts.css"/>
 		    <link rel="stylesheet" type="text/css" href="./public/css/semantic.css"/>
      	</Helmet>
-      	<Routes logged_in={this.state.logged_in} handle_login={this.handle_login} handle_logout={this.handle_logout}/>
+      	<Routes logged_in={this.state.logged_in? "t": "f"} handle_login={this.handle_login} handle_logout={this.handle_logout}/>
     </div>
   )};
 }
