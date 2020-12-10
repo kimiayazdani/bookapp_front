@@ -5,6 +5,11 @@ export default class SideMenu extends Component {
 	constructor(props) {
 		super(props);
 	}
+
+    handle_logout() {
+        localStorage.removeItem('token')
+    }
+
 	render() {
 		return (
 			<div class="ui tablet computer only padded grid">
@@ -17,7 +22,7 @@ export default class SideMenu extends Component {
            		<a href="/" class={"Home"===this.props.classIn ? "active item" : "item"}> صفحه‌ اصلی </a>
                 <a href="/ad/" class={"allads"===this.props.classIn ? "active item" : "item"}> آگهی‌ها</a>
                 {this.props.logged_in === "t"? <a href="/ad/new" class={"newad"===this.props.classIn ? "active item" : "item"}> ثبت آگهی </a>:''}
-                {this.props.logged_in === "t"? <a href="afsd" class="item"> خروج از اکانت </a>:''}
+                {this.props.logged_in === "t"? <a onClick={this.handle_logout.bind(this)} class="item"> خروج از اکانت </a>:''}
                 {this.props.logged_in === "f"? <a href="/acc/" class={"login"===this.props.classIn?"active item":"item"}> ورود به اکانت</a>:''}
                 {this.props.logged_in === "f"? <a href="/acc/register" class={"regacc"===this.props.classIn?"active item":"item"}> ساخت اکانت</a>:''}
             </div>

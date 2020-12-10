@@ -115,6 +115,7 @@ export default class AccForm extends Component {
               this.setState({
                 redirect: true
               })
+              localStorage.setItem('token', res.token)
             })
 	      .catch((err) => {
 	        
@@ -126,7 +127,7 @@ export default class AccForm extends Component {
 
 			<div  className="App">
 
-				<SideMenu classIn={this.props.classIn} logged_in={this.props.logged_in}/>
+				<SideMenu classIn={this.props.classIn} logged_in={this.props.logged_in} handle_logout={this.props.handle_logout}/>
 				<div class="ui container">
 
         <div class="ui message">

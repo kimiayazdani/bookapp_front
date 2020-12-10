@@ -19,10 +19,9 @@ export default class AdDetails extends Component {
     };
 
     componentDidMount = () => {
-    	if(this.props.logged_in === "f") {
-
-    		this.setState({redirect:true})
-    	}
+    	console.log('sdfadf')
+    	console.log(localStorage.getItem('salam'))
+    	console.log(this.props.logged_in)
         axios
             .get("http://localhost:8000/api/asknima" + this.state.id )
             .then((res) => {
@@ -30,6 +29,7 @@ export default class AdDetails extends Component {
                 description: res.description, sell: res.sell})
             })
             .catch((err) => {
+            	this.setState({redirect:true})
             });
     };
 
@@ -58,7 +58,7 @@ export default class AdDetails extends Component {
 
         return (
             <div className="App">
-                <SideMenu logged_in={this.props.logged_in}/>
+                <SideMenu logged_in={this.props.logged_in} handle_logout={this.props.handle_logout}/>
 
                 <link rel="stylesheet" type="text/css" href="{% 'AdDetails.css' %}"/>
 

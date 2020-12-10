@@ -151,7 +151,7 @@ export default class AdForm extends Component {
 
 			<div  className="App">
 
-				<SideMenu classIn={this.props.classIn}logged_in={this.props.logged_in}/>
+				<SideMenu classIn={this.props.classIn} logged_in={this.props.logged_in} handle_logout={this.props.handle_logout}/>
 				<div class="ui container">
 
         <div class="ui message">

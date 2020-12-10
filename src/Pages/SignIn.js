@@ -27,7 +27,7 @@ export default class SignIn extends Component {
       pass: "",
       redirect: false,
       redirectBack: false,
-      error_message: this.props.location? this.props.location.state.error_message:'nothing',
+      error_message: this.props.location.state? this.props.location.state.error_message:'',
   	};
 
   componentDidMount(props) {
@@ -62,24 +62,28 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-    var res = this.props.handle_login(this.state.user, this.state.pass);
+    localStorage.setItem('salam', 'yes')
 
-    if (this.props.logged_in) {
-      this.setState({
-        redirect: true
-      });
-    } else {
-      this.setState({
-        error_message: "با شکست مواجه شد."
-      })
-    }
+     axios 
+        .post("http://localhost:8000/api/asknima", { 
+            user: this.state.user,
+            pass: this.state.pass,
+        }) 
+        .then((res) => { 
+          localStorage.setItem('token', res.token);
+            })
+        .catch((err) => {
+          
+          this.setState({error_message:'متاسفانه اتصال برقرار نشد.'});
+          
+        }); 
 	}; 
 	render () {
 		return (
 
 			<div className="App">
 
-				<SideMenu classIn="login" logged_in={this.props.logged_in}/>
+				<SideMenu classIn="login" {...this.props}/>
 				<div class="ui container">
 
         <div class="ui message">

@@ -6,16 +6,18 @@ import {Helmet} from 'react-helmet';
 import axios from 'axios'
 
 export default class App extends Component{
-	state = {
-			logged_in: localStorage.getItem('token') ? true : false,
-			username: '',
-		};
+
 	constructor (props) {
 		super(props);	
+		this.state = {
+			logged_in: localStorage.getItem('token') ? true : false,
+			username: '',
+		}
 		console.log(this.state.logged_in);
 	};
 
 	componentDidMount() {
+		this.setState({logged_in: true});
 		if (this.state.logged_in) {
 			fetch('http://localhost:8000/curuser/', {
 				headers: {
@@ -58,6 +60,7 @@ export default class App extends Component{
 		localStorage.removeItem('token');
 		this.setState({logged_in:false, username:''});
 	}
+
 
 	render() {
   return (

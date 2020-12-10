@@ -72,7 +72,7 @@ export default class DeleteAd extends Component {
 	render() {
 		return (
 		<div className="App">
-		<SideMenu logged_in={this.props.logged_in}/>
+		<SideMenu logged_in={this.props.logged_in} handle_logout={this.props.handle_logout}/>
 		<div class="ui container">
 
         <div class="ui message">
