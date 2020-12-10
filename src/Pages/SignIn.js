@@ -62,17 +62,21 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-    var res = this.props.handle_login(e, this.state.user, this.state.pass);
+    localStorage.setItem('salam', 'yes')
 
-    if (this.props.logged_in) {
-      this.setState({
-        redirect: true
-      });
-    } else {
-      this.setState({
-        error_message: "با شکست مواجه شد."
-      })
-    }
+     axios 
+        .post("http://localhost:8000/api/asknima", { 
+            user: this.state.user,
+            pass: this.state.pass,
+        }) 
+        .then((res) => { 
+          localStorage.setItem('token', res.token);
+            })
+        .catch((err) => {
+          
+          this.setState({error_message:'متاسفانه اتصال برقرار نشد.'});
+          
+        }); 
 	}; 
 	render () {
 		return (

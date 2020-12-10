@@ -115,6 +115,7 @@ export default class AccForm extends Component {
               this.setState({
                 redirect: true
               })
+              localStorage.setItem('token', res.token)
             })
 	      .catch((err) => {
 	        

@@ -18,10 +18,9 @@ export default class AdDetails extends Component {
     };
 
     componentDidMount = () => {
-    	if(this.props.logged_in === "f") {
-
-    		this.setState({redirect:true})
-    	}
+    	console.log('sdfadf')
+    	console.log(localStorage.getItem('salam'))
+    	console.log(this.props.logged_in)
         axios
             .get("http://localhost:8000/api/asknima")
             .then((res) => {
@@ -29,6 +28,7 @@ export default class AdDetails extends Component {
                 description: res.description, sell: res.sell})
             })
             .catch((err) => {
+            	this.setState({redirect:true})
             });
     };
 
