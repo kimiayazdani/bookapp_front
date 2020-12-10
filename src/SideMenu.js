@@ -17,6 +17,9 @@ export default class SideMenu extends Component {
            		<a href="/" class={"Home"===this.props.classIn ? "active item" : "item"}> صفحه‌ اصلی </a>
                 <a href="/ad/" class={"allads"===this.props.classIn ? "active item" : "item"}> آگهی‌ها</a>
                 <a href="/ad/new" class={"newad"===this.props.classIn ? "active item" : "item"}> ثبت آگهی </a>
+                {this.props.logged_in && <a href="afsd"> خروج از اکانت </a>}
+                {!this.props.logged_in && <a href="/acc/" class={"login"===this.props.classIn?"active item":"item"}> ورود به اکانت</a>}
+                {!this.props.logged_in && <a href="/acc/regiter" class={"regacc"===this.props.classIn?"active item":"item"}> ساخت اکانت</a>}
             </div>
         </div>
     </div>

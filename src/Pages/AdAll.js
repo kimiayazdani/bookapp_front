@@ -61,7 +61,7 @@ export default class AdAll extends Component {
     render() {
         return (
             <div className="App">
-                <SideMenu classIn={"allads"}/>
+                <SideMenu classIn={"allads"} logged_in={this.props.logged_in}/>
                 <div className="ui container">
 
                     <div className="ui message">

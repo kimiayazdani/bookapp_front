@@ -23,7 +23,7 @@ export default class AdDetails extends Component {
 		  }
 		return (
 			<div className="App">
-			<SideMenu />
+			<SideMenu logged_in={this.props.logged_in}/>
 			
 			<link rel="stylesheet" type="text/css" href="{% 'AdDetails.css' %}" />
 			

@@ -126,7 +126,7 @@ export default class AccForm extends Component {
 
 			<div  className="App">
 
-				<SideMenu classIn={this.props.classIn}/>
+				<SideMenu classIn={this.props.classIn} logged_in={this.props.logged_in}/>
 				<div class="ui container">
 
         <div class="ui message">

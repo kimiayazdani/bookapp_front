@@ -84,7 +84,7 @@ export default class SignIn extends Component {
 
 			<div dir="rtl" className="App">
 
-				<SideMenu classIn={this.props.classIn}/>
+				<SideMenu classIn="login" logged_in={this.props.logged_in}/>
 				<div class="ui container">
 
         <div class="ui message">
