@@ -8,6 +8,7 @@ import "./AdDetails.css"
 export default class AdDetails extends Component {
 	
     state = {
+        id: this.props.location.state.id,
         title: "طراحی الگوریتم",
         author: "دکتر محمد ابراهیم ابوکاظمی",
         image: "/images/default.jpg",
@@ -23,7 +24,7 @@ export default class AdDetails extends Component {
     		this.setState({redirect:true})
     	}
         axios
-            .get("http://localhost:8000/api/asknima")
+            .get("http://localhost:8000/api/asknima" + this.state.id )
             .then((res) => {
                 this.setState({ title: res.title, author: res.author, image: res.image? res.image: "/images/default.jpg",
                 description: res.description, sell: res.sell})
