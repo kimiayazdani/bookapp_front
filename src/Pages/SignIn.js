@@ -27,7 +27,7 @@ export default class SignIn extends Component {
       pass: "",
       redirect: false,
       redirectBack: false,
-      error_message: this.props.location? this.props.location.state.error_message:'nothing',
+      error_message: this.props.location.state? this.props.location.state.error_message:'',
   	};
 
   componentDidMount(props) {
@@ -62,7 +62,7 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-    var res = this.props.handle_login(this.state.user, this.state.pass);
+    var res = this.props.handle_login(e, this.state.user, this.state.pass);
 
     if (this.props.logged_in) {
       this.setState({
@@ -79,7 +79,7 @@ export default class SignIn extends Component {
 
 			<div className="App">
 
-				<SideMenu classIn="login" logged_in={this.props.logged_in}/>
+				<SideMenu classIn="login" {...this.props}/>
 				<div class="ui container">
 
         <div class="ui message">

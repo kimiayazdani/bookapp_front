@@ -80,7 +80,7 @@ export default class AdAll extends Component {
     render() {
         return (
             <div className="App">
-                <SideMenu classIn={"allads"} logged_in={this.props.logged_in}/>
+                <SideMenu classIn={"allads"} logged_in={this.props.logged_in} handle_logout={this.props.handle_logout}/>
                 <div className="ui container">
 
                     <div className="ui message">
