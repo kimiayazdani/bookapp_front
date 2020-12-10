@@ -27,8 +27,12 @@ export default class SignIn extends Component {
       pass: "",
       redirect: false,
       redirectBack: false,
-      error_message: this.props.location? this.props.location.state.error_message:'',
+      error_message: this.props.location? this.props.location.state.error_message:'nothing',
   	};
+
+  componentDidMount(props) {
+      console.log(props);
+  };
 
 
 	handleInput = (e) => { 
@@ -58,17 +62,17 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-    // var res = this.props.handle_login(this.state.user, this.state.pass);
+    var res = this.props.handle_login(this.state.user, this.state.pass);
 
-    // if (this.props.logged_in) {
-    //   this.setState({
-    //     redirect: true
-    //   });
-    // } else {
-    //   this.setState({
-    //     error_message: "با شکست مواجه شد."
-    //   })
-    // }
+    if (this.props.logged_in) {
+      this.setState({
+        redirect: true
+      });
+    } else {
+      this.setState({
+        error_message: "با شکست مواجه شد."
+      })
+    }
 	}; 
 	render () {
 		return (
@@ -101,7 +105,7 @@ export default class SignIn extends Component {
       	name="userName"
       	value={this.state.user}
       	onChange= {this.handleInput}
-        placeHolder= "نام کاربری"
+        placeholder= "نام کاربری"
 
       />
     </Form.Field>
@@ -113,7 +117,7 @@ export default class SignIn extends Component {
       	name="authorName"
       	value={this.state.pass}
       	onChange= {this.handleInput}
-        placeHolder="زمر عبور"
+        placeholder="زمر عبور"
       />
     </Form.Field>
 

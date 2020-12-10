@@ -15,31 +15,31 @@ class Routes extends Component {
             <Router>
                 <Switch>
                     <Route path="/" exact render={(props) => (
-                        <HomePage {...this.props} />
+                        <HomePage {...this.props} {...props} />
                       )}/> 
                     <Route path="/ad/" exact render={(props) => (
-                        <AdAll {...this.props} />
+                        <AdAll {...this.props} {...props} />
                       )}/>
                     <Route path="/ad/del" render={(props) => (
-                        <DeleteAd {...this.props} bookName={"طراحی الگوریتم"} adId={1}/>
+                        <DeleteAd {...this.props} {...props} bookName={"طراحی الگوریتم"} adId={1}/>
                         )} />
                     <Route path="/ad/detail" render={(props) => (
-                        <AdDetails {...this.props}  />
+                        <AdDetails {...this.props} {...props} />
                         )} />
                     <Route path="/ad/new" render={(props) => (
-                            <AdForm {...this.props} classIn={"newad"} />
+                            <AdForm {...this.props} {...props} classIn={"newad"} />
                             )}/>
                     <Route path="/ad/edit" render={(props) => (
-                            <AdForm {...this.props} classIn={"editad"} />
+                            <AdForm {...this.props} {...props} classIn={"editad"} />
                             )}/> />
                     <Route path="/acc/" exact render={(props) => (
-                        <SignIn {...this.props} />
+                        <SignIn {...this.props} {...props} />
                       )}/>
                     <Route path="/acc/edit" render={(props) => (
-                            <AccForm {...this.props} classIn={"editacc"} />
+                            <AccForm {...this.props} {...props} classIn={"editacc"} />
                             )}/>
                     <Route path="/acc/register" render={(props) => (
-                            <AccForm {...this.props} classIn={"regacc"} />
+                            <AccForm {...this.props} {...props} classIn={"regacc"} />
                             )}/>
                    </Switch>
             </Router>

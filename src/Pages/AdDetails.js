@@ -34,11 +34,12 @@ export default class AdDetails extends Component {
 
     renderRedirectBack = (e) => {
         if (this.state.redirect) {
+        	console.log("redirecting")
             return (
             <Redirect to={{
                                           pathname: '/acc/',
                                           state: {
-                                            error_message: "برای باز کردن این صفحه باید ابتدا وارد شوید."
+                                            error_message: 'برای دیدن صفحه‌ی مورد نظر باید ابتدا وارد شوید.'
                                           }
                                         }} />
             )

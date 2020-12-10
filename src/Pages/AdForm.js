@@ -168,7 +168,7 @@ export default class AdForm extends Component {
 
       <label style={{textAlign:"right"}}>نام کتاب:</label>
       <input
-        placeHolder= "نام کتاب"
+        placeholder= "نام کتاب"
       	name="bookName"
       	value={this.state.bookName}
       	onChange= {this.handleInput}
@@ -182,7 +182,7 @@ export default class AdForm extends Component {
       	name="authorName"
       	value={this.state.authorName}
       	onChange= {this.handleInput}
-        placeHolder="نام نویسنده"
+        placeholder="نام نویسنده"
       />
     </Form.Field>
     <Form.Field>
@@ -191,7 +191,7 @@ export default class AdForm extends Component {
       	name="description"
       	value={this.state.description}
       	onChange= {this.handleInput}
-        placeHolder="توضیحات"
+        placeholder="توضیحات"
       /> 
     </Form.Field>
     <Form.Field style={{textAlign:"right"}}>

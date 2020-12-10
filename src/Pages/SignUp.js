@@ -180,7 +180,7 @@ export default class AccForm extends Component {
 
       <label style={{textAlign:"right"}}>نام کاربری:</label>
       <input
-        placeHolder= "نام کاربری"
+        placeholder= "نام کاربری"
       	name="user"
       	value={this.state.user}
       	onChange= {this.handleInput}
@@ -195,7 +195,7 @@ export default class AccForm extends Component {
         type="password"
       	value={this.state.pass}
       	onChange= {this.handleInput}
-        placeHolder="رمز عبور"
+        placeholder="رمز عبور"
       />
     </Form.Field>
   
