@@ -4,6 +4,7 @@ import SideMenu from './../SideMenu';
 import { Redirect } from 'react-router';
 // import './AddAll.css'
 import 'semantic-ui-css/semantic.min.css';
+
 import {
   Button,
   Form,
@@ -58,10 +59,28 @@ export default class AdAll extends Component {
     		)
     	}
     }
+    componentDidMount = () => {
+        axios
+            .get("http://localhost:8000/api/asknima")
+            .then((res) => {
+                var a = this.state.list
+                for (var i = 0; i < res.data.length; i++) {
+                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author,
+                        image:res.data[i].image? res.data[i].image: "/images/default.jpg",
+                        description: res.data[i].description, sell: res.data[i].sell
+                    })
+                }
+                console.log(a)
+                this.setState({
+                    list: a
+                })
+            })
+            .catch((err) => {});
+    };
     render() {
         return (
             <div className="App">
-                <SideMenu classIn={"allads"} logged_in={this.props.logged_in}/>
+                <SideMenu classIn={"allads"} />
                 <div className="ui container">
 
                     <div className="ui message">
