@@ -30,6 +30,7 @@ export default class AccForm extends Component {
       image:"",
       redirect: false,
       redirectBack: false,
+      error_message: '',
   	};
 
   	fileInputRef = React.createRef();
@@ -120,7 +121,11 @@ export default class AccForm extends Component {
             })
 	      .catch((err) => {
 	        
-	        
+	        if (err.response && err.response.data && err.response.data.message) {
+            this.setState({error_message: err.response.data.message})
+          }else {
+          this.setState({error_message:'متاسفانه اتصال برقرار نشد.'});
+        }
 	      }); 
 	}; 
 	render () {
