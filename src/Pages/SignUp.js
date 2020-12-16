@@ -99,9 +99,10 @@ export default class AccForm extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
+    if (this.props.classIn === 'editacc') {
 	  this.fileUpload(this.state.image).then(response => {
       	console.log(response.data);
-    });
+    });}
 
 
 	  axios 
@@ -113,11 +114,12 @@ export default class AccForm extends Component {
             image: this.state.image
 	      }) 
         .then((res) => { 
+              
+              localStorage.setItem('token', res.data.access_token);
+              localStorage.setItem('refresh_token', res.data.refresh_token);
               this.setState({
                 redirect: true
               })
-              localStorage.setItem('token', res.data.access_token);
-              localStorage.setItem('refresh_token', res.data.refresh_token);
             })
 	      .catch((err) => {
 	        
