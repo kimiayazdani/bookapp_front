@@ -8,13 +8,15 @@ import "./AdDetails.css"
 export default class AdDetails extends Component {
 	
     state = {
-        id: this.props.location.state.id,
+        id: this.props.location.state.adId,
         title: "طراحی الگوریتم",
         author: "دکتر محمد ابراهیم ابوکاظمی",
         image: "/images/default.jpg",
         description: "قیمت بسیار ارزان - ویرایش چهارم",
         sell: "فروش",
         redirect: false,
+        redirect_edit: false,
+        redirect_del: false,
         price: 0,
 
         user_name: 'علی حیدری',
@@ -31,16 +33,24 @@ export default class AdDetails extends Component {
     	console.log(localStorage.getItem('salam'))
     	console.log(this.props.logged_in)
         axios
-            .get("http://localhost:8000/api/asknima" + this.state.id, { headers: {'token': localStorage.getItem('token')}} )
+            .get("http://localhost:8000/api/asknima" + this.state.id, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
                 this.setState({ title: res.title, author: res.author, image: res.image? res.image: "/images/default.jpg",
                 description: res.description, sell: res.sell, price: res.price, user_name: res.user_name, user_dep: res.user_dep,
                 user_number: res.user_number, user_univ: res.user_univ})
             })
             .catch((err) => {
-            	this.setState({redirect:false})
+            	this.setState({redirect:true})
             });
     };
+
+
+
+    delete_ad = () => {
+        axios.post().then((res) => {this.setState({redirect_del:true})})
+    }
+
+
 
     renderRedirectBack = (e) => {
         if (this.state.redirect) {
@@ -53,6 +63,21 @@ export default class AdDetails extends Component {
                                           }
                                         }} />
             )
+        }
+        if (this.state.redirect_edit) {
+            return (
+                <Redirect to={{
+                                          pathname: '/ad/edit/',
+                                          state: {
+                                            adId: this.id
+                                          }
+                                        }} />
+                )
+        }
+        if (this.state.redirect_del) {
+            return (
+                 <Redirect to={{pathname: '/ad/'}} />
+                )
         }
     };
 
@@ -137,10 +162,10 @@ export default class AdDetails extends Component {
                     <div className="ui divider"/>
                     {/* action buttons */}
                     <div className="spaced" dir="rtl">
-                        <button className="green ui button" onclick="window.open('/ads/{{ ad.id }}/edit')">
+                        <button className="green ui button" onclick={()=>{this.setState({redirect_edit:true})}}>
                             ویرایش
                         </button>
-                        <button className="red ui button" onclick="window.open('/ads/{{ ad.id }}/delete')">
+                        <button className="red ui button" onclick={this.delete_ad()}>
                             حذف
                         </button>
 

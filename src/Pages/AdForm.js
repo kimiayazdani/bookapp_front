@@ -50,7 +50,7 @@ export default class AdForm extends Component {
   				image: "باید این رو درست کنم",
   				description: "وضیحات",
   				for_sale: true,
-          adId: 2
+          adId: this.props.location.state? this.props.location.state.adId:0
   			})
   		}
   	};
