@@ -70,13 +70,20 @@ export default class SignIn extends Component {
         }) 
         .then((res) => { 
           localStorage.setItem('token', res.access_token);
-          localStorage.setItem('refresh_token', res.refresh_token)
+          localStorage.setItem('refresh_token', res.refresh_token);
+          this.setState({redirect:true});
             })
         .catch((err) => {
-          
+          if (err.response && err.response.data && err.response.data.message) {
+            this.setState({error_message: err.response.data.message})
+          }else {
           this.setState({error_message:'متاسفانه اتصال برقرار نشد.'});
+        }
           
         }); 
+
+      console.log(localStorage.getItem('token'));
+      console.log(localStorage.getItem('refresh_token'));
 	}; 
 	render () {
 		return (
