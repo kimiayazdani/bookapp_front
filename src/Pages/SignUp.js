@@ -105,9 +105,9 @@ export default class AccForm extends Component {
 
 	  axios 
 	      .post("http://localhost:8000/api/v1/account/register/", { 
-	          user: this.state.user, 
-            pass: this.state.pass, 
-            name: this.state.name,
+	          username: this.state.user, 
+            password: this.state.pass, 
+            email: this.state.name,
             number: this.state.number,
             image: this.state.image
 	      }) 
@@ -115,7 +115,8 @@ export default class AccForm extends Component {
               this.setState({
                 redirect: true
               })
-              localStorage.setItem('token', res.token)
+              localStorage.setItem('token', res.data.access_token);
+              localStorage.setItem('refresh_token', res.data.refresh_token);
             })
 	      .catch((err) => {
 	        
@@ -145,7 +146,7 @@ export default class AccForm extends Component {
            
             
     <Form onSubmit={this.handleSubmit} class="ui right">
-    <Form.Field>
+    {this.props.classIn === "editacc" && <Form.Field>
       <label style={{textAlign:"right"}}>تصویر پروفایل:</label>
       <Form.Input
         placeHolder= "تصویر پروفایل"
@@ -154,12 +155,12 @@ export default class AccForm extends Component {
       	name="image"
       	onChange= {this.fileChange}
       />
-    </Form.Field>
+    </Form.Field>}
     <Form.Field>
 
-      <label style={{textAlign:"right"}}>نام و نام خانوادگی:</label>
+      <label style={{textAlign:"right"}}>ایمیل:</label>
       <input
-        placeHolder= "نام و نام خانوادگی"
+        placeHolder= "ایمیل"
         name="name"
         value={this.state.name}
         onChange= {this.handleInput}
