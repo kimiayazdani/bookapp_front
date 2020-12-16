@@ -69,8 +69,8 @@ export default class SignIn extends Component {
             password: this.state.pass,
         }) 
         .then((res) => { 
-          localStorage.setItem('token', res.access_token);
-          localStorage.setItem('refresh_token', res.refresh_token);
+          localStorage.setItem('token', res.data.access_token);
+          localStorage.setItem('refresh_token', res.data.refresh_token);
           this.setState({redirect:true});
             })
         .catch((err) => {

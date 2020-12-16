@@ -104,7 +104,7 @@ export default class AccForm extends Component {
 
 
 	  axios 
-	      .post("http://localhost:8000/api/asknima", { 
+	      .post("http://localhost:8000/api/v1/account/register/", { 
 	          user: this.state.user, 
             pass: this.state.pass, 
             name: this.state.name,
