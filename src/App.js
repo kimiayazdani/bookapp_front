@@ -65,6 +65,12 @@ export default class App extends Component{
 		this.setState({logged_in:false, username:''});
 	}
 
+	handle_refresh() {
+		axios.post("http://localhost:8000/api/token/refresh", { 
+	          refresh: localStorage.getItem('refresh_token')
+	      }).then((res) => {localStorage.setItem('token', res.access)})
+	}
+
 
 	render() {
   return (
@@ -94,7 +100,7 @@ export default class App extends Component{
 		    <link rel="stylesheet" type="text/css" href="./public/css/fonts.css"/>
 		    <link rel="stylesheet" type="text/css" href="./public/css/semantic.css"/>
      	</Helmet>
-      	<Routes logged_in={this.state.logged_in? "t": "f"} is_loggedin={this.is_loggedin} />
+      	<Routes logged_in={this.state.logged_in? "t": "f"} is_loggedin={this.is_loggedin} handle_refresh={this.handle_refresh} />
     </div>
   )};
 }

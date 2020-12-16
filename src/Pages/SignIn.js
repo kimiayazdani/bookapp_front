@@ -62,15 +62,15 @@ export default class SignIn extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-    localStorage.setItem('salam', 'yes')
 
      axios 
-        .post("http://localhost:8000/api/asknima", { 
-            user: this.state.user,
-            pass: this.state.pass,
+        .post("http://localhost:8000/api/v1/account/login/", { 
+            username: this.state.user,
+            password: this.state.pass,
         }) 
         .then((res) => { 
-          localStorage.setItem('token', res.token);
+          localStorage.setItem('token', res.access_token);
+          localStorage.setItem('refresh_token', res.refresh_token)
             })
         .catch((err) => {
           

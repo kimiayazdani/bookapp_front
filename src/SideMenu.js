@@ -7,6 +7,7 @@ export default class SideMenu extends Component {
 	}
 
     handle_logout() {
+        axios.post("http://localhost:8000/api/v1/account/logout/", {}, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')}})
         localStorage.removeItem('token')
     }
 

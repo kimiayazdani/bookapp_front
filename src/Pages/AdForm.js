@@ -132,7 +132,7 @@ export default class AdForm extends Component {
 	          description: this.state.description,
 	          for_sale: this.state.for_sale,
             price: this.state.price
-	      }, { headers: {'token': localStorage.getItem('token')}}) 
+	      }, { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}) 
         .then((res) => { 
             if(this.props.classIn==="editad") {
               this.setState({
@@ -145,8 +145,11 @@ export default class AdForm extends Component {
             }
             })
 	      .catch((err) => {
-	        
-	        this.setState({redirectAcc: true});
+	        if (err.response && err.response.status === 408) {
+            this.props.handle_refresh();
+            this.handleSubmit(e);
+          } else {
+	        this.setState({redirectAcc: true}); }
 	      }); 
 	}; 
 	render () {
