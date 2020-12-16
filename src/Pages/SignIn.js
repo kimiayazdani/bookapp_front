@@ -106,7 +106,7 @@ export default class SignIn extends Component {
 
       <label style={{textAlign:"right"}}>نام کاربری:</label>
       <input
-      	name="userName"
+      	name="user"
       	value={this.state.user}
       	onChange= {this.handleInput}
         placeholder= "نام کاربری"
@@ -118,7 +118,7 @@ export default class SignIn extends Component {
       <input
         type="password"
         dir="rtl"
-      	name="authorName"
+      	name="pass"
       	value={this.state.pass}
       	onChange= {this.handleInput}
         placeholder="زمر عبور"
