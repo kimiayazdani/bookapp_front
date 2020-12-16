@@ -15,6 +15,7 @@ export default class SideMenu extends Component {
 		});
 		localStorage.removeItem('token')
 		localStorage.removeItem('refresh_token')
+        this.setState({logged_in:"f"})
     }
 
     componentDidMount() {
