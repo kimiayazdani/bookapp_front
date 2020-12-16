@@ -10,16 +10,21 @@ export default class SideMenu extends Component {
 	}
 
     handle_logout() {
-        axios.post("http://localhost:8000/api/v1/account/logout/", {}, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('refresh_token')}})
-        localStorage.removeItem('token')
+		axios.post("http://localhost:8000/api/v1/account/logout/", {}, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}).
+		catch((err) => {
+		});
+		localStorage.removeItem('token')
+		localStorage.removeItem('refresh_token')
     }
 
-    handle_logged_in() {
-        axios.post("http://localhost:8000/api/token/refresh", { 
+    componentDidMount() {
+        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
           }).then((res) => {
-        localStorage.setItem('token', res.access);
-          this.setState({logged_in: "t"})});
+        localStorage.setItem('token', res.data.access);
+          this.setState({logged_in: "t"})}).catch((err) => {
+
+		  });
     }
 
 	render() {
