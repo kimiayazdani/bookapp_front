@@ -24,7 +24,8 @@ export default class AdAll extends Component {
             author: ["ریچارد نیپولیتان"],
             image: "/images/default.jpg",
             description: "قیمت بسیار ارزان - ویرایش چهارم",
-            sell: "خرید"
+            sell: "buy",
+            price: 0
 
         },
             {
@@ -33,7 +34,8 @@ export default class AdAll extends Component {
                 author: "دکتر محمد ابراهیم ابوکاظمی",
                 image: "/images/default.jpg",
                 description: "کتاب هالیدی ۱ مخصوص درس فیزیک ۱ ویرایش هشتم قیمت مناسب بسیار تمیز",
-                sell: "فروش",
+                sell: "sell",
+                price: 24000,
             }],
         redirect: false,
         topass: 1,
@@ -61,13 +63,13 @@ export default class AdAll extends Component {
     }
     componentDidMount = () => {
         axios
-            .get("http://localhost:8000/api/asknima")
+            .get("http://localhost:8000/api/v1/book-advertise/post/")
             .then((res) => {
                 var a = this.state.list
                 for (var i = 0; i < res.data.length; i++) {
-                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author,
-                        image:res.data[i].image? res.data[i].image: "/images/default.jpg",
-                        description: res.data[i].description, sell: res.data[i].sell
+                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author__username,
+                        image:res.data[i].image? ("default addr" + res.data[i].poster): "/images/default.jpg",
+                        description: res.data[i].description, sell: res.data[i].sell, price: (res.data[i].price? res.data[i].price: 0)
                     })
                 }
                 console.log(a)
@@ -75,12 +77,14 @@ export default class AdAll extends Component {
                     list: a
                 })
             })
-            .catch((err) => {});
+            .catch((err) => {
+                
+            });
     };
     render() {
         return (
             <div className="App">
-                <SideMenu classIn={"allads"} logged_in={this.props.logged_in} handle_logout={this.props.handle_logout}/>
+                <SideMenu classIn={"allads"} />
                 <div className="ui container">
 
                     <div className="ui message">
@@ -108,7 +112,8 @@ export default class AdAll extends Component {
 
                                     <div className="description">{ad.description}</div>
                                     <br />
-                                    <div className="ui label">{ad.sell}</div>
+                                    <div className="ui label">{ad.sell === 'sell'? 'فروش': 'خرید'}</div>
+                                    {ad.sell === 'sell' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
                                     <div className="extra">
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
                                            className="ui right floated primary button">

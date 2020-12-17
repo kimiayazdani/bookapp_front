@@ -45,6 +45,17 @@ export default class AccForm extends Component {
         image:"/images/books.jpg",
   			})
   		}
+      else {
+        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+        localStorage.setItem('token', res.data.access);
+        this.setState({redirect:true})
+        
+          }).catch((err) => {
+
+      });
+      }
   	};
  redirectToReg = (e) => {
     this.setState({

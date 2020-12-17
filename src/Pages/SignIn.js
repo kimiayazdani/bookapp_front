@@ -31,7 +31,14 @@ export default class SignIn extends Component {
   	};
 
   componentDidMount(props) {
-      console.log(props);
+      axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+        localStorage.setItem('token', res.data.access);
+        this.setState({redirect:true})
+          }).catch((err) => {
+
+      });
   };
 
 

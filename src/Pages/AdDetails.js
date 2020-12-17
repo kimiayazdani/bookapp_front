@@ -8,48 +8,65 @@ import "./AdDetails.css"
 export default class AdDetails extends Component {
 	
     state = {
-        id: this.props.location.state.adId,
+        id: 0,
         title: "طراحی الگوریتم",
         author: "دکتر محمد ابراهیم ابوکاظمی",
         image: "/images/default.jpg",
         description: "قیمت بسیار ارزان - ویرایش چهارم",
-        sell: "فروش",
+        sell: "sell",
         redirect: false,
         redirect_edit: false,
         redirect_del: false,
-        price: 0,
+        price: 123,
+        redirec_ad: false,
 
         user_name: 'علی حیدری',
         user_number: '09121406265',
-        user_univ: 'صنعتی شریف',
-        user_dep: 'کامپیوتر'
+        email: 'yazdanikimia@gmail.com',
 
         
 
     };
 
     componentDidMount = () => {
-    	console.log('sdfadf')
-    	console.log(localStorage.getItem('salam'))
-    	console.log(this.props.logged_in)
+        if (this.props.location && this.props.location.state && this.props.location.state.adId) {
+            this.setState({id:this.props.location.state.adId})
+        }
+        else {(this.setState({redirect_ad:true})); return;} 
+        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+            localStorage.setItem('token', res.data.access);
+          }).catch((err) => {
+            // this.setState({redirect_acc:true})
+            return;
+          });
         axios
-            .get("http://localhost:8000/api/asknima" + this.state.id, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
+            .get("http://localhost:8000/api/v1/book-advertise/post/" + this.state.id, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
-                this.setState({ title: res.title, author: res.author, image: res.image? res.image: "/images/default.jpg",
-                description: res.description, sell: res.sell, price: res.price, user_name: res.user_name, user_dep: res.user_dep,
-                user_number: res.user_number, user_univ: res.user_univ})
+                this.setState({ title: res.title, author: res.book_author, image: res.poster? ("default addr" + res.poster): "/images/default.jpg",
+                description: res.description, sell: res.ad_type, price: res.price, user_name: res.author.username,
+                user_number: res.author.number, email: res.author.email})
             })
             .catch((err) => {
-            	this.setState({redirect:true})
+                if (err.response && err.response.status === 408) {
+            	   // this.setState({redirect_acc:true})
+                } else {
+                    // this.setState({redirect_ad:true})
+                }
             });
+
     };
 
 
 
     delete_ad = () => {
-        axios.post().then((res) => {this.setState({redirect_del:true})})
+        this.setState({redirect_del:true})
     }
 
+    edit_ad = () => {
+        this.setState({redirect_edit:true})
+    }
 
 
     renderRedirectBack = (e) => {
@@ -74,9 +91,19 @@ export default class AdDetails extends Component {
                                         }} />
                 )
         }
-        if (this.state.redirect_del) {
+        if (this.state.redirect_ad) {
             return (
                  <Redirect to={{pathname: '/ad/'}} />
+                )
+        }
+        if (this.state.redirect_del) {
+            return (
+                <Redirect to={{
+                                          pathname: '/ad/del/',
+                                          state: {
+                                            adId: this.id
+                                          }
+                                        }} />
                 )
         }
     };
@@ -114,7 +141,7 @@ export default class AdDetails extends Component {
                             <div className="content" dir="rtl" style={{textAlign: "right"}}>
                                 <a className="ui large header"> {this.state.title}</a>
                                 <div className="meta" dir="rtl">
-                                    {sell == "sell" ? <div className="ui label">فروش</div> :
+                                    {this.state.sell == "sell" ? <div className="ui label">فروش</div> :
                                         <div className="ui label">خرید</div>}
                                     <a> {this.state.author} </a>
                                 </div>
@@ -138,10 +165,7 @@ export default class AdDetails extends Component {
                                         <strong>شماره تماس: {this.state.user_number}</strong>
                                     </div>
                                     <div className="ui segment" dir="rtl">
-                                        <strong>دانشکده: {this.state.user_dep}</strong>
-                                    </div>
-                                    <div className="ui segment" dir="rtl">
-                                        <strong>دانشگاه: {this.state.user_univ}</strong>
+                                        <strong>ایمیل: {this.state.email}</strong>
                                     </div>
                                     {this.state.sell==='sell'? <div className="ui segment" dir="rtl">
                                         <strong>قیمت: {this.state.price} تومان</strong> </div>: ''}
@@ -162,10 +186,10 @@ export default class AdDetails extends Component {
                     <div className="ui divider"/>
                     {/* action buttons */}
                     <div className="spaced" dir="rtl">
-                        <button className="green ui button" onclick={()=>{this.setState({redirect_edit:true})}}>
+                        <button className="green ui button" onClick={this.edit_ad.bind(this)}>
                             ویرایش
                         </button>
-                        <button className="red ui button" onclick={this.delete_ad()}>
+                        <button className="red ui button" onClick={this.delete_ad.bind(this)}>
                             حذف
                         </button>
 
