@@ -27,22 +27,22 @@ export default class AdForm extends Component {
 	    authorName:"",
 	    image: "/images/books.jpg",
 	    description:"",
-	    error_message:"مسئله",
+	    error_message:"",
       price: 0,
 	    for_sale: false,
       redirect: false,
       redirectBack: false,
       redirectAcc: false,
-      adId: 0,
+      id: 0,
   	};
 
   	fileInputRef = React.createRef();
 
   	componentDidMount() {
-      if (this.props.logged_in==='f') {
-        this.setState({redirectAcc: true});
-      }
   		if (this.props.classIn==="editad") {
+        if (this.props.location && this.props.location.state && this.props.location.state.adId) {
+            this.setState({id:this.props.location.state.adId})
+        }
   			this.setState({
           price: 20,
   				bookName: "جنایات و مکافات",
@@ -50,8 +50,12 @@ export default class AdForm extends Component {
   				image: "باید این رو درست کنم",
   				description: "وضیحات",
   				for_sale: true,
-          adId: this.props.location.state? this.props.location.state.adId:0
+          id: this.props.location.state? this.props.location.state.adId:0
   			})
+        axios.get("http://localhost:8000/api/v1/book-advertise/post/" + this.state.id, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+          this.setState({price:res.price, bookName: res.title, authorName: res.bookAuthor, for_sale: (res.ad_type === "sell"? true: false), description: res.description, 
+            image: (res.poster? "default addr" + res.poster: "/images/default.jpg")})
+        }).catch((err)=>{});
   		}
   	};
 
@@ -122,10 +126,10 @@ export default class AdForm extends Component {
 	  this.fileUpload(this.state.image).then(response => {
       	console.log(response.data);
     });
-
-
+    var url = "" + this.state.id;
+    if (this.props.classIn === "editad") { url = ""} 
 	  axios 
-	      .post("http://localhost:8000/api/asknima", { 
+	      .post(url, { 
 	          bookName: this.state.bookName, 
 	          authorName: this.state.authorName,
 	          image: this.state.image,
@@ -151,6 +155,7 @@ export default class AdForm extends Component {
           } else {
 	        this.setState({redirectAcc: true}); }
 	      }); 
+
 	}; 
 	render () {
 		return (

@@ -101,7 +101,8 @@ export default class AdDetails extends Component {
                 <Redirect to={{
                                           pathname: '/ad/del/',
                                           state: {
-                                            adId: this.id
+                                            adId: this.id,
+                                            bookName: this.title,
                                           }
                                         }} />
                 )

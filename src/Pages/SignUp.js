@@ -31,6 +31,8 @@ export default class AccForm extends Component {
       redirect: false,
       redirectBack: false,
       error_message: '',
+      namename: '',
+      bio: ''
   	};
 
   	fileInputRef = React.createRef();
@@ -43,7 +45,21 @@ export default class AccForm extends Component {
         number:"09121406265",
         name:"کیمیا یزدانی",
         image:"/images/books.jpg",
+        namename: 'ک'
   			})
+        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+        localStorage.setItem('token', res.data.access);
+        
+          }).catch((err) => {
+            this.setState({redirectBack:true})
+
+      });
+          axios.get("http://127.0.0.1:8000/api/account/properties/").then((res)=>{
+            this.setState({user:res.username, email:res.email, image:(res.avatar? "default addr" + res.avatar: "/images/books.jpg"), number: res.phonenumber, namename: res.name,
+              bio: res.bio})
+          })
   		}
       else {
         axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
@@ -174,7 +190,31 @@ export default class AccForm extends Component {
       	onChange= {this.fileChange}
       />
     </Form.Field>}
+
+    {this.props.classIn === "editacc" && <Form.Field>
+    
+
+      <label style={{textAlign:"right"}}>نام و نام خانوادگی:</label>
+      <input
+        placeHolder= "نام و نام خانوادگی"
+        name="namename"
+        value={this.state.namename}
+        onChange= {this.handleInput}
+
+      />
+      </Form.Field> }
+      {this.props.classIn === "editacc" && <Form.Field>
+      <label style={{textAlign:"right"}}>بیوگرافی:</label>
+      <Form.Input
+        placeHolder= "بیوگرافی"
+        type="file"
+        name="bio"
+        value={this.state.bio}
+        onChange= {this.fileChange}
+      />
+    </Form.Field>}
     <Form.Field>
+
 
       <label style={{textAlign:"right"}}>ایمیل:</label>
       <input

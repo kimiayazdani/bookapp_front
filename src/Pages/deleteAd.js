@@ -4,14 +4,31 @@ import { Redirect } from 'react-router';
 
 import './deleteAd.css'
 import SideMenu from './../SideMenu';
+import "semantic-ui-css/semantic.min.css";
+
+
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Message,
+  Segment,
+  Checkbox
+} from "semantic-ui-react";
+
 
 export default class DeleteAd extends Component {
 
     state = {
+        id: 0,
         redirectBack:false,
         redirect: false,
         redirectAcc: false,
+        error_message: '',
+
     };
+
 
 	handleDelete = (e) => {
         e.preventDefault(); 
@@ -19,16 +36,19 @@ export default class DeleteAd extends Component {
 
 
         axios.get(url
-             , { headers: {'token': localStorage.getItem('token')}}
+             , { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}
           ).then((res) => { 
               this.setState({ 
                   redirect: true
               }); 
 
         }).catch((err) => {
-            this.setState({
-                redirectAcc: true
-            })
+            
+                if (err.response && err.response.status === 408) {
+                   this.setState({redirectAcc:true})
+                } else {
+                    this.setState({redirectBack:true, error_message: err.response.data.message})
+                }
         })
 	};
 
@@ -39,9 +59,18 @@ export default class DeleteAd extends Component {
     };
 
     componentDidMount() {
-        if (this.props.logged_in === "f") {
-            this.setState({redirectAcc:true});
-        } 
+        if (this.props.location && this.props.location.state && this.props.location.state.adId) {
+            this.setState({id:this.props.location.state.adId})
+        }
+        else {(this.setState({redirect:true})); return;} 
+        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+            localStorage.setItem('token', res.data.access);
+          }).catch((err) => {
+            this.setState({redirect_acc:true})
+            return;
+          });
     };
 
     renderRedirectBack = (e) => {
@@ -93,13 +122,19 @@ export default class DeleteAd extends Component {
             <form class="ui form">
                 <p style={{fontSize:20+'px', textAlign: 'right', dir:"rtl"}}>
                     آیا از حذف کتاب 
-                    {' ' + (this.props.bookName ? this.props.bookName : '') + ' '}
+                    {' ' + (this.props.location && this.props.location.state && this.props.location.state.bookName? this.props.location.state.bookName : '') + ' '}
                     اطمینان دارید؟
                 </p>
                 <button class="red ui button" onClick={this.handleDelete.bind(this)}>حذف</button>
                 <button class="ui button" onClick={this.redirectHandlerBack.bind(this)}>بازگشت</button>
             </form>
+             {this.state.error_message && <Message
+      error
+      header='درخواست انجام نشد'
+      content= {this.state.error_message}
+    />}
         </div>
+       
     </div>
 		{this.renderRedirectBack()}
     </div>
