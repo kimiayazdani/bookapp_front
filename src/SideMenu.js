@@ -3,7 +3,8 @@ import axios from "axios";
 
 export default class SideMenu extends Component {
     state = {
-        logged_in: "f"
+        logged_in: "f",
+        is_staff: "f"
     }
 	constructor(props) {
 		super(props);
@@ -23,7 +24,11 @@ export default class SideMenu extends Component {
               refresh: localStorage.getItem('refresh_token')
           }).then((res) => {
         localStorage.setItem('token', res.data.access);
-          this.setState({logged_in: "t"})}).catch((err) => {
+          this.setState({logged_in: "t"});
+          if (res.is_staff){
+            this.setState({is_staff:"t"})
+          }
+      }).catch((err) => {
 
 		  });
     }
@@ -38,11 +43,14 @@ export default class SideMenu extends Component {
             	<a href="/" class="header item">کتاب‌باز</a>
             	<div class="right menu">
            		<a href="/" class={"Home"===this.props.classIn ? "active item" : "item"}> صفحه‌ اصلی </a>
+                {this.state.is_staff === "t"? <a href="/ad/ver" class={"adver"===this.props.classIn?"active item":"item"}> تایید آگهی</a>:''}
                 <a href="/ad/" class={"allads"===this.props.classIn ? "active item" : "item"}> آگهی‌ها</a>
                 {this.state.logged_in === "t"? <a href="/ad/new" class={"newad"===this.props.classIn ? "active item" : "item"}> ثبت آگهی </a>:''}
                 {this.state.logged_in === "t"? <a onClick={this.handle_logout.bind(this)} class="item"> خروج از اکانت </a>:''}
                 {this.state.logged_in === "f"? <a href="/acc/" class={"login"===this.props.classIn?"active item":"item"}> ورود به اکانت</a>:''}
                 {this.state.logged_in === "f"? <a href="/acc/register" class={"regacc"===this.props.classIn?"active item":"item"}> ساخت اکانت</a>:''}
+                {this.state.logged_in === "f"? <a href="/acc/prof" class={"accprof"===this.props.classIn?"active item":"item"}> مشاهده‌ پروفایل</a>:''}
+
             </div>
         </div>
     </div>

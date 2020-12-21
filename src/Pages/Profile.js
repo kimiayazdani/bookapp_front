@@ -16,8 +16,12 @@ import {
 } from "semantic-ui-react";
 
 
-export default class AdVer extends Component {
+export default class Profile extends Component {
     state = {
+        name:"کیمیا یزدانی",
+        image:"/images/books.jpg",
+        namename: 'kimyazdani',
+        bio: 'شیبشسی شسب تنمت شسی.',
         lists: [{
             id: 1,
             title: "طراحی الگوریتم",
@@ -39,24 +43,10 @@ export default class AdVer extends Component {
             }],
         redirect: false,
         topass: 1,
-        redirectall: false,
 
     };
 
     redirectHandler = (val) => {
-         axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/" + val.target.name, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
-            .then((res) => {
-               this.setState({
-            redirect: true,
-            topass: val.target.name
-        });
-
-            })
-            .catch((err) => {
-                // this.setState({redirectall:true})
-                
-            });
     	this.setState({
     		redirect: true,
     		topass: val.target.name
@@ -67,24 +57,17 @@ export default class AdVer extends Component {
     	if (this.state.redirect) {
     	    return (
     		<Redirect to={{
-										  pathname: '/ad/ver',
+										  pathname: '/ad/detail',
+										  state: {
+										    adId: this.state.topass
+										  }
 										}} />
-
     		)
     	}
-        if (this.state.redirectall) {
-            return (
-            <Redirect to={{
-                                          pathname: '/ad/',
-                                        }} />
-
-            )
-
-        }
     }
-
     componentDidMount = () => {
-        axios
+
+         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                 var a = this.state.list
@@ -100,14 +83,13 @@ export default class AdVer extends Component {
                 })
             })
             .catch((err) => {
-                // this.setState({redirectall:true})
                 
             });
     };
     render() {
         return (
             <div className="App">
-                <SideMenu classIn={"adver"} />
+                <SideMenu classIn={"accprof"} />
                 <div className="ui container">
 
                     <div className="ui message">
@@ -140,7 +122,7 @@ export default class AdVer extends Component {
                                     <div className="extra">
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
                                            className="ui right floated primary button">
-                                            تایید آگهی
+                                            اطلاعات بیشتر
                                             <i className="right chevron icon"></i>
                                        </Button>
                                         

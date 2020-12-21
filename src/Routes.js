@@ -8,6 +8,8 @@ import AdForm from "./Pages/AdForm";
 import DeleteAd from "./Pages/deleteAd";
 import SignIn from "./Pages/SignIn"
 import AccForm from "./Pages/SignUp"
+import AdVer from "./Pages/AdVer"
+import Profile from "./Pages/Profile"
 
 class Routes extends Component {
     render() {
@@ -21,7 +23,7 @@ class Routes extends Component {
                         <AdAll {...this.props} {...props} />
                       )}/>
                     <Route path="/ad/del" render={(props) => (
-                        <DeleteAd {...this.props} {...props} bookName={"طراحی الگوریتم"} adId={1}/>
+                        <DeleteAd {...this.props} {...props} />
                         )} />
                     <Route path="/ad/detail" render={(props) => (
                         <AdDetails {...this.props} {...props} />
@@ -42,7 +44,10 @@ class Routes extends Component {
                             <AccForm {...this.props} {...props} classIn={"regacc"} />
                             )}/>
                     <Route path="/ad/ver" exact render={(props) => (
-                        <AdAll {...this.props} {...props} />
+                        <AdVer {...this.props} {...props} />
+                      )}/>
+                    <Route path="/acc/prof" exact render={(props) => (
+                        <Profile {...this.props} {...props} />
                       )}/>
                    </Switch>
             </Router>
