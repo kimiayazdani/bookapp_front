@@ -46,6 +46,7 @@ export default class SideMenu extends Component {
                 {this.state.is_staff === "t"? <a href="/ad/ver" class={"adver"===this.props.classIn?"active item":"item"}> تایید آگهی</a>:''}
                 <a href="/ad/" class={"allads"===this.props.classIn ? "active item" : "item"}> آگهی‌ها</a>
                 {this.state.logged_in === "t"? <a href="/ad/new" class={"newad"===this.props.classIn ? "active item" : "item"}> ثبت آگهی </a>:''}
+                {this.state.logged_in === "t"? <a href="/acc/edit" class={"editacc"===this.props.classIn ? "active item" : "item"}> ویرایش پروفایل </a>:''}
                 {this.state.logged_in === "t"? <a onClick={this.handle_logout.bind(this)} class="item"> خروج از اکانت </a>:''}
                 {this.state.logged_in === "f"? <a href="/acc/" class={"login"===this.props.classIn?"active item":"item"}> ورود به اکانت</a>:''}
                 {this.state.logged_in === "f"? <a href="/acc/register" class={"regacc"===this.props.classIn?"active item":"item"}> ساخت اکانت</a>:''}
