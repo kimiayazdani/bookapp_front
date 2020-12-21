@@ -28,6 +28,7 @@ export default class AccForm extends Component {
       number:"",
       name:"",
       image:"",
+      imagefile: "",
       email:"",
       redirect: false,
       redirectBack: false,
@@ -76,6 +77,7 @@ export default class AccForm extends Component {
 	    this.setState({ image: e.target.files[0] }, () => {
 	      console.log("File uploaded --->", this.state.image);
 	    });
+
   	};
 
   	fileUpload = file => {
@@ -179,10 +181,12 @@ export default class AccForm extends Component {
         placeHolder= "تصویر پروفایل"
       	ref={this.fileInputRef}
       	type="file"
-      	name="image"
+      	name="imagefile"
       	onChange= {this.fileChange}
       />
     </Form.Field>}
+
+    {this.props.classIn === "editacc" && <img src={this.state.image} style={{width: 70 + 'px'}} /></a>}
 
     {this.props.classIn === "editacc" && <Form.Field>
     
@@ -205,7 +209,7 @@ export default class AccForm extends Component {
         onChange= {this.handleInput}
       />
     </Form.Field>}
-    <Form.Field>
+    {this.props.classIn === "editacc" && <Form.Field>
 
 
       <label style={{textAlign:"right"}}>ایمیل:</label>
@@ -216,7 +220,7 @@ export default class AccForm extends Component {
         onChange= {this.handleInput}
 
       />
-      </Form.Field>
+      </Form.Field> }
        <Form.Field>
 
       <label style={{textAlign:"right"}}>شماره‌ی همراه:</label>
