@@ -65,7 +65,7 @@ export default class AdAll extends Component {
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/")
             .then((res) => {
-                var a = this.state.list
+                var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author__username,
                         image:res.data[i].image? ("default addr" + res.data[i].poster): "/images/default.jpg",
@@ -74,7 +74,7 @@ export default class AdAll extends Component {
                 }
                 console.log(a)
                 this.setState({
-                    list: a
+                    lists: a
                 })
             })
             .catch((err) => {
