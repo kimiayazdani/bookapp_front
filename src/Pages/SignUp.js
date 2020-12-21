@@ -210,7 +210,7 @@ export default class AccForm extends Component {
       	ref={this.fileInputRef}
       	type="file"
       	name="imagefile"
-      	onChange= {this.fileChange}
+      	onChange= {this.fileChange.bind(this)}
       />
     </Form.Field>}
 
