@@ -74,7 +74,7 @@ export default class AccForm extends Component {
     })
   };
 
-	fileChange = (e) => {
+	onFileChange = (e) => {
 	    this.setState({image: e.target.files[0]})
   console.log(e.target.files)
   console.log('here')
@@ -210,7 +210,7 @@ export default class AccForm extends Component {
       	ref={this.fileInputRef}
       	type="file"
       	name="imagefile"
-      	onChange= {this.fileChange.bind(this)}
+      	onChange= {this.onFileChange}
       />
     </Form.Field>}
 
