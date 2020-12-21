@@ -102,10 +102,14 @@ export default class AccForm extends Component {
   	};
 
 	handleInput = (e) => { 
-		
+      if (e.target.name === "image") {
+        console.log("adfasdasd")
+         this.setState({image: e.target.files[0]});
+      }else{
 	    this.setState({ 
 	        [e.target.name]: e.target.value, 
 	    }); 
+    }
 		
 	}; 
   renderRedirectBack = (e) => {
@@ -209,8 +213,8 @@ export default class AccForm extends Component {
         placeHolder= "تصویر پروفایل"
       	ref={this.fileInputRef}
       	type="file"
-      	name="imagefile"
-      	onChange= {this.onFileChange}
+      	name="image"
+      	onChange= {this.handleInput}
       />
     </Form.Field>}
 
