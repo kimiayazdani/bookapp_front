@@ -56,7 +56,7 @@ export default class AccForm extends Component {
             this.setState({redirectBack:true})
 
       });
-          axios.get("http://127.0.0.1:8000/api/account/properties/").then((res)=>{
+          axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
             this.setState({user:res.username, email:res.email, image:(res.avatar? "default addr" + res.avatar: "/images/books.jpg"), number: res.phonenumber, namename: res.name,
               bio: res.bio})
           })
