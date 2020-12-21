@@ -124,8 +124,30 @@ export default class AccForm extends Component {
     if (this.props.classIn === 'editacc') {
 	  this.fileUpload(this.state.image).then(response => {
       	console.log(response.data);
-    });}
-
+    });
+    axios 
+        .post("http://localhost:8000/api/v1/account/update/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}},{ 
+            username: this.state.user, 
+            password: this.state.pass, 
+            email: this.state.name,
+            number: this.state.number,
+            image: this.state.image
+        }) 
+        .then((res) => { 
+              this.setState({
+                redirect: true
+              })
+            })
+        .catch((err) => {
+          
+          if (err.response && err.response.data && err.response.data.message) {
+            this.setState({error_message: err.response.data.message})
+          }else {
+          this.setState({error_message:'متاسفانه اتصال برقرار نشد.'});
+        }
+        });
+    }
+    else {
 
 	  axios 
 	      .post("http://localhost:8000/api/v1/account/register/", { 
@@ -150,7 +172,8 @@ export default class AccForm extends Component {
           }else {
           this.setState({error_message:'متاسفانه اتصال برقرار نشد.'});
         }
-	      }); 
+	      });
+        } 
 	}; 
 	render () {
 		return (
