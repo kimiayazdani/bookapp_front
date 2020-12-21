@@ -53,7 +53,7 @@ export default class AccForm extends Component {
           axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
             this.setState({user:res.data.username, email:res.data.email, image:(res.data.avatar? "../../bookapp_back" + res.data.avatar: "/images/books.jpg"), number: res.data.phone_number, namename: res.data.name,
               bio: res.data.bio})
-          })
+          }).catch((err) => {})
   		}
       else {
         axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
@@ -209,7 +209,7 @@ export default class AccForm extends Component {
       />
     </Form.Field>}
 
-    {this.props.classIn === "editacc" && <img src={this.state.image} style={{width: 70 + 'px'}} />}
+    {this.props.classIn === "editacc" && <img src={`data:image/png;base64,${this.state.image}`} style={{width: 70 + 'px'}} />}
 
     {this.props.classIn === "editacc" && <Form.Field>
     
