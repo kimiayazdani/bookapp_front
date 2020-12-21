@@ -41,6 +41,9 @@ class Routes extends Component {
                     <Route path="/acc/register" render={(props) => (
                             <AccForm {...this.props} {...props} classIn={"regacc"} />
                             )}/>
+                    <Route path="/ad/ver" exact render={(props) => (
+                        <AdAll {...this.props} {...props} />
+                      )}/>
                    </Switch>
             </Router>
 
