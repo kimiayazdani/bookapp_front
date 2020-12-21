@@ -134,6 +134,14 @@ export default class AccForm extends Component {
    // });
    console.log('hehh')
    console.log(this.state.image)
+   const formData = new FormData(); 
+     
+      // Update the formData object 
+      formData.append( 
+        "myFile", 
+        this.state.image, 
+        this.state.image.name 
+      ); 
     axios 
         .put("http://localhost:8000/api/v1/account/update/",{ 
             username: this.state.user, 
