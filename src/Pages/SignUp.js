@@ -28,6 +28,7 @@ export default class AccForm extends Component {
       number:"",
       name:"",
       image:"",
+      email:"",
       redirect: false,
       redirectBack: false,
       error_message: '',
@@ -39,15 +40,7 @@ export default class AccForm extends Component {
 
   	componentDidMount() {
   		if (this.props.classIn==="editacc") {
-  			this.setState({
-  			user:"سیام",
-        pass:"شسیبشس",
-        number:"09121406265",
-        name:"کیمیا یزدانی",
-        image:"/images/books.jpg",
-        namename: 'ک'
-  			})
-        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+  		        axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
           }).then((res) => {
         localStorage.setItem('token', res.data.access);
@@ -57,8 +50,8 @@ export default class AccForm extends Component {
 
       });
           axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
-            this.setState({user:res.username, email:res.email, image:(res.avatar? "default addr" + res.avatar: "/images/books.jpg"), number: res.phonenumber, namename: res.name,
-              bio: res.bio})
+            this.setState({user:res.data.username, email:res.data.email, image:(res.data.avatar? "default addr" + res.data.avatar: "/images/books.jpg"), number: res.data.phone_number, namename: res.data.name,
+              bio: res.data.bio})
           })
   		}
       else {
@@ -207,10 +200,9 @@ export default class AccForm extends Component {
       <label style={{textAlign:"right"}}>بیوگرافی:</label>
       <Form.Input
         placeHolder= "بیوگرافی"
-        type="file"
         name="bio"
         value={this.state.bio}
-        onChange= {this.fileChange}
+        onChange= {this.handleInput}
       />
     </Form.Field>}
     <Form.Field>
@@ -219,8 +211,8 @@ export default class AccForm extends Component {
       <label style={{textAlign:"right"}}>ایمیل:</label>
       <input
         placeHolder= "ایمیل"
-        name="name"
-        value={this.state.name}
+        name="email"
+        value={this.state.email}
         onChange= {this.handleInput}
 
       />
