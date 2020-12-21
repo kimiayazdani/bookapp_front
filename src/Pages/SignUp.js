@@ -105,6 +105,7 @@ export default class AccForm extends Component {
       if (e.target.name === "image") {
         console.log("adfasdasd")
          this.setState({image: e.target.files[0]});
+        console.log(this.state.image)
       }else{
 	    this.setState({ 
 	        [e.target.name]: e.target.value, 
@@ -131,13 +132,15 @@ export default class AccForm extends Component {
 	  //this.fileUpload(this.state.image).then(response => {
       //	console.log(response.data);
    // });
+   console.log('hehh')
+   console.log(this.state.image)
     axios 
         .put("http://localhost:8000/api/v1/account/update/",{ 
             username: this.state.user, 
             password: this.state.pass, 
             phone_number: this.state.number,
             name: this.state.namename,
-            //avatar: this.state.image,
+            avatar: this.state.image,
             bio: this.state.bio
         },
         { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}
