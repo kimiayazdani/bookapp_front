@@ -12,15 +12,19 @@ import {
   Header,
   Message,
   Segment,
-  Checkbox
+  Checkbox,
+  Card,
+  Icon,
+  Feed
 } from "semantic-ui-react";
 
 
 export default class Profile extends Component {
     state = {
-        name:"کیمیا یزدانی",
-        image:"/images/books.jpg",
-        namename: 'kimyazdani',
+        email:"yazdanikimia@gmail.com",
+        image:"/images/avatar.jpeg",
+        namename: 'کیمیا یزدانی',
+        username: 'kimyazdani',
         bio: 'شیبشسی شسب تنمت شسی.',
         lists: [{
             id: 1,
@@ -66,7 +70,10 @@ export default class Profile extends Component {
     	}
     }
     componentDidMount = () => {
-
+        axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({user:res.data.username, email:res.data.email, image:(res.data.avatar? res.data.avatar: "/images/books.jpg"), namename: res.data.name,
+              bio: res.data.bio})
+          }).catch((err) => {})
          axios
             .get("http://localhost:8000/api/v1/book-advertise/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
@@ -87,6 +94,12 @@ export default class Profile extends Component {
             });
     };
     render() {
+        const extra = (
+  <a>
+    <Icon name='user' />
+    16 Friends
+  </a>
+)
         return (
             <div className="App">
                 <SideMenu classIn={"accprof"} />
@@ -102,6 +115,26 @@ export default class Profile extends Component {
                 <br/>
                 <div className="ui container" dir="ltr">
                     <div className="ui relaxed divided items">
+                    
+            <Card fluid color='red'>
+            <Card.Content>
+                <Card.Header>{this.state.username}</Card.Header>
+            </Card.Content>
+            <Card.Content dir='rtl'>
+            <Feed dir='rtl'>
+            <Feed.Event>
+              <Feed.Label image={this.state.image} />
+              <Feed.Content>
+                <Feed.Date content={this.state.namename} />
+                <Feed.Summary>
+                  {this.state.bio}
+                </Feed.Summary>
+              </Feed.Content>
+            </Feed.Event>
+            </Feed>
+            </Card.Content>
+            </Card>
+  
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
@@ -144,3 +177,11 @@ export default class Profile extends Component {
         )
     }
 }
+
+ // <Card fluid
+ //    image='/images/default.jpg'
+ //    header='Elliot Baker'
+ //    meta='Friend'
+ //    description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
+ //    extra={extra}
+ //  />

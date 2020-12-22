@@ -68,7 +68,7 @@ export default class AdAll extends Component {
                 var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author__username,
-                        image:res.data[i].image? ("default addr" + res.data[i].poster): "/images/default.jpg",
+                        image:res.data[i].image? res.data[i].poster: '',
                         description: res.data[i].description, sell: res.data[i].sell, price: (res.data[i].price? res.data[i].price: 0)
                     })
                 }
@@ -100,7 +100,7 @@ export default class AdAll extends Component {
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
-                                    <img src={ad.image} alt="Cinque Terre" width="600" height="400"/>
+                                    {ad.image? <img src={`data:image/png;base64,${ad.image}`} style={{width: 70 + 'px'}} /> :<img src="/images/default.jpg" alt="Cinque Terre" width="600" height="400"/>}
                                 </div>
                                 <div className="content" style={{textAlign:"right"}}>
 

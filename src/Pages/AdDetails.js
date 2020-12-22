@@ -44,7 +44,7 @@ export default class AdDetails extends Component {
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/" + this.state.id, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
-                this.setState({ title: res.title, author: res.book_author, image: res.poster? ("default addr" + res.poster): "/images/default.jpg",
+                this.setState({ title: res.title, author: res.book_author, image: res.poster?  res.poster: '',
                 description: res.description, sell: res.ad_type, price: res.price, user_name: res.author.username,
                 user_number: res.author.number, email: res.author.email})
             })
@@ -153,7 +153,7 @@ export default class AdDetails extends Component {
                         <div className="item">
                             {/* book image */}
                             <div className="ui medium image">
-                                <img className="info_container__image" src={this.state.image} alt="image"/>
+                                {this.state.image? <img src={`data:image/png;base64,${this.state.image}`} style={{width: 70 + 'px'}} /> :<img src="/images/default.jpg" alt="Cinque Terre" width="600" height="400"/>}
                             </div>
                             {/* general information */}
 

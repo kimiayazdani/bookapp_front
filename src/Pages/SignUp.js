@@ -133,22 +133,18 @@ export default class AccForm extends Component {
       //	console.log(response.data);
    // });
    console.log('hehh')
-   console.log(this.state.image)
-   const formData = new FormData(); 
-     
+   console.log(this.state.image) 
+   
+    let form_data = new FormData();
+    form_data.append('image', this.state.image, this.state.image.name);
       // Update the formData object 
-      formData.append( 
-        "myFile", 
-        this.state.image, 
-        this.state.image.name 
-      ); 
+    
     axios 
         .put("http://localhost:8000/api/v1/account/update/",{ 
             username: this.state.user, 
             password: this.state.pass, 
             phone_number: this.state.number,
             name: this.state.namename,
-            avatar: this.state.image,
             bio: this.state.bio
         },
         { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}
@@ -166,6 +162,9 @@ export default class AccForm extends Component {
           this.setState({error_message:'اطالاعات داده شده مشکل دارد!'});
         }
         });
+        axios.post("http://localhost:8000/api/v1/account/updateimage/", form_data, {headers: {
+        'content-type': 'multipart/form-data'
+      }}).then((res)=>{console.log(res.data)}).catch((err)=>{})
     }
     else {
 
@@ -229,7 +228,7 @@ export default class AccForm extends Component {
       />
     </Form.Field>}
 
-    {this.props.classIn === "editacc" && <img src={`data:image/png;base64,${this.state.image}`} style={{width: 70 + 'px'}} />}
+    
 
     {this.props.classIn === "editacc" && <Form.Field>
     
@@ -323,3 +322,6 @@ export default class AccForm extends Component {
 			)
 	}
 }
+
+
+// {this.props.classIn === "editacc" && <img src={`data:image/png;base64,${this.state.image}`} style={{width: 70 + 'px'}} />}
