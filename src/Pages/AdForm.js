@@ -128,7 +128,7 @@ export default class AdForm extends Component {
     //   	console.log(response.data);
     // });
     var url = "http://localhost:8000/api/v1/book-advertise/post/";
-    if (this.props.classIn === "editad") { url = url + this.state.id} 
+    if (this.props.classIn === "editad") { url = url + this.props.location.state.adId + '/'}  
 
 
 	  axios 
