@@ -32,7 +32,7 @@ export default class DeleteAd extends Component {
 
 	handleDelete = (e) => {
         e.preventDefault(); 
-        var url = "http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId;
+        var url = "http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/';
 
 
         axios.delete(url
