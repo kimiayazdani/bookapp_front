@@ -55,9 +55,16 @@ export default class AdDetails extends Component {
             })
             .catch((err) => {
                 if (err.response && (err.response.status === 401 || err.response.status == 403)) {
-            	    this.setState({redirect_acc:true})
+            	    return (
+            <Redirect to={{
+                                          pathname: '/acc/',
+                                          state: {
+                                            error_message: 'برای دیدن صفحه‌ی مورد نظر باید ابتدا وارد شوید.'
+                                          }
+                                        }} />
+            )
                 } else {
-                    // this.setState({redirect_ad:true})
+                    this.setState({redirect_ad:true})
                 }
             });
             console.log(this.state.redirect_acc)
