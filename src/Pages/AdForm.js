@@ -131,7 +131,6 @@ export default class AdForm extends Component {
     if (this.props.classIn === "editad") { url = url + this.props.location.state.adId + '/'
     axios 
         .patch(url, { 
-            bookName: this.state.bookName, 
             authorName: this.state.authorName,
             poster: this.state.image,
             description: this.state.description,
@@ -235,17 +234,17 @@ export default class AdForm extends Component {
 
       />
     </Form.Field>
-    <Form.Field>
+    // <Form.Field>
 
-      <label style={{textAlign:"right"}}>نام کتاب:</label>
-      <input
-        placeholder= "نام کتاب"
-      	name="bookName"
-      	value={this.state.bookName}
-      	onChange= {this.handleInput}
+    //   <label style={{textAlign:"right"}}>نام کتاب:</label>
+    //   <input
+    //     placeholder= "نام کتاب"
+    //   	name="bookName"
+    //   	value={this.state.bookName}
+    //   	onChange= {this.handleInput}
 
-      />
-    </Form.Field>
+    //   />
+    // </Form.Field>
     <Form.Field>
       <label style={{textAlign:"right"}}>نام نویسنده:</label>
       <input
