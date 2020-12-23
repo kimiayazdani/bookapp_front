@@ -62,7 +62,8 @@ export default class DeleteAd extends Component {
         if (this.props.location && this.props.location.state && this.props.location.state.adId) {
             this.setState({id:this.props.location.state.adId})
         }
-        else {(this.setState({redirect:true})); return;} 
+        // else {(this.setState({redirect:true}));} 
+        console.log(this.props.location.state.adId)
         axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
           }).then((res) => {
