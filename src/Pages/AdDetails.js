@@ -30,10 +30,12 @@ export default class AdDetails extends Component {
 
     componentDidMount = () => {
         if (this.props.location && this.props.location.state && this.props.location.state.adId) {
-            this.setState({id:this.props.location.state.adId})
-            
+            this.setState({id:this.props.location.state.adId})           
         }
         else {(this.setState({redirect_ad:true})); return;} 
+        console.log(this.state.id)
+        console.log(this.props.location.state.adId)
+        this.setState({id:this.props.location.state.adId})
         console.log(this.state.id)
         axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
@@ -44,7 +46,7 @@ export default class AdDetails extends Component {
             return;
           });
         axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/" + this.state.id + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
+            .get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
                 this.setState({ title: res.title, author: res.book_author, image: res.poster?  res.poster: '',
                 description: res.description, sell: res.ad_type, price: res.price, user_name: res.author.username,
