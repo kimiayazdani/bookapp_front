@@ -18,11 +18,12 @@ import {
 
 export default class AdAll extends Component {
     state = {
-        lists: [{
+         lists: [
+             {
             id: 1,
             title: "طراحی الگوریتم",
             author: ["ریچارد نیپولیتان"],
-            image: "/images/default.jpg",
+            image: "",
             description: "قیمت بسیار ارزان - ویرایش چهارم",
             sell: "buy",
             price: 0
@@ -32,11 +33,12 @@ export default class AdAll extends Component {
                 id: 2,
                 title: "هالیدی۱ ",
                 author: "دکتر محمد ابراهیم ابوکاظمی",
-                image: "/images/default.jpg",
+                image: "",
                 description: "کتاب هالیدی ۱ مخصوص درس فیزیک ۱ ویرایش هشتم قیمت مناسب بسیار تمیز",
                 sell: "sell",
                 price: 24000,
-            }],
+            }
+    ],
         redirect: false,
         topass: 1,
 
@@ -68,7 +70,7 @@ export default class AdAll extends Component {
                 var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author__username,
-                        image:res.data[i].image? res.data[i].poster: '',
+                        image:res.data[i].poster? res.data[i].poster: '',
                         description: res.data[i].description, sell: res.data[i].sell, price: (res.data[i].price? res.data[i].price: 0)
                     })
                 }
