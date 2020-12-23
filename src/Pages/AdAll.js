@@ -114,8 +114,8 @@ export default class AdAll extends Component {
 
                                     <div className="description">{ad.description}</div>
                                     <br />
-                                    <div className="ui label">{ad.sell === 'sell'? 'فروش': 'خرید'}</div>
-                                    {ad.sell === 'sell' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
+                                    <div className="ui label">{ad.sell === 'sale'? 'فروش': 'خرید'}</div>
+                                    {ad.sell === 'sale' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
                                     <div className="extra">
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
                                            className="ui right floated primary button">
