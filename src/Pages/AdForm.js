@@ -128,7 +128,36 @@ export default class AdForm extends Component {
     //   	console.log(response.data);
     // });
     var url = "http://localhost:8000/api/v1/book-advertise/post/";
-    if (this.props.classIn === "editad") { url = url + this.props.location.state.adId + '/'}  
+    if (this.props.classIn === "editad") { url = url + this.props.location.state.adId + '/'
+    axios 
+        .patch(url, { 
+            bookName: this.state.bookName, 
+            authorName: this.state.authorName,
+            poster: this.state.image,
+            description: this.state.description,
+            ad_type: (this.state.for_sale? 'sale': 'buy'),
+            price: this.state.price,
+            title: this.state.title
+        }, { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}) 
+        .then((res) => { 
+            if(this.props.classIn==="editad") {
+              this.setState({
+                redirectBack: true
+              })
+            } else {
+              this.setState({
+                redirect: true
+              })
+            }
+            })
+        .catch((err) => {
+          if (err.response && err.response.status === 408) {
+            this.props.handle_refresh();
+            this.handleSubmit(e);
+          } else {
+          this.setState({redirectAcc: true}); }
+        }); 
+    }  else {
 
 
 	  axios 
@@ -159,6 +188,7 @@ export default class AdForm extends Component {
           } else {
 	        this.setState({redirectAcc: true}); }
 	      }); 
+      }
 
 	}; 
 	render () {
