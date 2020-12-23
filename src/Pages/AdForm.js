@@ -135,7 +135,7 @@ export default class AdForm extends Component {
 	          authorName: this.state.authorName,
 	          poster: this.state.image,
 	          description: this.state.description,
-	          ad_type: this.state.for_sale,
+	          ad_type: (this.state.for_sale? 'sale': 'buy'),
             price: this.state.price,
             title: this.state.title
 	      }, { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}) 

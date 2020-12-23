@@ -13,7 +13,7 @@ export default class AdDetails extends Component {
         author: "دکتر محمد ابراهیم ابوکاظمی",
         image: "/images/default.jpg",
         description: "قیمت بسیار ارزان - ویرایش چهارم",
-        sell: "sell",
+        sell: "sale",
         redirect: false,
         redirect_edit: false,
         redirect_del: false,
@@ -189,7 +189,7 @@ export default class AdDetails extends Component {
                                     <div className="ui segment" dir="rtl">
                                         <strong>ایمیل: {this.state.email}</strong>
                                     </div>
-                                    {this.state.sell==='sell'? <div className="ui segment" dir="rtl">
+                                    {this.state.sell==='sale'? <div className="ui segment" dir="rtl">
                                         <strong>قیمت: {this.state.price} تومان</strong> </div>: ''}
                                     
                                 </div>
