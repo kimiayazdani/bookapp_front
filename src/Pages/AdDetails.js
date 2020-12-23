@@ -67,6 +67,7 @@ export default class AdDetails extends Component {
 
 
     delete_ad = () => {
+        console.log("this this this")
         this.setState({redirect_del:true})
     }
 

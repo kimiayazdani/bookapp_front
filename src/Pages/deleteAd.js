@@ -44,10 +44,10 @@ export default class DeleteAd extends Component {
 
         }).catch((err) => {
             
-                if (err.response && err.response.status === 408) {
-                   this.setState({redirectAcc:true})
+                if (err.response && err.response.status === 401) {
+                   this.setState({redirectAcc:true, error_message: err.response.data.message})
                 } else {
-                    this.setState({redirectBack:true, error_message: err.response.data.message})
+                    this.setState({redirectBack:true})
                 }
         })
 	};
@@ -62,7 +62,7 @@ export default class DeleteAd extends Component {
         if (this.props.location && this.props.location.state && this.props.location.state.adId) {
             this.setState({id:this.props.location.state.adId})
         }
-        // else {(this.setState({redirect:true}));} 
+        else {(this.setState({redirect:true}));} 
         console.log(this.props.location.state.adId)
         axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
