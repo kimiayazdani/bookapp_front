@@ -39,7 +39,7 @@ export default class AdDetails extends Component {
           }).then((res) => {
             localStorage.setItem('token', res.data.access);
           }).catch((err) => {
-            // this.setState({redirect_acc:true})
+            this.setState({redirect_acc:true})
             return;
           });
         axios
@@ -47,16 +47,16 @@ export default class AdDetails extends Component {
             .then((res) => {
                 this.setState({ title: res.data.title, author: res.data.book_author, image: res.data.poster?  res.data.poster: '',
                 description: res.data.description, sell: res.data.ad_type, price: res.data.price, user_name: res.data.author.username,
-                user_number: res.data.author.number, email: res.data.author.email})
+                user_number: res.data.author.phone_number, email: res.data.author.email})
             })
             .catch((err) => {
-                if (err.response && err.response.status === 408) {
-            	   // this.setState({redirect_acc:true})
+                if (err.response && (err.response.status === 401 || err.response.status == 403)) {
+            	    this.setState({redirect_acc:true})
                 } else {
-                    // this.setState({redirect_ad:true})
+                    this.setState({redirect_ad:true})
                 }
             });
-
+            console.log(this.state.redirect_acc)
     };
 
 
@@ -154,7 +154,7 @@ export default class AdDetails extends Component {
                         <div className="item">
                             {/* book image */}
                             <div className="ui medium image">
-                                {this.state.image? <img src={`data:image/png;base64,${this.state.image}`} style={{width: 70 + 'px'}} /> :<img src="/images/default.jpg" alt="Cinque Terre" width="600" height="400"/>}
+                                {this.state.image? <img src={`data:image/png;base64,${this.state.image}`} style={{width: 600 + 'px'}} /> :<img src="/images/default.jpg" alt="Cinque Terre" width="600" height="400"/>}
                             </div>
                             {/* general information */}
 
