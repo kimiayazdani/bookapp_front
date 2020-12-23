@@ -32,10 +32,10 @@ export default class DeleteAd extends Component {
 
 	handleDelete = (e) => {
         e.preventDefault(); 
-        var url = "http://localhost:8000/api/asknima/" + this.props.adId;
+        var url = "http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId;
 
 
-        axios.get(url
+        axios.delete(url
              , { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}
           ).then((res) => { 
               this.setState({ 
