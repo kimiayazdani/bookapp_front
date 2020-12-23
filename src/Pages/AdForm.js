@@ -25,7 +25,7 @@ export default class AdForm extends Component {
 	state = {
 	    bookName:"",
 	    authorName:"",
-	    image: "",
+	    image: null,
 	    description:"",
 	    error_message:"",
       price: 0,
@@ -44,15 +44,6 @@ export default class AdForm extends Component {
         if (this.props.location && this.props.location.state && this.props.location.state.adId) {
             this.setState({id:this.props.location.state.adId})
         }
-  			this.setState({
-          price: 20,
-  				bookName: "جنایات و مکافات",
-  				authorName: "داستایوفسکی",
-  				image: "باید این رو درست کنم",
-  				description: "وضیحات",
-  				for_sale: true,
-          id: this.props.location.state? this.props.location.state.adId:0
-  			})
         axios.get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
           this.setState({price:res.data.price, bookName: res.data.title, authorName: res.data.bookAuthor, for_sale: (res.ad_type === "sale"? true: false), description: res.data.description, 
             image: (res.data.poster? res.data.poster: "")})
