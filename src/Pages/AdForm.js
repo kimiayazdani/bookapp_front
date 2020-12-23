@@ -124,18 +124,18 @@ export default class AdForm extends Component {
     };
 	handleSubmit = (e) => { 
 	  e.preventDefault(); 
-	  this.fileUpload(this.state.image).then(response => {
-      	console.log(response.data);
-    });
+	  // this.fileUpload(this.state.image).then(response => {
+    //   	console.log(response.data);
+    // });
     var url = "http://localhost:8000/api/v1/book-advertise/post/";
-    if (this.props.classIn === "newad") { url = url + this.state.id} 
+    if (this.props.classIn === "editad") { url = url + this.state.id} 
 	  axios 
 	      .post(url, { 
 	          bookName: this.state.bookName, 
 	          authorName: this.state.authorName,
-	          image: this.state.image,
+	          poster: this.state.image,
 	          description: this.state.description,
-	          for_sale: this.state.for_sale,
+	          ad_type: this.state.for_sale,
             price: this.state.price,
             title: this.state.title
 	      }, { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}) 
