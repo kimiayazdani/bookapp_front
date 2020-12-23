@@ -33,10 +33,7 @@ export default class AdDetails extends Component {
             this.setState({id:this.props.location.state.adId})           
         }
         else {(this.setState({redirect_ad:true})); return;} 
-        console.log(this.state.id)
-        console.log(this.props.location.state.adId)
-        this.setState({id:this.props.location.state.adId})
-        console.log(this.state.id)
+
         axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
           }).then((res) => {
@@ -48,9 +45,9 @@ export default class AdDetails extends Component {
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
-                this.setState({ title: res.title, author: res.book_author, image: res.poster?  res.poster: '',
-                description: res.description, sell: res.ad_type, price: res.price, user_name: res.author.username,
-                user_number: res.author.number, email: res.author.email})
+                this.setState({ title: res.data.title, author: res.data.book_author, image: res.data.poster?  res.data.poster: '',
+                description: res.data.description, sell: res.data.ad_type, price: res.data.price, user_name: res.data.author.username,
+                user_number: res.data.author.number, email: res.data.author.email})
             })
             .catch((err) => {
                 if (err.response && err.response.status === 408) {
