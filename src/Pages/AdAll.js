@@ -71,7 +71,7 @@ export default class AdAll extends Component {
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author__username,
                         image:res.data[i].poster? res.data[i].poster: '',
-                        description: res.data[i].description, sell: res.data[i].sell, price: (res.data[i].price? res.data[i].price: 0)
+                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
                     })
                 }
                 console.log(a)
