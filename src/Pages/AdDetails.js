@@ -49,7 +49,7 @@ export default class AdDetails extends Component {
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
-                this.setState({ title: res.data.title, author: res.data.book_author, image: res.data.poster?  res.data.poster: '',
+                this.setState({ title: res.data.title, author: res.data.authorName, image: res.data.poster?  res.data.poster: '',
                 description: res.data.description, sell: res.data.ad_type, price: res.data.price, user_name: res.data.author.username,
                 user_number: res.data.author.phone_number, email: res.data.author.email})
             })
@@ -186,6 +186,9 @@ export default class AdDetails extends Component {
                                     </div>
                                     <div className="ui segment" dir="rtl">
                                         <strong>شماره تماس: {this.state.user_number}</strong>
+                                    </div>
+                                    <div className="ui segment" dir="rtl">
+                                        <strong>نام نویسنده: {this.state.author}</strong>
                                     </div>
                                     <div className="ui segment" dir="rtl">
                                         <strong>ایمیل: {this.state.email}</strong>
