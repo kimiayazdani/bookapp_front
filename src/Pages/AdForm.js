@@ -33,6 +33,7 @@ export default class AdForm extends Component {
       redirect: false,
       redirectBack: false,
       redirectAcc: false,
+      title: '',
       id: 0,
   	};
 
@@ -135,7 +136,8 @@ export default class AdForm extends Component {
 	          image: this.state.image,
 	          description: this.state.description,
 	          for_sale: this.state.for_sale,
-            price: this.state.price
+            price: this.state.price,
+            title: this.state.title
 	      }, { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}) 
         .then((res) => { 
             if(this.props.classIn==="editad") {
@@ -190,6 +192,17 @@ export default class AdForm extends Component {
       	onChange= {this.fileChange}
       />
     </Form.Field>}
+    <Form.Field>
+
+      <label style={{textAlign:"right"}}>نام آگهی:</label>
+      <input
+        placeholder= "نام آگهی"
+        name="title"
+        value={this.state.title}
+        onChange= {this.handleInput}
+
+      />
+    </Form.Field>
     <Form.Field>
 
       <label style={{textAlign:"right"}}>نام کتاب:</label>
