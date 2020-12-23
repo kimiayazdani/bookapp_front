@@ -45,10 +45,12 @@ export default class AdForm extends Component {
             this.setState({id:this.props.location.state.adId})
         }
         axios.get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
-          this.setState({price:res.data.price, bookName: res.data.title, authorName: res.data.bookAuthor, for_sale: (res.ad_type === "sale"? true: false), description: res.data.description, 
+          this.setState({price:res.data.price, title: res.data.title, authorName: res.data.authorName, for_sale: (res.data.ad_type === "sale"? true: false), description: res.data.description, 
             image: (res.data.poster? res.data.poster: "")})
         }).catch((err)=>{});
-  		}
+      }
+      console.log(this.state.description)
+      console.log(this.state.title)
   	};
 
 
@@ -120,10 +122,11 @@ export default class AdForm extends Component {
     // });
     var url = "http://localhost:8000/api/v1/book-advertise/post/";
     if (this.props.classIn === "editad") { url = url + this.props.location.state.adId + '/'
+    console.log(this.state.image)
     axios 
         .patch(url, { 
             authorName: this.state.authorName,
-            poster: this.state.image,
+            poster: this.state.image == "" ? null : this.state.image,
             description: this.state.description,
             ad_type: (this.state.for_sale? 'sale': 'buy'),
             price: this.state.price,
