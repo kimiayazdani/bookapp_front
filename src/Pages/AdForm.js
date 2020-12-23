@@ -25,7 +25,7 @@ export default class AdForm extends Component {
 	state = {
 	    bookName:"",
 	    authorName:"",
-	    image: "/images/books.jpg",
+	    image: "",
 	    description:"",
 	    error_message:"",
       price: 0,
@@ -76,7 +76,7 @@ export default class AdForm extends Component {
 	        "Content-type": "multipart/form-data"
 	      }
 	    };
-	    return put(url, formData, config);
+	    // return put(url, formData, config);
   	};
 
   	handleToggle = (e) => {
@@ -126,8 +126,8 @@ export default class AdForm extends Component {
 	  this.fileUpload(this.state.image).then(response => {
       	console.log(response.data);
     });
-    var url = "" + this.state.id;
-    if (this.props.classIn === "editad") { url = ""} 
+    var url = "http://localhost:8000/api/v1/book-advertise/post/";
+    if (this.props.classIn === "newad") { url = url + this.state.id} 
 	  axios 
 	      .post(url, { 
 	          bookName: this.state.bookName, 
@@ -180,7 +180,7 @@ export default class AdForm extends Component {
            
             
     <Form onSubmit={this.handleSubmit} class="ui right">
-    <Form.Field>
+    {this.state.for_sale && <Form.Field>
       <label style={{textAlign:"right"}}>تصویر:</label>
       <Form.Input
         placeHolder= "تصویر"
@@ -189,7 +189,7 @@ export default class AdForm extends Component {
       	name="image"
       	onChange= {this.fileChange}
       />
-    </Form.Field>
+    </Form.Field>}
     <Form.Field>
 
       <label style={{textAlign:"right"}}>نام کتاب:</label>
