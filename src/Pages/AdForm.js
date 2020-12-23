@@ -234,17 +234,7 @@ export default class AdForm extends Component {
 
       />
     </Form.Field>
-    // <Form.Field>
-
-    //   <label style={{textAlign:"right"}}>نام کتاب:</label>
-    //   <input
-    //     placeholder= "نام کتاب"
-    //   	name="bookName"
-    //   	value={this.state.bookName}
-    //   	onChange= {this.handleInput}
-
-    //   />
-    // </Form.Field>
+    
     <Form.Field>
       <label style={{textAlign:"right"}}>نام نویسنده:</label>
       <input
