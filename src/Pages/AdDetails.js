@@ -23,6 +23,10 @@ export default class AdDetails extends Component {
         user_name: 'علی حیدری',
         user_number: '09121406265',
         email: 'yazdanikimia@gmail.com',
+        redirect_acc: false,
+        redirect_ad: false,
+        redirect_del:false,
+        redirect_edit: false,
 
         
 
@@ -53,7 +57,7 @@ export default class AdDetails extends Component {
                 if (err.response && (err.response.status === 401 || err.response.status == 403)) {
             	    this.setState({redirect_acc:true})
                 } else {
-                    this.setState({redirect_ad:true})
+                    // this.setState({redirect_ad:true})
                 }
             });
             console.log(this.state.redirect_acc)
