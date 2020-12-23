@@ -163,7 +163,7 @@ export default class AdDetails extends Component {
                             <div className="content" dir="rtl" style={{textAlign: "right"}}>
                                 <a className="ui large header"> {this.state.title}</a>
                                 <div className="meta" dir="rtl">
-                                    {this.state.sell == "sell" ? <div className="ui label">فروش</div> :
+                                    {this.state.sell == "sale" ? <div className="ui label">فروش</div> :
                                         <div className="ui label">خرید</div>}
                                     <a> {this.state.author} </a>
                                 </div>
