@@ -53,9 +53,9 @@ export default class AdForm extends Component {
   				for_sale: true,
           id: this.props.location.state? this.props.location.state.adId:0
   			})
-        axios.get("http://localhost:8000/api/v1/book-advertise/post/" + this.state.id, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
-          this.setState({price:res.price, bookName: res.title, authorName: res.bookAuthor, for_sale: (res.ad_type === "sell"? true: false), description: res.description, 
-            image: (res.poster? "default addr" + res.poster: "/images/default.jpg")})
+        axios.get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+          this.setState({price:res.data.price, bookName: res.data.title, authorName: res.data.bookAuthor, for_sale: (res.ad_type === "sale"? true: false), description: res.data.description, 
+            image: (res.data.poster? res.data.poster: "")})
         }).catch((err)=>{});
   		}
   	};
