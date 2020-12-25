@@ -84,8 +84,9 @@ export default class AccForm extends Component {
   
   	fileUpload = file => {
 	  	const url = "http://localhost:8000/api/v1/account/update/avatar/";
-	    const formData = new FormData();
-	    formData.append("file", file);
+      const formData = new FormData();
+      console.log(file)
+	    formData.append("avatar", file);
 
 	    const config = {
 	      headers: {
@@ -134,7 +135,6 @@ export default class AccForm extends Component {
 	  //this.fileUpload(this.state.image).then(response => {
       //	console.log(response.data);
    // });
-   this.fileUpload(this.state.image);
    console.log('hehh')
    console.log(this.state.image) 
    
@@ -165,6 +165,8 @@ export default class AccForm extends Component {
           this.setState({error_message:'اطالاعات داده شده مشکل دارد!'});
         }
         });
+        this.fileUpload(this.state.image);
+   
       }
     else {
 
