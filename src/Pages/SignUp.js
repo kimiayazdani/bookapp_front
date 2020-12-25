@@ -87,7 +87,6 @@ export default class AccForm extends Component {
       const formData = new FormData();
       console.log(file)
 	    formData.append("avatar", file);
-
 	    const config = {
 	      headers: {
           "Content-type": "multipart/form-data",
