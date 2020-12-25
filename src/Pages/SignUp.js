@@ -83,7 +83,7 @@ export default class AccForm extends Component {
 };
   
   	fileUpload = file => {
-	  	const url = "http://localhost:8000/api/asknima";
+	  	const url = "http://localhost:8000/api/v1/account/update/avatar/";
 	    const formData = new FormData();
 	    formData.append("file", file);
 
