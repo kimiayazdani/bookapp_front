@@ -71,9 +71,10 @@ export default class Profile extends Component {
     }
     componentDidMount = () => {
         axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
-            this.setState({user:res.data.username, email:res.data.email, image:(res.data.avatar? res.data.avatar: "/images/books.jpg"), namename: res.data.name,
+            this.setState({user:res.data.username, email:res.data.email, image:(res.data.avatar? res.data.avatar: ""), namename: res.data.name,
               bio: res.data.bio})
           }).catch((err) => {})
+        console.log(this.state.image)
          axios
             .get("http://localhost:8000/api/v1/book-advertise/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
@@ -138,7 +139,7 @@ export default class Profile extends Component {
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
-                                    <img src={`data:image/png;base64,${this.state.image}`} style={{width: 600 + 'px'}} />
+                                    {this.state.image? <img src={`data:image/png;base64,${this.state.image}`} style={{width: 600 + 'px'}} /> :<img src="/images/default.jpg" alt="Cinque Terre" width="600" height="400"/>}
                                 </div>
                                 <div className="content" style={{textAlign:"right"}}>
 
