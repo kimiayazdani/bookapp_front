@@ -92,7 +92,8 @@ export default class AccForm extends Component {
 	        "Content-type": "multipart/form-data"
 	      }
 	    };
-	    return put(url, formData, config);
+	    return put(url, formData, config)then(response => {
+       console.log(response.data).catch((err) => {});
   	};
 
   	handleToggle = (e) => {
@@ -132,6 +133,7 @@ export default class AccForm extends Component {
 	  //this.fileUpload(this.state.image).then(response => {
       //	console.log(response.data);
    // });
+   this.fileUpload(this.state.image);
    console.log('hehh')
    console.log(this.state.image) 
    
