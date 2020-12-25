@@ -50,7 +50,7 @@ export default class SideMenu extends Component {
                 {this.state.logged_in === "t"? <a onClick={this.handle_logout.bind(this)} class="item"> خروج از اکانت </a>:''}
                 {this.state.logged_in === "f"? <a href="/acc/" class={"login"===this.props.classIn?"active item":"item"}> ورود به اکانت</a>:''}
                 {this.state.logged_in === "f"? <a href="/acc/register" class={"regacc"===this.props.classIn?"active item":"item"}> ساخت اکانت</a>:''}
-                {this.state.logged_in === "f"? <a href="/acc/prof" class={"accprof"===this.props.classIn?"active item":"item"}> مشاهده‌ پروفایل</a>:''}
+                {this.state.logged_in === "t"? <a href="/acc/prof" class={"accprof"===this.props.classIn?"active item":"item"}> مشاهده‌ پروفایل</a>:''}
 
             </div>
         </div>

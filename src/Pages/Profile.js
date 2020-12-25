@@ -138,7 +138,7 @@ export default class Profile extends Component {
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
-                                    <img src={ad.image} alt="Cinque Terre" width="600" height="400"/>
+                                    <img src={`data:image/png;base64,${this.state.image}`} style={{width: 600 + 'px'}} />
                                 </div>
                                 <div className="content" style={{textAlign:"right"}}>
 
@@ -185,3 +185,5 @@ export default class Profile extends Component {
  //    description='Elliot is a sound engineer living in Nashville who enjoys playing guitar and hanging with his cat.'
  //    extra={extra}
  //  />
+
+ // <img src={ad.image} alt="Cinque Terre" width="600" height="400"/>

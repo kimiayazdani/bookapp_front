@@ -143,7 +143,7 @@ export default class AccForm extends Component {
       // Update the formData object 
     
     axios 
-        .put("http://localhost:8000/api/v1/account/update/",{ 
+        .patch("http://localhost:8000/api/v1/account/update/",{ 
             username: this.state.user, 
             password: this.state.pass, 
             phone_number: this.state.number,
