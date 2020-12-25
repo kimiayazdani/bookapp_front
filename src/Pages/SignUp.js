@@ -89,11 +89,12 @@ export default class AccForm extends Component {
 
 	    const config = {
 	      headers: {
-	        "Content-type": "multipart/form-data"
+          "Content-type": "multipart/form-data",
+          'Authorization': 'Bearer  ' + localStorage.getItem('token')
 	      }
 	    };
-	    return put(url, formData, config)then(response => {
-       console.log(response.data).catch((err) => {});
+	    axios.patch(url, formData, config).then(response => {
+       console.log(response.data)}).catch((err) => {});
   	};
 
   	handleToggle = (e) => {
@@ -164,10 +165,7 @@ export default class AccForm extends Component {
           this.setState({error_message:'اطالاعات داده شده مشکل دارد!'});
         }
         });
-        axios.post("http://localhost:8000/api/v1/account/updateimage/", form_data, {headers: {
-        'content-type': 'multipart/form-data'
-      }}).then((res)=>{console.log(res.data)}).catch((err)=>{})
-    }
+      }
     else {
 
 	  axios 
