@@ -46,7 +46,7 @@ export default class AdVer extends Component {
 
     redirectHandler = (val) => {
          axios
-            .patch("http://localhost:8000/api/v1/book-advertise/approve/" + val.target.name, {status:"approved"},{ headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .patch("http://localhost:8000/api/v1/book-advertise/approve/" + val.target.name + "/", {status:"approved"},{ headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                this.setState({
             redirect: true,
@@ -68,7 +68,7 @@ export default class AdVer extends Component {
     handleDelete = (e) => {
         e.preventDefault(); 
         axios
-            .patch("http://localhost:8000/api/v1/book-advertise/approve/" + e.target.name, {status:"disapproved"}, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .patch("http://localhost:8000/api/v1/book-advertise/approve/" + e.target.name + "/", {status:"disapproved"}, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                this.setState({
             redirect: true,
