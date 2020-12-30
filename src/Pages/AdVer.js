@@ -140,7 +140,7 @@ export default class AdVer extends Component {
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
-                                    <img src={ad.image} alt="Cinque Terre" width="600" height="400"/>
+                                    {ad.image? <img src={`data:image/png;base64,${ad.image}`} style={{width: 600 + 'px'}}/> :<img src="/images/default.jpg" alt="Can't reload" width="600" height="400"/>}
                                 </div>
                                 <div className="content" style={{textAlign:"right"}}>
 
