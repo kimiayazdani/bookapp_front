@@ -109,7 +109,7 @@ export default class AdVer extends Component {
 
     componentDidMount = () => {
          axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
-            if(res.data.is_staff) {} else {this.setState(redirectall:true)}
+            if(res.data.is_staff) {} else {this.setState({redirectall:true})}
           }).catch((err) => {})
 
         axios
