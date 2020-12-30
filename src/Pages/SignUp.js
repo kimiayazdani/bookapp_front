@@ -251,7 +251,7 @@ export default class AccForm extends Component {
         onChange= {this.handleInput}
       />
     </Form.Field>}
-     <Form.Field>
+     {this.props.classIn === "newacc" && <Form.Field>
 
 
       <label style={{textAlign:"right"}}>ایمیل:</label>
@@ -262,7 +262,7 @@ export default class AccForm extends Component {
         onChange= {this.handleInput}
 
       />
-      </Form.Field> 
+      </Form.Field> }
        <Form.Field>
 
       <label style={{textAlign:"right"}}>شماره‌ی همراه:</label>

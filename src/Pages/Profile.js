@@ -136,10 +136,10 @@ export default class Profile extends Component {
             </Card.Content>
             </Card>
   
-                        {this.state.lists.map((ad) => (
+                       {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
-                                    {this.state.image? <img src={`data:image/png;base64,${this.state.image}`} style={{width: 600 + 'px'}} /> :<img src="/images/default.jpg" alt="Cinque Terre" width="600" height="400"/>}
+                                    {ad.image? <img src={`data:image/png;base64,${ad.image}`} style={{width: 600 + 'px'}}/> :<img src="/images/default.jpg" alt="Can't reload" width="600" height="400"/>}
                                 </div>
                                 <div className="content" style={{textAlign:"right"}}>
 
@@ -151,8 +151,8 @@ export default class Profile extends Component {
 
                                     <div className="description">{ad.description}</div>
                                     <br />
-                                    <div className="ui label">{ad.sell === 'sell'? 'فروش': 'خرید'}</div>
-                                    {ad.sell === 'sell' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
+                                    <div className="ui label">{ad.sell === 'sale'? 'فروش': 'خرید'}</div>
+                                    {ad.sell === 'sale' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
                                     <div className="extra">
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
                                            className="ui right floated primary button">
