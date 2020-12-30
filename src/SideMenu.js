@@ -25,12 +25,13 @@ export default class SideMenu extends Component {
           }).then((res) => {
         localStorage.setItem('token', res.data.access);
           this.setState({logged_in: "t"});
-          if (res.is_staff){
-            this.setState({is_staff:"t"})
-          }
       }).catch((err) => {
 
 		  });
+
+      axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({is_staff: res.data.is_staff? "t": "f"})
+          }).catch((err) => {})
     }
 
 	render() {

@@ -40,6 +40,7 @@ export default class AdVer extends Component {
         redirect: false,
         topass: 1,
         redirectall: false,
+        is_staff: "f"
 
     };
 
@@ -107,6 +108,10 @@ export default class AdVer extends Component {
     }
 
     componentDidMount = () => {
+         axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            if(res.data.is_staff) {} else {this.setState(redirectall:true)}
+          }).catch((err) => {})
+
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
