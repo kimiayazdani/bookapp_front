@@ -63,6 +63,29 @@ export default class AdVer extends Component {
     	});
     };
 
+
+    handleDelete = (e) => {
+        e.preventDefault(); 
+        var url = "http://localhost:8000/api/v1/book-advertise/post/" + e.target.name + '/';
+
+
+        axios.delete(url
+             , { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}
+          ).then((res) => { 
+              this.setState({ 
+                  redirect: true
+              }); 
+
+        }).catch((err) => {
+            
+                if (err.response && err.response.status === 401) {
+                   this.setState({redirectAcc:true, error_message: err.response.data.message})
+                } else {
+                    this.setState({redirectBack:true})
+                }
+        })
+    };
+
     renderRedirect = (e) => {
     	if (this.state.redirect) {
     	    return (
@@ -141,6 +164,11 @@ export default class AdVer extends Component {
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
                                            className="ui right floated primary button">
                                             تایید آگهی
+                                            <i className="right chevron icon"></i>
+                                       </Button>
+                                       <Button target="_blank" name={ad.id} onClick={this.handleDelete.bind(this)}
+                                           className="ui right floated secondary button">
+                                            رد آگهی
                                             <i className="right chevron icon"></i>
                                        </Button>
                                         
