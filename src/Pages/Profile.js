@@ -30,7 +30,7 @@ export default class Profile extends Component {
             id: 1,
             title: "طراحی الگوریتم",
             author: ["ریچارد نیپولیتان"],
-            image: "/images/default.jpg",
+            image: "",
             description: "قیمت بسیار ارزان - ویرایش چهارم",
             sell: "buy",
             price: 0
@@ -40,7 +40,7 @@ export default class Profile extends Component {
                 id: 2,
                 title: "هالیدی۱ ",
                 author: "دکتر محمد ابراهیم ابوکاظمی",
-                image: "/images/default.jpg",
+                image: "",
                 description: "کتاب هالیدی ۱ مخصوص درس فیزیک ۱ ویرایش هشتم قیمت مناسب بسیار تمیز",
                 sell: "sell",
                 price: 24000,
@@ -124,7 +124,7 @@ export default class Profile extends Component {
             <Card.Content dir='rtl'>
             <Feed dir='rtl'>
             <Feed.Event>
-              <Feed.Label image={this.state.image} />
+              <Feed.Label image={`data:image/png;base64,${this.state.image}`} />
               <Feed.Content>
                 <Feed.Date content={this.state.namename} />
                 <Feed.Summary>
