@@ -22,7 +22,7 @@ export default class AdVer extends Component {
             id: 1,
             title: "طراحی الگوریتم",
             author: ["ریچارد نیپولیتان"],
-            image: "/images/default.jpg",
+            image: "",
             description: "قیمت بسیار ارزان - ویرایش چهارم",
             sell: "buy",
             price: 0
@@ -32,7 +32,7 @@ export default class AdVer extends Component {
                 id: 2,
                 title: "هالیدی۱ ",
                 author: "دکتر محمد ابراهیم ابوکاظمی",
-                image: "/images/default.jpg",
+                image: "",
                 description: "کتاب هالیدی ۱ مخصوص درس فیزیک ۱ ویرایش هشتم قیمت مناسب بسیار تمیز",
                 sell: "sell",
                 price: 24000,
@@ -62,6 +62,7 @@ export default class AdVer extends Component {
     		redirect: true,
     		topass: val.target.name
     	});
+        this.renderRedirect()
     };
 
 
@@ -74,9 +75,11 @@ export default class AdVer extends Component {
             redirect: true,
             topass: e.target.name
         })}).catch((err)=>{});
+
+        this.renderRedirect()
     };
 
-    renderRedirect = (e) => {
+    renderRedirect = () => {
     	if (this.state.redirect) {
     	    return (
     		<Redirect to={{
@@ -174,7 +177,7 @@ export default class AdVer extends Component {
 
                         ))}
                     </div>
-                    {this.renderRedirect()}
+                    {this.renderRedirect.bind(this)}
                 </div>
 
 

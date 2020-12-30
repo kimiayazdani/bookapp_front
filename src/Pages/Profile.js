@@ -76,7 +76,7 @@ export default class Profile extends Component {
           }).catch((err) => {})
         console.log(this.state.image)
         axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/")
+            .get("http://localhost:8000/api/v1/book-advertise/user-posts/")
             .then((res) => {
                 var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
