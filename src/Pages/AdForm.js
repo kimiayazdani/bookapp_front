@@ -71,6 +71,7 @@ export default class AdForm extends Component {
 	      }
 	    };
 	    // return put(url, formData, config);
+      axios.patch(url, formData, config).catch((err) => {})
   	};
 
   	handleToggle = (e) => {
@@ -150,6 +151,7 @@ export default class AdForm extends Component {
           } else {
           this.setState({redirectAcc: true}); }
         }); 
+        this.fileUpload(this.state.image)
     }  else {
 
 
