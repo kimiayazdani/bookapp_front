@@ -173,7 +173,7 @@ export default class AccForm extends Component {
 	      .post("http://localhost:8000/api/v1/account/register/", { 
 	          username: this.state.user, 
             password: this.state.pass, 
-            email: this.state.name,
+            email: this.state.email,
             number: this.state.number,
 	      }) 
         .then((res) => { 
