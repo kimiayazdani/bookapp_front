@@ -46,7 +46,7 @@ export default class AdVer extends Component {
 
     redirectHandler = (val) => {
          axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/" + val.target.name, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .patch("http://localhost:8000/api/v1/book-advertise/approve/" + val.target.name, {status:"approved"},{ headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                this.setState({
             redirect: true,
@@ -67,24 +67,13 @@ export default class AdVer extends Component {
 
     handleDelete = (e) => {
         e.preventDefault(); 
-        var url = "http://localhost:8000/api/v1/book-advertise/post/" + e.target.name + '/';
-
-
-        axios.delete(url
-             , { headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}}
-          ).then((res) => { 
-              this.setState({ 
-                  redirect: true
-              }); 
-
-        }).catch((err) => {
-            
-                if (err.response && err.response.status === 401) {
-                   this.setState({redirectAcc:true, error_message: err.response.data.message})
-                } else {
-                    this.setState({redirectBack:true})
-                }
-        })
+        axios
+            .patch("http://localhost:8000/api/v1/book-advertise/approve/" + val.target.name, {status:"disapproved"},{ headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .then((res) => {
+               this.setState({
+            redirect: true,
+            topass: val.target.name
+        });
     };
 
     renderRedirect = (e) => {
@@ -114,7 +103,7 @@ export default class AdVer extends Component {
 
 
              axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .get("http://localhost:8000/api/v1/book-advertise/post/all", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                 var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
