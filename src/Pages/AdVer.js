@@ -118,7 +118,7 @@ export default class AdVer extends Component {
                 var a = this.state.list
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].author__username,
-                        image:res.data[i].image? ("default addr" + res.data[i].poster): "/images/default.jpg",
+                        image:res.data[i].image? (res.data[i].poster): "",
                         description: res.data[i].description, sell: res.data[i].sell, price: (res.data[i].price? res.data[i].price: 0)
                     })
                 }
