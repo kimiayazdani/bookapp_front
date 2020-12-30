@@ -103,7 +103,7 @@ export default class AdVer extends Component {
 
 
              axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/all", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .get("http://localhost:8000/api/v1/book-advertise/all", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                 var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
