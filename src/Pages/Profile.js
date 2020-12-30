@@ -82,7 +82,7 @@ export default class Profile extends Component {
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
                         image:res.data[i].poster? res.data[i].poster: '',
-                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
+                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0), status: res.data[i].status
                     })
                 }
                 console.log(a)
@@ -152,6 +152,7 @@ export default class Profile extends Component {
                                     <div className="description">{ad.description}</div>
                                     <br />
                                     <div className="ui label">{ad.sell === 'sale'? 'فروش': 'خرید'}</div>
+                                    <div className="ui label">{ad.status === 'approved'? 'تایید شده': (ad.status === "pending" ? 'در حال بررسی': 'رد شده')}</div>
                                     {ad.sell === 'sale' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
                                     <div className="extra">
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
