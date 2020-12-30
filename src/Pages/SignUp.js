@@ -175,7 +175,6 @@ export default class AccForm extends Component {
             password: this.state.pass, 
             email: this.state.name,
             number: this.state.number,
-            image: this.state.image
 	      }) 
         .then((res) => { 
               
