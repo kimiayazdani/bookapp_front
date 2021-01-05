@@ -72,6 +72,10 @@ export default class AdDetails extends Component {
             if(this.state.user_logged_in === this.state.user_name) {
                 this.setState({is_staff:true})
             }
+
+            if(this.state.user_logged_in === "") {
+                this.setState({user_number:'تنها به اعضا نشان داده‌می‌شود.'})
+            }
             console.log(this.state.redirect_acc)
     };
 
