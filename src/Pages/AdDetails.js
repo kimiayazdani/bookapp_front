@@ -28,6 +28,9 @@ export default class AdDetails extends Component {
         redirect_del:false,
         redirect_edit: false,
 
+        user_logged_in: '',
+        is_staff: false
+
         
 
     };
@@ -46,6 +49,10 @@ export default class AdDetails extends Component {
             this.setState({redirect_acc:true})
             return;
           });
+
+         axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({user_logged_in:res.data.username, is_staff: res.data.is_staff})
+          }).catch((err) => {})
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
             .then((res) => {
@@ -61,6 +68,10 @@ export default class AdDetails extends Component {
                     this.setState({redirect_ad:true})
                 }
             });
+
+            if(this.state.user_logged_in === this.state.user_name) {
+                this.setState({is_staff:true})
+            }
             console.log(this.state.redirect_acc)
     };
 
@@ -211,7 +222,7 @@ export default class AdDetails extends Component {
 
                     <div className="ui divider"/>
                     {/* action buttons */}
-                    <div className="spaced" dir="rtl">
+                    {this.state.is_staff && <div className="spaced" dir="rtl">
                         <button className="green ui button" onClick={this.edit_ad.bind(this)}>
                             ویرایش
                         </button>
@@ -219,7 +230,7 @@ export default class AdDetails extends Component {
                             حذف
                         </button>
 
-                    </div>
+                    </div>}
                     {this.renderRedirectBack()}
                 </div>
 
