@@ -10,6 +10,9 @@ import SignIn from "./Pages/SignIn"
 import AccForm from "./Pages/SignUp"
 import AdVer from "./Pages/AdVer"
 import Profile from "./Pages/Profile"
+import ProfileElse from "./Pages/Profile_else"
+import ChatUsers from "./Pages/ChatUsers"
+import ChatPage from "./Pages/ChatPage"
 
 class Routes extends Component {
     render() {
@@ -50,7 +53,15 @@ class Routes extends Component {
                         <Profile {...this.props} {...props} />
                       )}/>
                     <Route path="/acc/profi/:accId" exact render={(props) => (
-                        <Profile {...this.props} {...props} accId={props.match.params.accId}/>
+                        <ProfileElse {...this.props} {...props} accId={props.match.params.accId}/>
+                      )}/>
+
+                    <Route path="/acc/chats" exact render={(props) => (
+                        <ChatUsers {...this.props} {...props} />
+                      )}/>
+
+                    <Route path="/chatroom" exact render={(props) => (
+                        <ChatPage {...this.props} {...props} />
                       )}/>
                    </Switch>
             </Router>

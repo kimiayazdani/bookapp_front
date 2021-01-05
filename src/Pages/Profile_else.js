@@ -24,8 +24,8 @@ export default class ProfileElse extends Component {
         email:"yazdanikimia@gmail.com",
         image:"/images/avatar.jpeg",
         namename: 'کیمیا یزدانی',
-        username: 'kimyazdani',
-        bio: 'شیبشسی شسب تنمت شسی.',
+        username: 'kimyazdani' + this.props.accId,
+        bio: 'کتاب خیلی خوب است.',
         lists: [{
             id: 1,
             title: "طراحی الگوریتم",
@@ -47,6 +47,8 @@ export default class ProfileElse extends Component {
             }],
         redirect: false,
         topass: 1,
+        logged_in: false,
+        redirectchat: false,
 
     };
 
@@ -58,16 +60,23 @@ export default class ProfileElse extends Component {
     };
 
     renderRedirect = (e) => {
-    	// if (this.state.redirect) {
-    	//     return (
-    	// 	<Redirect to={{
-					// 					  pathname: '/ad/detail',
-					// 					  state: {
-					// 					    adId: this.state.topass
-					// 					  }
-					// 					}} />
-    	// 	)
-    	// }
+    	if (this.state.redirect) {
+    	    return (
+    		<Redirect to={{
+										  pathname: '/ad/detail',
+										  state: {
+										    adId: this.state.topass
+										  }
+										}} />
+    		)
+    	}
+        if (this.state.redirectchat) {
+            
+        }
+    }
+
+    redirectChat = (val) => {
+        this.setState({redirectchat:true})
     }
     componentDidMount = () => {
         axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
@@ -93,6 +102,16 @@ export default class ProfileElse extends Component {
             .catch((err) => {
                 
             });
+
+                axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+            localStorage.setItem('token', res.data.access);
+            this.setState({logged_in:true});
+          }).catch((err) => {
+
+
+          });
     };
     render() {
         const extra = (
@@ -117,9 +136,10 @@ export default class ProfileElse extends Component {
                 <div className="ui container" dir="ltr">
                     <div className="ui relaxed divided items">
                     
-            <Card fluid color='red'>
+            <Card fluid color='green'>
             <Card.Content>
-                <Card.Header>{this.state.username}</Card.Header>
+                <Card.Header>{this.state.logged_in && <Button secondary onClick={this.redirectChat.bind(this)}>مکالمه‌ی خصوصی</Button>}{this.state.username} </Card.Header>
+
             </Card.Content>
             <Card.Content dir='rtl'>
             <Feed dir='rtl'>
@@ -127,19 +147,26 @@ export default class ProfileElse extends Component {
               <Feed.Label image={`data:image/png;base64,${this.state.image}`} />
               <Feed.Content>
                 <Feed.Date content={this.state.namename} />
+
                 <Feed.Summary>
                   {this.state.bio}
+
                 </Feed.Summary>
               </Feed.Content>
             </Feed.Event>
             </Feed>
             </Card.Content>
+            
+
             </Card>
+
+            
   
                        {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
                                     {ad.image? <img src={`data:image/png;base64,${ad.image}`} style={{width: 600 + 'px'}}/> :<img src="/images/default.jpg" alt="Can't reload" width="600" height="400"/>}
+                                    
                                 </div>
                                 <div className="content" style={{textAlign:"right"}}>
 

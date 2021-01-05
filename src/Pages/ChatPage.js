@@ -12,33 +12,31 @@ import {
   Header,
   Message,
   Segment,
-  Checkbox
+  Checkbox,
+  Card,
+  Icon,
+  Feed
 } from "semantic-ui-react";
 
 
-export default class AdAll extends Component {
+export default class ChatPage extends Component {
     state = {
-         lists: [
-             {
-            id: 1,
-            title: "طراحی الگوریتم",
-            author: ["ریچارد نیپولیتان"],
-            image: "",
-            description: "قیمت بسیار ارزان - ویرایش چهارم",
-            sell: "buy",
-            price: 0
-
+        lists: [ 
+        {
+            id: 2,
+            corr: this.props.location.state.accId,
+            lastpm: "نیما نیما بیا اینتگریت کنیم.",
+            lastdate: "10/23/1999 12:03",
+            profile: ""
         },
-            {
-                id: 2,
-                title: "هالیدی۱ ",
-                author: "دکتر محمد ابراهیم ابوکاظمی",
-                image: "",
-                description: "کتاب هالیدی ۱ مخصوص درس فیزیک ۱ ویرایش هشتم قیمت مناسب بسیار تمیز",
-                sell: "sell",
-                price: 24000,
-            }
-    ],
+        {
+            id: 3,
+            corr: "پارسا",
+            lastpm: "لاعات زیست‌شناسی، از ترکیب علوم کامپیوتر، آمار، ریاضی و مهندسی استفاده می‌کند. به عبارتی دیگر از بیوانفورماتیک برای تجزیه و تحلیل درون کامپیوتریِ مسائل زیست‌شناسی با استفاده از تکنیک‌های ریاضی و آمار استفاده می‌شود.",
+            lastdate: "04/11/2020 12:00",
+            profile: ""
+        }
+        ],
         redirect: false,
         topass: 1,
         logged_in: false
@@ -46,9 +44,10 @@ export default class AdAll extends Component {
     };
 
     redirectHandler = (val) => {
+        console.log(val)
     	this.setState({
     		redirect: true,
-    		topass: val.target.name
+    		topass: val
     	});
     };
 
@@ -95,6 +94,7 @@ export default class AdAll extends Component {
           });
     };
     render() {
+
         return (
             <div className="App">
                 <SideMenu classIn={"allads"} />
@@ -110,37 +110,33 @@ export default class AdAll extends Component {
                 <br/>
                 <div className="ui container" dir="ltr">
                     <div className="ui relaxed divided items">
-                        {this.state.lists.map((ad) => (
-                            <div key={{ad}} className="item">
-                                <div className="ui small image">
-                                    {ad.image? <img src={`data:image/png;base64,${ad.image}`} style={{width: 600 + 'px'}}/> :<img src="/images/default.jpg" alt="Can't reload" width="600" height="400"/>}
-                                </div>
-                                <div className="content" style={{textAlign:"right"}}>
+                        
 
-                                    <a target="_blank" href="/ads/" className="header" dir="rtl" >{ad.title}</a>
+                        {this.state.lists.map((chat) => (
+                    <Card fluid color="orange" key={{chat}} name={chat.id} link onClick={this.redirectHandler.bind(this, chat.id)}>
+                            <Card.Content>
+                            <Card.Header>{chat.corr} </Card.Header>
+                            </Card.Content>
 
-                                    <div className="meta">
-                                        <a>{ad.author}</a>
-                                    </div>
+                            <Card.Content dir='rtl'>
 
-                                    <div className="description">{ad.description}</div>
-                                    <br />
-                                    <div className="ui label">{ad.sell === 'sale'? 'فروش': 'خرید'}</div>
-                                    {ad.sell === 'sale' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
-                                    {this.state.logged_in && <div className="extra">
-                                     <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}
-                                           className="ui right floated primary button">
-                                            اطلاعات بیشتر
-                                            <i className="right chevron icon"></i>
-                                       </Button>
-                                        
+            <Feed>
+            <Feed.Event>
+              {chat.profile? <Feed.Label image={`data:image/png;base64,${chat.profile}`} />: <Feed.Label image="/images/default.jpg" />}
+              <Feed.Content>
+                <Feed.Date content={chat.lastdate} />
 
-                                    </div>}
-                                </div>
-                            </div>
+                <Feed.Summary>
+                  {chat.lastpm}
 
-
-                        ))}
+                </Feed.Summary>
+              </Feed.Content>
+            </Feed.Event>
+            </Feed>
+            </Card.Content>
+            
+                            </Card>
+                            ))}
                     </div>
                     {this.renderRedirect()}
                 </div>
@@ -149,6 +145,8 @@ export default class AdAll extends Component {
                 <div className="clearfix"></div>
 
             </div>
+
         )
-    }
+    } 
+    
 }
