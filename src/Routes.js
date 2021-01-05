@@ -49,6 +49,9 @@ class Routes extends Component {
                     <Route path="/acc/prof" exact render={(props) => (
                         <Profile {...this.props} {...props} />
                       )}/>
+                    <Route path="/acc/profi/:accId" exact render={(props) => (
+                        <Profile {...this.props} {...props} accId={props.match.params.accId}/>
+                      )}/>
                    </Switch>
             </Router>
 

@@ -27,6 +27,7 @@ export default class AdDetails extends Component {
         redirect_ad: false,
         redirect_del:false,
         redirect_edit: false,
+        user_id: 0,
 
         user_logged_in: '',
         is_staff: false
@@ -58,7 +59,7 @@ export default class AdDetails extends Component {
             .then((res) => {
                 this.setState({ title: res.data.title, author: res.data.authorName, image: res.data.poster?  res.data.poster: '',
                 description: res.data.description, sell: res.data.ad_type, price: res.data.price, user_name: res.data.author.username,
-                user_number: res.data.author.phone_number, email: res.data.author.email})
+                user_number: res.data.author.phone_number, email: res.data.author.email, user_id: res.data.author.id})
             })
             .catch((err) => {
                 if (err.response && (err.response.status === 401 || err.response.status == 403)) {
@@ -77,7 +78,9 @@ export default class AdDetails extends Component {
                 this.setState({user_number:'تنها به اعضا نشان داده‌می‌شود.'})
             }
             console.log(this.state.redirect_acc)
+
     };
+
 
 
 
@@ -107,6 +110,7 @@ export default class AdDetails extends Component {
 
 
     renderRedirectBack = (e) => {
+
         if (this.state.redirect) {
         	console.log("redirecting")
             return (
@@ -179,9 +183,11 @@ export default class AdDetails extends Component {
                             <div className="content" dir="rtl" style={{textAlign: "right"}}>
                                 <a className="ui large header"> {this.state.title}</a>
                                 <div className="meta" dir="rtl">
+                                
                                     {this.state.sell == "sale" ? <div className="ui label">فروش</div> :
                                         <div className="ui label">خرید</div>}
                                     <a> {this.state.author} </a>
+
                                 </div>
                             </div>
                         </div>
@@ -198,6 +204,9 @@ export default class AdDetails extends Component {
                                 <div className="ui segments" style={{textAlign: "right"}}>
                                     <div className="ui segment" dir="rtl">
                                         <strong>آگهی‌دهنده: {this.state.user_name}</strong>
+                                        <button className=" ui secondary button">
+                           <a href={"/acc/profi/"+this.state.user_id}>مشاهده‌ی پروفایل</a>
+                        </button>
                                     </div>
                                     <div className="ui segment" dir="rtl">
                                         <strong>شماره تماس: {this.state.user_number}</strong>
