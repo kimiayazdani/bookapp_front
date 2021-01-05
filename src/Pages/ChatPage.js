@@ -4,13 +4,13 @@ import SideMenu from './../SideMenu';
 import { Redirect } from 'react-router';
 // import './AddAll.css'
 import 'semantic-ui-css/semantic.min.css';
+import './ChatPage.css'
 
 import {
   Button,
   Form,
   Grid,
   Header,
-  Message,
   Segment,
   Checkbox,
   Card,
@@ -24,17 +24,22 @@ export default class ChatPage extends Component {
         lists: [ 
         {
             id: 2,
-            corr: this.props.location.state.accId,
-            lastpm: "نیما نیما بیا اینتگریت کنیم.",
+        from: "ss",
+            txt: "نیما نیما بیا اینتگریت کنیم.",
             lastdate: "10/23/1999 12:03",
             profile: ""
         },
         {
             id: 3,
-            corr: "پارسا",
-            lastpm: "لاعات زیست‌شناسی، از ترکیب علوم کامپیوتر، آمار، ریاضی و مهندسی استفاده می‌کند. به عبارتی دیگر از بیوانفورماتیک برای تجزیه و تحلیل درون کامپیوتریِ مسائل زیست‌شناسی با استفاده از تکنیک‌های ریاضی و آمار استفاده می‌شود.",
+            from: "پارسا",
+            txt: "لاعات زیست‌شناسی، از ترکیب علوم کامپیوتر، آمار، ریاضی و مهندسی استفاده می‌کند. به عبارتی دیگر از بیوانفورماتیک برای تجزیه و تحلیل درون کامپیوتریِ مسائل زیست‌شناسی با استفاده از تکنیک‌های ریاضی و آمار استفاده می‌شود.",
             lastdate: "04/11/2020 12:00",
             profile: ""
+        },
+        {
+            from: "kim",
+            txt: "سلام چهطوری کجایی؟",
+            time: "14"
         }
         ],
         redirect: false,
@@ -110,33 +115,14 @@ export default class ChatPage extends Component {
                 <br/>
                 <div className="ui container" dir="ltr">
                     <div className="ui relaxed divided items">
-                        
 
-                        {this.state.lists.map((chat) => (
-                    <Card fluid color="orange" key={{chat}} name={chat.id} link onClick={this.redirectHandler.bind(this, chat.id)}>
-                            <Card.Content>
-                            <Card.Header>{chat.corr} </Card.Header>
-                            </Card.Content>
+                        {this.state.lists.map((message) => (
+                    
+                                        <li className={"chatMessage"} key={message.from}>
+                    <strong>{message.from}</strong><br />
+                    <label>{message.txt}</label>
+                </li>))}
 
-                            <Card.Content dir='rtl'>
-
-            <Feed>
-            <Feed.Event>
-              {chat.profile? <Feed.Label image={`data:image/png;base64,${chat.profile}`} />: <Feed.Label image="/images/default.jpg" />}
-              <Feed.Content>
-                <Feed.Date content={chat.lastdate} />
-
-                <Feed.Summary>
-                  {chat.lastpm}
-
-                </Feed.Summary>
-              </Feed.Content>
-            </Feed.Event>
-            </Feed>
-            </Card.Content>
-            
-                            </Card>
-                            ))}
                     </div>
                     {this.renderRedirect()}
                 </div>

@@ -24,7 +24,7 @@ export default class ProfileElse extends Component {
         email:"yazdanikimia@gmail.com",
         image:"/images/avatar.jpeg",
         namename: 'کیمیا یزدانی',
-        username: 'kimyazdani' + this.props.accId,
+        username: this.props.accId,
         bio: 'کتاب خیلی خوب است.',
         lists: [{
             id: 1,
@@ -71,7 +71,7 @@ export default class ProfileElse extends Component {
     		)
     	}
         if (this.state.redirectchat) {
-            
+
         }
     }
 

@@ -205,7 +205,7 @@ export default class AdDetails extends Component {
                                     <div className="ui segment" dir="rtl">
                                         <strong>آگهی‌دهنده: {this.state.user_name}</strong>
                                         <button className=" ui secondary button">
-                           <a href={"/acc/profi/"+this.state.user_id}>مشاهده‌ی پروفایل</a>
+                           <a href={"/acc/profi/"+this.state.user_name}>مشاهده‌ی پروفایل</a>
                         </button>
                                     </div>
                                     <div className="ui segment" dir="rtl">
