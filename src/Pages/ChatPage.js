@@ -4,18 +4,20 @@ import SideMenu from './../SideMenu';
 import { Redirect } from 'react-router';
 // import './AddAll.css'
 import 'semantic-ui-css/semantic.min.css';
-import './ChatPage.css'
 
 import {
   Button,
   Form,
   Grid,
   Header,
+  Message,
   Segment,
   Checkbox,
-  Card,
+  Step,
   Icon,
-  Feed
+  Image,
+  Divider,
+
 } from "semantic-ui-react";
 
 
@@ -26,47 +28,56 @@ export default class ChatPage extends Component {
             id: 2,
         from: "ss",
             txt: "نیما نیما بیا اینتگریت کنیم.",
-            lastdate: "10/23/1999 12:03",
-            profile: ""
+            time: "10/23/1999 12:03",
+            profile: "",
+            owned: true,
         },
         {
             id: 3,
             from: "پارسا",
             txt: "لاعات زیست‌شناسی، از ترکیب علوم کامپیوتر، آمار، ریاضی و مهندسی استفاده می‌کند. به عبارتی دیگر از بیوانفورماتیک برای تجزیه و تحلیل درون کامپیوتریِ مسائل زیست‌شناسی با استفاده از تکنیک‌های ریاضی و آمار استفاده می‌شود.",
-            lastdate: "04/11/2020 12:00",
-            profile: ""
+            time: "04/11/2020 12:00",
+            profile: "",
+            owned: true,
         },
         {
             from: "kim",
             txt: "سلام چهطوری کجایی؟",
-            time: "14"
+            time: "14",
+            owned: false,
+        },
+        {
+            from: "kim",
+            txt: "سلام چهطوری کجایی؟",
+            time: "14",
+            owned: true,
         }
         ],
         redirect: false,
         topass: 1,
-        logged_in: false
+        logged_in: false,
+        last_update: "04/11/2020 12:00"
 
     };
 
     redirectHandler = (val) => {
-        console.log(val)
-    	this.setState({
-    		redirect: true,
-    		topass: val
-    	});
+        this.setState({
+            redirect: true,
+            topass: val.target.name
+        });
     };
 
     renderRedirect = (e) => {
-    	if (this.state.redirect) {
-    	    return (
-    		<Redirect to={{
-										  pathname: '/ad/detail',
-										  state: {
-										    adId: this.state.topass
-										  }
-										}} />
-    		)
-    	}
+        if (this.state.redirect) {
+            return (
+            <Redirect to={{
+                                          pathname: '/ad/detail',
+                                          state: {
+                                            adId: this.state.topass
+                                          }
+                                        }} />
+            )
+        }
     }
     componentDidMount = () => {
         axios
@@ -99,7 +110,6 @@ export default class ChatPage extends Component {
           });
     };
     render() {
-
         return (
             <div className="App">
                 <SideMenu classIn={"allads"} />
@@ -115,24 +125,88 @@ export default class ChatPage extends Component {
                 <br/>
                 <div className="ui container" dir="ltr">
                     <div className="ui relaxed divided items">
+                        <div>
+    {this.state.lists.map((chat) => (
+        (chat.owned ?
+    <Grid key={chat.id} columns={2}>
 
-                        {this.state.lists.map((message) => (
-                    
-                                        <li className={"chatMessage"} key={message.from}>
-                    <strong>{message.from}</strong><br />
-                    <label>{message.txt}</label>
-                </li>))}
+     <Grid.Column>
+     <Segment inverted color='orange' >
+     {chat.from}
+     <br />
+     <Segment>
+        {chat.txt}
+        </Segment>
+        {chat.time}
+    </Segment>
 
+    
+  
+    </Grid.Column>
+
+    <Grid.Column>
+      
+    </Grid.Column>
+  </Grid>
+    :
+    <Grid key={chat.id} columns={2}>
+
+     <Grid.Column>
+     
+
+    
+  
+    </Grid.Column>
+
+    <Grid.Column>
+
+    
+    <Segment inverted color='teal'>
+    {chat.from}
+    <br />
+    <Segment>
+    {chat.txt}
+    </Segment>
+        {chat.time}
+    </Segment>
+      
+    </Grid.Column>
+  </Grid>
+    )
+
+  ))}
+    <br />
+    <Divider />
+
+    <Segment inverted color="black">
+    <Form dir="rtl">
+     <Form.TextArea label='new' placeholder='پیام جدید' />
+    <Button animated='vertical' inverted color="yellow">
+      <Button.Content hidden>ارسال</Button.Content>
+      <Button.Content visible>
+        آخرین آپدیت: {this.state.last_update}
+      </Button.Content>
+    </Button>
+     </Form>
+    </Segment>
+
+    <br />
+      
+    
+  </div>
+                        
                     </div>
                     {this.renderRedirect()}
                 </div>
 
 
+                
+          
+          
+
                 <div className="clearfix"></div>
 
             </div>
-
         )
-    } 
-    
+    }
 }
