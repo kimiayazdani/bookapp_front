@@ -37,20 +37,20 @@ export default class ChatPage extends Component {
             id: 3,
             from: "پارسا",
             txt: "لاعات زیست‌شناسی، از ترکیب علوم کامپیوتر، آمار، ریاضی و مهندسی استفاده می‌کند. به عبارتی دیگر از بیوانفورماتیک برای تجزیه و تحلیل درون کامپیوتریِ مسائل زیست‌شناسی با استفاده از تکنیک‌های ریاضی و آمار استفاده می‌شود.",
-            time: "04/11/2020 12:00",
+            time: "2020-04-19T12:59-0500",
             profile: "",
             owned: true,
         },
         {
             from: "kim",
             txt: "سلام چهطوری کجایی؟",
-            time: "14",
+            time: "1976-06-19T13:59-0500",
             owned: false,
         },
         {
             from: "kim",
             txt: "سلام چهطوری کجایی؟",
-            time: "14",
+            time: "1976-04-19T12:59-0500",
             owned: true,
         }
         ],
@@ -169,7 +169,7 @@ export default class ChatPage extends Component {
      <Segment>
         {chat.txt}
         </Segment>
-        {chat.time}
+        {moment(chat.time).format("MM/DD/YYYY hh:mm:ss")}
     </Segment>
 
     
@@ -199,7 +199,7 @@ export default class ChatPage extends Component {
     <Segment>
     {chat.txt}
     </Segment>
-        {chat.time}
+        {moment(chat.time).format("MM/DD/YYYY hh:mm:ss")}
     </Segment>
       
     </Grid.Column>
