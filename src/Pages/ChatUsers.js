@@ -92,13 +92,13 @@ export default class ChatUsers extends Component {
 
 
           });
-          this.setState({lists:[]})
+          
     };
     render() {
 
         return (
             <div className="App">
-                <SideMenu classIn={"allads"} />
+                <SideMenu classIn={"chats"} />
                 <div className="ui container">
 
                     <div className="ui message">

@@ -71,7 +71,14 @@ export default class ProfileElse extends Component {
     		)
     	}
         if (this.state.redirectchat) {
-
+            return (
+            <Redirect to={{
+                                          pathname: '/chatroom',
+                                          state: {
+                                            accId: this.state.username
+                                          }
+                                        }} />
+            )
         }
     }
 

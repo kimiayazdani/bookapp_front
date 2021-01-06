@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import SideMenu from './../SideMenu';
 import { Redirect } from 'react-router';
+import moment, {Moment} from 'moment'
 // import './AddAll.css'
 import 'semantic-ui-css/semantic.min.css';
 
@@ -28,7 +29,7 @@ export default class ChatPage extends Component {
             id: 2,
         from: "ss",
             txt: "نیما نیما بیا اینتگریت کنیم.",
-            time: "10/23/1999 12:03",
+            time: "1976-04-19T12:59-0500",
             profile: "",
             owned: true,
         },
@@ -53,33 +54,58 @@ export default class ChatPage extends Component {
             owned: true,
         }
         ],
+        message:"",
         redirect: false,
         topass: 1,
         logged_in: false,
-        last_update: "04/11/2020 12:00"
+        last_update: "04/11/2020 12:00",
+        next_link: "yes"
 
     };
+
+    loadMore = () => {
+        var list = this.state.lists
+        var newlist = []
+        this.setState({lists:[]})
+        newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:false})
+        newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:true})
+        newlist = newlist.concat(list)
+        this.setState({lists:newlist, next_link:''})
+    }
 
     redirectHandler = (val) => {
-        this.setState({
-            redirect: true,
-            topass: val.target.name
-        });
-    };
+        
+        window.location.reload()
 
+    };
+    handleInput = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+    sendHandler = (e) => {
+        if (this.state.message) {
+        console.log(this.state.message)
+        }
+        window.location.reload()
+    }
     renderRedirect = (e) => {
         if (this.state.redirect) {
+            console.log(this.props.location.state.accId)
+            window.location.reload()
             return (
             <Redirect to={{
-                                          pathname: '/ad/detail',
-                                          state: {
-                                            adId: this.state.topass
-                                          }
+                                          pathname: '/chatroom',
+                                          
+                                            state: {
+                                            accId: this.props.location.state.accId
+                                             }
+                                          
                                         }} />
             )
         }
     }
     componentDidMount = () => {
+        console.log(this.props.location.state.accId)
+        console.log("hello")
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/")
             .then((res) => {
@@ -108,11 +134,14 @@ export default class ChatPage extends Component {
 
 
           });
+          var date= new Date()
+          this.setState({last_update:moment(date).format('MM/DD/YYYY hh:mm:ss')})
+          
     };
     render() {
         return (
             <div className="App">
-                <SideMenu classIn={"allads"} />
+                <SideMenu />
                 <div className="ui container">
 
                     <div className="ui message">
@@ -126,6 +155,9 @@ export default class ChatPage extends Component {
                 <div className="ui container" dir="ltr">
                     <div className="ui relaxed divided items">
                         <div>
+
+                        {this.state.next_link && <Button circular icon='arrow circle up' color="yellow" onClick={this.loadMore.bind(this)}/>}
+                        <Divider />
     {this.state.lists.map((chat) => (
         (chat.owned ?
     <Grid key={chat.id} columns={2}>
@@ -175,17 +207,24 @@ export default class ChatPage extends Component {
     )
 
   ))}
+
+    {this.state.lists.length === 0 && <div>  <Message color='violet' dir="rtl">تاکنون پیامی ارسال نشده‌است.</Message></div>}
     <br />
     <Divider />
 
     <Segment inverted color="black">
     <Form dir="rtl">
-     <Form.TextArea label='new' placeholder='پیام جدید' />
-    <Button animated='vertical' inverted color="yellow">
-      <Button.Content hidden>ارسال</Button.Content>
+     <Form.TextArea name="message"
+        value={this.state.message}
+        onChange= {this.handleInput} placeholder='پیام جدید' />
+    <Button animated='vertical' inverted color="yellow" onClick={this.redirectHandler.bind(this)}>
+      <Button.Content hidden>به‌روزرسانی</Button.Content>
       <Button.Content visible>
-        آخرین آپدیت: {this.state.last_update}
+        آخرین به‌روزرسانی: {this.state.last_update}
       </Button.Content>
+    </Button>
+    <Button inverted color='green' onClick={this.sendHandler.bind(this)}>
+    ارسال
     </Button>
      </Form>
     </Segment>
