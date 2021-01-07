@@ -86,7 +86,17 @@ export default class ProfileElse extends Component {
         this.setState({redirectchat:true})
     }
     componentDidMount = () => {
-        axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+        
+                axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
+              refresh: localStorage.getItem('refresh_token')
+          }).then((res) => {
+            localStorage.setItem('token', res.data.access);
+            this.setState({logged_in:true});
+          }).catch((err) => {
+
+
+          });
+        axios.get("http://127.0.0.1:8000/api/v1/account/show/"+this.state.username+"/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
             this.setState({username:res.data.username, email:res.data.email, image:(res.data.avatar? res.data.avatar: ""), namename: res.data.name,
               bio: res.data.bio})
           }).catch((err) => {})
@@ -110,15 +120,6 @@ export default class ProfileElse extends Component {
                 
             });
 
-                axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
-              refresh: localStorage.getItem('refresh_token')
-          }).then((res) => {
-            localStorage.setItem('token', res.data.access);
-            this.setState({logged_in:true});
-          }).catch((err) => {
-
-
-          });
     };
     render() {
         const extra = (

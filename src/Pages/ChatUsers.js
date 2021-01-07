@@ -64,24 +64,16 @@ export default class ChatUsers extends Component {
     	}
     }
     componentDidMount = () => {
-        axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/")
-            .then((res) => {
-                var a = this.state.lists
-                for (var i = 0; i < res.data.length; i++) {
-                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
-                        image:res.data[i].poster? res.data[i].poster: '',
-                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
-                    })
+
+
+            axios.get("http://localhost:8000/api/v1/chat/main-page/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+                var a = []
+                this.setState(lists:[])
+                for(var i = 0; i < res.data.result.length; i++) {
+                    a.push(id:res.data.result[i].receiver.id, cor:res.data.result[i].receiver.username, profile:res.data.result[i].receiver.avatar)
                 }
-                console.log(a)
-                this.setState({
-                    lists: a
-                })
-            })
-            .catch((err) => {
-                
-            });
+                this.setState({lists:a})
+            }).catch((err)=>{console.log(err)})
 
              axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
@@ -114,7 +106,7 @@ export default class ChatUsers extends Component {
                         
 
                         {this.state.lists.map((chat) => (
-                    <Card fluid color="orange" key={{chat}} name={chat.id} link onClick={this.redirectHandler.bind(this, chat.id)}>
+                    <Card fluid color="orange" key={{chat}} name={chat.corr} link onClick={this.redirectHandler.bind(this, chat.id)}>
                             <Card.Content>
                             <Card.Header>{chat.corr} </Card.Header>
                             </Card.Content>
