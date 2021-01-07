@@ -57,20 +57,39 @@ export default class ChatPage extends Component {
         message:"",
         redirect: false,
         topass: 1,
-        logged_in: false,
+        logged_in: 0,
         last_update: "04/11/2020 12:00",
-        next_link: "yes"
+        next_link: "",
+        user: ""
+
 
     };
 
     loadMore = () => {
-        var list = this.state.lists
-        var newlist = []
+        var prevlist = this.state.lists
+        var list = []
         this.setState({lists:[]})
-        newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:false})
-        newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:true})
-        newlist = newlist.concat(list)
-        this.setState({lists:newlist, next_link:''})
+
+      axios.get(this.state.next_link, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+        .then((res) =>{
+            this.setState({lists:[], next_link: res.data.next})
+
+            for (var i = 0; i < res.data.result.length; i++) {
+                list.push({id: res.data.result[i].id, time: res.data.result[i].created, owned: (res.data.result[i].sender === this.state.logged_in),
+                    txt: res.data.result[i].text, from:(res.data.result[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
+            }
+        }).catch((err) => {
+
+        })
+
+        list = list.concat(prevlist)
+        this.setState({lists:list})
+        // newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:false})
+        // newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:true})
+        // newlist = newlist.concat(list)
+        // this.setState({lists:newlist, next_link:''})
+
+
     }
 
     redirectHandler = (val) => {
@@ -85,7 +104,10 @@ export default class ChatPage extends Component {
         if (this.state.message) {
         console.log(this.state.message)
         }
-        window.location.reload()
+
+        axios.post("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/post/", {}, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+        .then((res) => { window.location.reload() }).catch((err) => { console.log(err) })
+       
     }
     renderRedirect = (e) => {
         if (this.state.redirect) {
@@ -106,34 +128,25 @@ export default class ChatPage extends Component {
     componentDidMount = () => {
         console.log(this.props.location.state.accId)
         console.log("hello")
-        axios
-            .get("http://localhost:8000/api/v1/book-advertise/post/")
-            .then((res) => {
-                var a = this.state.lists
-                for (var i = 0; i < res.data.length; i++) {
-                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
-                        image:res.data[i].poster? res.data[i].poster: '',
-                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
-                    })
+
+
+             axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({logged_in:res.data.id, user:res.data.username})
+          }).catch((err) => {})
+
+
+
+            axios.get("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/get/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .then((res) =>{
+                this.setState({lists:[], next_link: res.data.next})
+                var list = []
+                for (var i = 0; i < res.data.result.length; i++) {
+                    list.push({id: res.data.result[i].id, time: res.data.result[i].created, owned: (res.data.result[i].sender === this.state.logged_in),
+                        txt: res.data.result[i].text, from:(res.data.result[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
                 }
-                console.log(a)
-                this.setState({
-                    lists: a
-                })
+            }).catch((err) => {
+
             })
-            .catch((err) => {
-                
-            });
-
-             axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
-              refresh: localStorage.getItem('refresh_token')
-          }).then((res) => {
-            localStorage.setItem('token', res.data.access);
-            this.setState({logged_in:true});
-          }).catch((err) => {
-
-
-          });
           var date= new Date()
           this.setState({last_update:moment(date).format('MM/DD/YYYY hh:mm:ss')})
           
