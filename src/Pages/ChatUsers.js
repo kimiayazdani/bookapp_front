@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import SideMenu from './../SideMenu';
 import { Redirect } from 'react-router';
+import moment, {Moment} from 'moment'
 // import './AddAll.css'
 import 'semantic-ui-css/semantic.min.css';
 
@@ -39,7 +40,7 @@ export default class ChatUsers extends Component {
         ],
         redirect: false,
         topass: 1,
-        logged_in: false
+        logged_in: '',
 
     };
 
@@ -65,12 +66,15 @@ export default class ChatUsers extends Component {
     }
     componentDidMount = () => {
 
-
+             axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({logged_in: res.username})
+          }).catch((err) => {})
             axios.get("http://localhost:8000/api/v1/chat/main-page/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
                 var a = []
                 this.setState(lists:[])
                 for(var i = 0; i < res.data.result.length; i++) {
-                    a.push(id:res.data.result[i].receiver.id, cor:res.data.result[i].receiver.username, profile:res.data.result[i].receiver.avatar)
+                    a.push(id:res.data.result[i].receiver.id, corr:(res.data.result[i].receiver===this.state.logged_in?res.data.result[i]:res.data.result[i].receiver), profile:res.data.result[i].avatar,
+                        lastpm: res.data.result[i].text, lastdate:res.data.result[i].created)
                 }
                 this.setState({lists:a})
             }).catch((err)=>{console.log(err)})
@@ -117,7 +121,7 @@ export default class ChatUsers extends Component {
             <Feed.Event>
               {chat.profile? <Feed.Label image={`data:image/png;base64,${chat.profile}`} />: <Feed.Label image="/images/default.jpg" />}
               <Feed.Content>
-                <Feed.Date content={chat.lastdate} />
+                <Feed.Date content={moment(chat.lastdate).format("MM/DD/YYYY hh:mm:ss")} />
 
                 <Feed.Summary>
                   {chat.lastpm}
