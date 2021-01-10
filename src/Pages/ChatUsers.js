@@ -72,11 +72,10 @@ export default class ChatUsers extends Component {
             axios.get("http://localhost:8000/api/v1/chat/main-page/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
                 var a = []
                 this.setState({lists:[]})
-                console.log(res.data)
-                for(var i = 0; i < res.data.length; i++) {
-                    a.push({id:res.data[i].receiver.id, corr:res.data[i], profile:res.data[i].avatar,
-                        lastpm: res.data[i].text, lastdate:res.data[i].created})
-                    console.log(res.data[0].text)
+
+                var keys = Object.keys(res.data)
+                for(var i = 0; i < keys.length; i++) {
+                    a.push({corr: keys[i], profile:res.data[keys[i]].avatar, lastpm:res.data[keys[i]].text, lastdate:res.data[keys[i]].created})
                 }
                 console.log(a)
                 this.setState({lists:a})
@@ -113,7 +112,7 @@ export default class ChatUsers extends Component {
                         
 
                         {this.state.lists.map((chat) => (
-                    <Card fluid color="orange" key={{chat}} name={chat.corr} link onClick={this.redirectHandler.bind(this, chat.id)}>
+                    <Card fluid color="orange" key={{chat}} name={chat.corr} link onClick={this.redirectHandler.bind(this, chat.corr)}>
                             <Card.Content>
                             <Card.Header>{chat.corr} </Card.Header>
                             </Card.Content>
