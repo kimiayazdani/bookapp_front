@@ -67,6 +67,8 @@ export default class ChatPage extends Component {
 
     loadMore = () => {
         var prevlist = this.state.lists
+
+        console.log(prevlist)
         var list = []
         this.setState({lists:[]})
 
@@ -74,15 +76,17 @@ export default class ChatPage extends Component {
         .then((res) =>{
             this.setState({lists:[], next_link: res.data.next})
 
-            for (var i = res.data.results.length - 1; i > -1; i--) {
+            for (var i = res.data.results.length - 1; i >= 0; i--) {
                 list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender === this.state.logged_in),
                     txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
             }
+            console.log(list)
         }).catch((err) => {
 
         })
 
         list = list.concat(prevlist)
+        console.log(list)
         this.setState({lists:list})
         // newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:false})
         // newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:true})
@@ -135,14 +139,18 @@ export default class ChatPage extends Component {
           }).catch((err) => {})
 
 
+             console.log(this.state.logged_in)
+
+
 
             axios.get("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/get/?limit=2", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) =>{
                 this.setState({lists:[], next_link: res.data.next})
                 var list = []
-                for (var i = 0; i < res.data.results.length; i++) {
+                for (var i = res.data.results.length; i >= 0; i--) {
                     list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender === this.state.logged_in),
-                        txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
+                        txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)});
+                    console.log(res.data.results[i].sender)
                 }
                 this.setState({lists:list})
             }).catch((err) => {
