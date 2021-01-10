@@ -130,8 +130,6 @@ export default class ChatPage extends Component {
         }
     }
     componentDidMount = () => {
-        console.log(this.props.location.state.accId)
-        console.log("hello")
 
 
              axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
@@ -147,7 +145,7 @@ export default class ChatPage extends Component {
             .then((res) =>{
                 this.setState({lists:[], next_link: res.data.next})
                 var list = []
-                for (var i = res.data.results.length; i >= 0; i--) {
+                for (var i = res.data.results.length - 1; i >= 0; i--) {
                     list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender === this.state.logged_in),
                         txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)});
                     console.log(res.data.results[i].sender)
