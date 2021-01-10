@@ -65,29 +65,26 @@ export default class ChatPage extends Component {
 
     };
 
-    loadMore = () => {
-        var prevlist = this.state.lists
+    loadMore = (val) => {
+        
 
-        console.log(prevlist)
-        var list = []
-        this.setState({lists:[]})
 
       axios.get(this.state.next_link, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
         .then((res) =>{
+            var prevlist = this.state.lists;
             this.setState({lists:[], next_link: res.data.next})
-
+            var list = []
             for (var i = res.data.results.length - 1; i >= 0; i--) {
-                list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender === this.state.logged_in),
-                    txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
+                list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender !== this.props.location.state.accId),
+                    txt: res.data.results[i].text, from:res.data.results[i].sender})
             }
+            list = list.concat(prevlist)
             console.log(list)
+            this.setState({lists:list})
         }).catch((err) => {
 
         })
 
-        list = list.concat(prevlist)
-        console.log(list)
-        this.setState({lists:list})
         // newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:false})
         // newlist.push({from:'amin', txt:'بریم بریم', time:'14.14.14 12:23', owned:true})
         // newlist = newlist.concat(list)
@@ -146,8 +143,8 @@ export default class ChatPage extends Component {
                 this.setState({lists:[], next_link: res.data.next})
                 var list = []
                 for (var i = res.data.results.length - 1; i >= 0; i--) {
-                    list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender === this.state.logged_in),
-                        txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)});
+                    list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender !== this.props.location.state.accId),
+                        txt: res.data.results[i].text, from:res.data.results[i].sender});
                     console.log(res.data.results[i].sender)
                 }
                 this.setState({lists:list})
