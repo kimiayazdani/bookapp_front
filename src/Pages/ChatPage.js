@@ -136,7 +136,7 @@ export default class ChatPage extends Component {
 
 
 
-            axios.get("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/get/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            axios.get("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/get/?limit=2", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) =>{
                 this.setState({lists:[], next_link: res.data.next})
                 var list = []
