@@ -140,9 +140,9 @@ export default class ChatPage extends Component {
             .then((res) =>{
                 this.setState({lists:[], next_link: res.data.next})
                 var list = []
-                for (var i = 0; i < res.data.result.length; i++) {
-                    list.push({id: res.data.result[i].id, time: res.data.result[i].created, owned: (res.data.result[i].sender === this.state.logged_in),
-                        txt: res.data.result[i].text, from:(res.data.result[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
+                for (var i = 0; i < res.data.results.length; i++) {
+                    list.push({id: res.data.results[i].id, time: res.data.results[i].created, owned: (res.data.results[i].sender === this.state.logged_in),
+                        txt: res.data.results[i].text, from:(res.data.results[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
                 }
                 this.setState({lists:list})
             }).catch((err) => {
