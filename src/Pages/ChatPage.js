@@ -144,6 +144,7 @@ export default class ChatPage extends Component {
                     list.push({id: res.data.result[i].id, time: res.data.result[i].created, owned: (res.data.result[i].sender === this.state.logged_in),
                         txt: res.data.result[i].text, from:(res.data.result[i].sender === this.state.logged_in? this.state.user: this.props.location.state.accId)})
                 }
+                this.setState({lists:list})
             }).catch((err) => {
 
             })
