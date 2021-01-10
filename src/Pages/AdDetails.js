@@ -53,6 +53,8 @@ export default class AdDetails extends Component {
 
          axios.get("http://127.0.0.1:8000/api/v1/account/properties/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
             this.setState({user_logged_in:res.data.username, is_staff: res.data.is_staff})
+            console.log(res.data.is_staff)
+            console.log(res.data.username)
           }).catch((err) => {})
         axios
             .get("http://localhost:8000/api/v1/book-advertise/post/" + this.props.location.state.adId + '/', { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}} )
@@ -60,6 +62,7 @@ export default class AdDetails extends Component {
                 this.setState({ title: res.data.title, author: res.data.authorName, image: res.data.poster?  res.data.poster: '',
                 description: res.data.description, sell: res.data.ad_type, price: res.data.price, user_name: res.data.author.username,
                 user_number: res.data.author.phone_number, email: res.data.author.email, user_id: res.data.author.id})
+                console.log(res.data.author.username)
             })
             .catch((err) => {
                 if (err.response && (err.response.status === 401 || err.response.status == 403)) {
@@ -69,6 +72,8 @@ export default class AdDetails extends Component {
                     this.setState({redirect_ad:true})
                 }
             });
+            console.log(this.state.is_staff)
+            console.log(this.state.user_logged_in)
 
             if(this.state.user_logged_in === this.state.user_name) {
                 this.setState({is_staff:true})
