@@ -187,7 +187,6 @@ export default class ProfileElse extends Component {
                                     <div className="description">{ad.description}</div>
                                     <br />
                                     <div className="ui label">{ad.sell === 'sale'? 'فروش': 'خرید'}</div>
-                                    <div className="ui label">{ad.status === 'approved'? 'تایید شده': (ad.status === "pending" ? 'در حال بررسی': 'رد شده')}</div>
                                     {ad.sell === 'sale' && <div className="ui label" dir="rtl">  {ad.price} تومان </div>}
                                     <div className="extra">
                                      <Button target="_blank" name={ad.id} onClick={this.redirectHandler.bind(this)}

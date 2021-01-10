@@ -105,7 +105,7 @@ export default class ChatPage extends Component {
         console.log(this.state.message)
         }
 
-        axios.post("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/post/", {}, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+        axios.post("http://localhost:8000/api/v1/chat/" + this.props.location.state.accId + "/post/", {text:this.state.message}, { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
         .then((res) => { window.location.reload() }).catch((err) => { console.log(err) })
        
     }
