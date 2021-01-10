@@ -71,7 +71,7 @@ export default class ChatUsers extends Component {
           }).catch((err) => {})
             axios.get("http://localhost:8000/api/v1/chat/main-page/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
                 var a = []
-                this.setState(lists:[])
+                this.setState({lists:[]})
                 for(var i = 0; i < res.data.result.length; i++) {
                     a.push(id:res.data.result[i].receiver.id, corr:res.data.result[i], profile:res.data.result[i].avatar,
                         lastpm: res.data.result[i].text, lastdate:res.data.result[i].created)
