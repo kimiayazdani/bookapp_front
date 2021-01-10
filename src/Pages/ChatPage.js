@@ -176,7 +176,7 @@ export default class ChatPage extends Component {
                         {this.state.next_link && <Button circular icon='arrow circle up' color="yellow" onClick={this.loadMore.bind(this)}/>}
                         <Divider />
     {this.state.lists.map((chat) => (
-        (chat.owned ?
+        (chat.owned === false ?
     <Grid key={chat.id} columns={2}>
 
      <Grid.Column>
