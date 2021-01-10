@@ -102,13 +102,13 @@ export default class ProfileElse extends Component {
           }).catch((err) => {})
         console.log(this.state.image)
         axios
-            .get("http://localhost:8000/api/v1/book-advertise/user-posts/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
+            .get("http://localhost:8000/api/v1/book-advertise/"+this.state.username+"/posts/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}})
             .then((res) => {
                 var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
                         image:res.data[i].poster? res.data[i].poster: '',
-                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0), status: res.data[i].status
+                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
                     })
                 }
                 console.log(a)
