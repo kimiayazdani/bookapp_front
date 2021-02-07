@@ -15,14 +15,15 @@ import {
   Checkbox,
   Card,
   Icon,
-  Feed
+  Feed,
+  Rating
 } from "semantic-ui-react";
 
 
 export default class ProfileElse extends Component {
     state = {
         email:"yazdanikimia@gmail.com",
-        image:"/images/avatar.jpeg",
+        image:"",
         namename: 'کیمیا یزدانی',
         username: this.props.accId,
         bio: 'کتاب خیلی خوب است.',
@@ -49,6 +50,9 @@ export default class ProfileElse extends Component {
         topass: 1,
         logged_in: false,
         redirectchat: false,
+        average_rating: 2.5,
+        number_rating: 20,
+        prev_rating: 0
 
     };
 
@@ -80,6 +84,22 @@ export default class ProfileElse extends Component {
                                         }} />
             )
         }
+    }
+
+    handleRate = (e, { rating, maxRating }) => {    
+        
+        console.log(rating)
+        console.log(maxRating)
+        console.log(this.state.average_rating)
+        console.log(this.state.number_rating)
+        axios.post("http://127.0.0.1:8000/api/v1/account/rating/"+this.state.username+"/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}, {
+            rating: rating
+        }).then((res)=>{
+            this.setState({average_rating:res.data.average_rating, number_rating: res.data.number_rating})
+          }).catch((err) => {})
+
+
+
     }
 
     redirectChat = (val) => {
@@ -120,6 +140,10 @@ export default class ProfileElse extends Component {
                 
             });
 
+         axios.get("http://127.0.0.1:8000/api/v1/account/rating/"+this.state.username+"/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({average_rating:res.data.average_rating, number_rating:res.data.number_rating, prev_rating: res.data.prev_rating})
+          }).catch((err) => {})
+
     };
     render() {
         const extra = (
@@ -145,22 +169,29 @@ export default class ProfileElse extends Component {
                     <div className="ui relaxed divided items">
                     
             <Card fluid color='green'>
-            <Card.Content>
-                <Card.Header>{this.state.logged_in && <Button secondary onClick={this.redirectChat.bind(this)}>مکالمه‌ی خصوصی</Button>}{this.state.username} </Card.Header>
-
+            <Card.Content dir='rtl'>
+                <Card.Header dir ='ltr'>{this.state.logged_in && <Button secondary onClick={this.redirectChat.bind(this)}>مکالمه‌ی خصوصی</Button>}{this.state.username} </Card.Header>
+                {this.state.logged_in===false? <Rating dir='ltr' defaultRating={this.state.prev_rating} maxRating={5} onRate={this.handleRate} />:  <Rating dir='ltr' defaultRating={this.state.average_rating} maxRating={5} disabled/>} 
+                <br/>
+                میانگین: {this.state.average_rating} در {this.state.number_rating} نفر
             </Card.Content>
             <Card.Content dir='rtl'>
             <Feed dir='rtl'>
             <Feed.Event>
-              <Feed.Label image={`data:image/png;base64,${this.state.image}`} />
+              {this.state.image? <Feed.Label image={`data:image/png;base64,${this.state.image}`} />: <Feed.Label image="/images/avatar.jpeg" />}
+              
+
               <Feed.Content>
                 <Feed.Date content={this.state.namename} />
 
                 <Feed.Summary>
                   {this.state.bio}
 
+
                 </Feed.Summary>
               </Feed.Content>
+
+              
             </Feed.Event>
             </Feed>
             </Card.Content>
