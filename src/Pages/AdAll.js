@@ -228,10 +228,15 @@ export default class AdAll extends Component {
         +
       </Label>}
 
+      textAlign="center"
 
     >
 
-<Modal.Header dir='rtl' >جست‌ و جوی پیشرفته</Modal.Header>
+<Modal.Header dir='rtl' paddingRight="0px">
+ <Label as='a' color='orange' ribbon='right'>
+          جست‌وجوی پیشرفته
+        </Label>
+</Modal.Header>
       <Modal.Content>
       <div dir='rtl'>
               <Form>
@@ -241,7 +246,7 @@ export default class AdAll extends Component {
         
       <Form.Input
         fluid
-        label='جست‌وجو در نام کتاب'
+        textAlign="right"
         placeholder= "جست‌و‌جو در نام کتاب"
         name="namesearch"
         value={this.state.namesearch}
@@ -250,7 +255,7 @@ export default class AdAll extends Component {
       />
       <Form.Input
         fluid
-        label='جست‌وجو در نام نویسنده'
+        textAlign="right"
         placeholder= "جست‌و‌جو در نام نویسنده"
         name="authorsearch"
         value={this.state.authorsearch}
@@ -262,14 +267,18 @@ export default class AdAll extends Component {
 
         <Form.Group widths='equal' dir='ltr'>
 
-            <Form.Input labelPosition='center' type='number' placeholder='مقدار' label="حداقل قیمت">
+            <Form.Input labelPosition='center' type='number' placeholder='مقدار' label={<Label pointing='below' >
+        حداقل قیمت
+      </Label>}>
                 <Label basic>تومان</Label>
                 <input name="minprice"
                         value={this.state.minprice}
                         onChange={this.handleInput}/>
                 <Label>,000</Label>
               </Form.Input>
-            <Form.Input labelPosition='right' type='number' placeholder='مقدار' label="حداکثر قیمت">
+            <Form.Input labelPosition='right' type='number' placeholder='مقدار' label={<Label pointing='below' >
+        حداکثر قیمت
+      </Label>}>
                 <Label basic>تومان</Label>
                     <input name="maxprice"
                             value={this.state.maxprice}
