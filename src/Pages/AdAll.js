@@ -214,23 +214,21 @@ export default class AdAll extends Component {
 
 
                 />
-      <Label color='red' circular floating onClick={this.handleMore}>
-        +
-      </Label>
-    </Menu.Item>
-    
-  </Menu>
+      
 
-  <Modal
+      <Modal
     dimmer = 'blurring'
       onClose = {()=>this.setState({setOpen:false})}
       onOpen={()=>this.setState({setOpen:true})}
       open={this.state.setOpen}
-      trigger={<Button circular>جست‌وجوی پیشرفته</Button>}
+      trigger={<Label color='red' circular floating >
+        +
+      </Label>}
       textAlign='center'
 
     >
-      <Modal.Header dir='rtl' >جست‌ و جوی پیشرفته</Modal.Header>
+
+<Modal.Header dir='rtl' >جست‌ و جوی پیشرفته</Modal.Header>
       <Modal.Content>
       <div dir='rtl'>
               <Form>
@@ -294,6 +292,12 @@ export default class AdAll extends Component {
         />
       </Modal.Actions>
     </Modal>
+    </Menu.Item>
+    
+  </Menu>
+
+  
+      
                 
                 <div className="ui container" dir="ltr">
                 
