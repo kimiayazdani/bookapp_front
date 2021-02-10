@@ -12,11 +12,20 @@ import {
   Header,
   Message,
   Segment,
-  Checkbox
+  Checkbox,
+  Input,
+  Icon,
+  Label,
+  Menu,
+  Modal,
+  Image,
+  Radio
 } from "semantic-ui-react";
 
 
 export default class AdAll extends Component {
+
+
     state = {
          lists: [
              {
@@ -41,7 +50,14 @@ export default class AdAll extends Component {
     ],
         redirect: false,
         topass: 1,
-        logged_in: false
+        logged_in: false,
+
+        search: '',
+        setOpen: false,
+        namesearch: '',
+        authorsearch: '',
+        minprice: 0,
+        maxprice: 500,
 
     };
 
@@ -63,6 +79,43 @@ export default class AdAll extends Component {
 										}} />
     		)
     	}
+    }
+    handleSimSearch = () => {
+        console.log(this.state.search)
+
+         axios 
+          .post("http://localhost:8000/api/v1/search/", { 
+              name_search: this.state.search
+          }) 
+        .then((res) => { 
+              
+              var a = this.state.lists
+                for (var i = 0; i < res.data.length; i++) {
+                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
+                        image:res.data[i].poster? res.data[i].poster: '',
+                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
+                    })
+                }
+                console.log(a)
+                this.setState({
+                    lists: a
+                })
+            })
+          .catch((err) => {console.log(err)})
+
+    
+
+    }
+
+    handleInput = (e) => { 
+
+        this.setState({ 
+            [e.target.name]: e.target.value, 
+        });
+        
+    }; 
+    handleMore = (e) => {
+        console.log("im clicked")
     }
     componentDidMount = () => {
         axios
@@ -94,6 +147,40 @@ export default class AdAll extends Component {
 
           });
     };
+
+    handleSubmit = (e) => {
+        this.setState({setOpen: false})
+        const params = {}
+        if (this.state.minprice) { params.minprice = this.state.minprice }
+        if (this.state.maxprice < 500) {params.maxprice = this.state.maxprice}
+        if (this.state.namesearch) {params.namesearch = this.state.namesearch}
+        if (this.state.authorsearch) {params.authorsearch = this.state.authorsearch}
+        // console.log(params)
+
+        axios 
+          .post("http://localhost:8000/api/v1/search/",  { 
+              name_search: params.namesearch,
+              author_search: params.authorsearch,
+              minprice: params.minprice,
+              maxprice: params.maxprice
+          }) 
+        .then((res) => { 
+              
+              var a = this.state.lists
+                for (var i = 0; i < res.data.length; i++) {
+                    a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
+                        image:res.data[i].poster? res.data[i].poster: '',
+                        description: res.data[i].description, sell: res.data[i].ad_type, price: (res.data[i].price? res.data[i].price: 0)
+                    })
+                }
+                console.log(a)
+                this.setState({
+                    lists: a
+                })
+            })
+          .catch((err) => {console.log(err)})
+
+    }
     render() {
         return (
             <div className="App">
@@ -101,15 +188,117 @@ export default class AdAll extends Component {
                 <div className="ui container">
 
                     <div className="ui message">
+
                         <h1 className="ui huge header">کتاب‌باز</h1>
                         <p className="lead">
                             مکانی برای تبادل کتاب های شما
                         </p>
+
                     </div>
+
+     
                 </div>
                 <br/>
+
+                
+                            
+
+                <Menu compact inverted>
+    <Menu.Item as='a' >
+      <Input 
+                    icon={<Icon name='search' inverted circular link onClick={this.handleSimSearch} />}
+                    placeholder='جست‌و‌جو...'
+                    name = 'search'
+                    value={this.state.search}
+                    onChange= {this.handleInput}
+
+
+                />
+      <Label color='red' circular floating onClick={this.handleMore}>
+        +
+      </Label>
+    </Menu.Item>
+    
+  </Menu>
+
+  <Modal
+    dimmer = 'blurring'
+      onClose = {()=>this.setState({setOpen:false})}
+      onOpen={()=>this.setState({setOpen:true})}
+      open={this.state.setOpen}
+      trigger={<Button circular>جست‌وجوی پیشرفته</Button>}
+      textAlign='center'
+
+    >
+      <Modal.Header dir='rtl' >جست‌ و جوی پیشرفته</Modal.Header>
+      <Modal.Content>
+      <div dir='rtl'>
+              <Form>
+
+
+        <Form.Group widths='equal' dir='rtl'>
+        
+      <Form.Input
+        fluid
+        label='جست‌وجو در نام کتاب'
+        placeholder= "جست‌و‌جو در نام کتاب"
+        name="namesearch"
+        value={this.state.namesearch}
+        onChange= {this.handleInput}
+
+      />
+      <Form.Input
+        fluid
+        label='جست‌وجو در نام نویسنده'
+        placeholder= "جست‌و‌جو در نام نویسنده"
+        name="authorsearch"
+        value={this.state.authorsearch}
+        onChange= {this.handleInput}
+
+      />
+     
+        </Form.Group>
+
+        <Form.Group widths='equal' dir='ltr'>
+            <Form.Input labelPosition='right' type='number' placeholder='مقدار' label="حداقل قیمت">
+                <Label basic>تومان</Label>
+                <input name="minprice"
+                        value={this.state.minprice}
+                        onChange={this.handleInput}/>
+                <Label>,000</Label>
+              </Form.Input>
+            <Form.Input labelPosition='right' type='number' placeholder='مقدار' label="حداکثر قیمت">
+                <Label basic>تومان</Label>
+                    <input name="maxprice"
+                            value={this.state.maxprice}
+                            onChange={this.handleInput} />
+                <Label>,000</Label>
+              </Form.Input>
+        </Form.Group>
+        
+       
+        
+      </Form>
+      </div>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color='black' onClick={() => this.setState({setOpen:false})}>
+          لغو جست و جو
+        </Button>
+        <Button
+          content="جست و جو"
+          labelPosition='right'
+          icon='checkmark'
+          onClick={this.handleSubmit}
+          positive
+        />
+      </Modal.Actions>
+    </Modal>
+                
                 <div className="ui container" dir="ltr">
+                
                     <div className="ui relaxed divided items">
+
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
                                 <div className="ui small image">
