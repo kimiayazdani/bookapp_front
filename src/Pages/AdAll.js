@@ -58,6 +58,7 @@ export default class AdAll extends Component {
         authorsearch: '',
         minprice: 0,
         maxprice: 500,
+        msg: 'آگهی‌ای گذاشته‌ نشده‌است.'
 
     };
 
@@ -179,6 +180,8 @@ export default class AdAll extends Component {
                 })
             })
           .catch((err) => {console.log(err)})
+          this.setState({msg:"آگهی‌ای مطابق با جست‌وجو یافت نشد."})
+          
 
     }
     render() {
@@ -224,7 +227,7 @@ export default class AdAll extends Component {
       trigger={<Label color='red' circular floating >
         +
       </Label>}
-      textAlign='center'
+
 
     >
 
@@ -258,7 +261,8 @@ export default class AdAll extends Component {
         </Form.Group>
 
         <Form.Group widths='equal' dir='ltr'>
-            <Form.Input labelPosition='right' type='number' placeholder='مقدار' label="حداقل قیمت">
+
+            <Form.Input labelPosition='center' type='number' placeholder='مقدار' label="حداقل قیمت">
                 <Label basic>تومان</Label>
                 <input name="minprice"
                         value={this.state.minprice}
@@ -292,16 +296,24 @@ export default class AdAll extends Component {
         />
       </Modal.Actions>
     </Modal>
+
     </Menu.Item>
     
   </Menu>
+
+
+
+  
 
   
       
                 
                 <div className="ui container" dir="ltr">
+
+
                 
                     <div className="ui relaxed divided items">
+                    {this.state.lists.length === 0 && <div>  <br /> <Message color='orange' dir="rtl">{this.state.msg}</Message></div>}
 
                         {this.state.lists.map((ad) => (
                             <div key={{ad}} className="item">
