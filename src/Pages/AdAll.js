@@ -85,10 +85,7 @@ export default class AdAll extends Component {
         console.log(this.state.search)
 
          axios 
-          .post("http://localhost:8000/api/v1/search/", { 
-              name_search: this.state.search
-          }) 
-        .then((res) => { 
+          .get("http://localhost:8000/api/v1/book-advertise/post/?title="+this.state.search).then((res) => { 
               
               var a = this.state.lists
                 for (var i = 0; i < res.data.length; i++) {
@@ -152,19 +149,15 @@ export default class AdAll extends Component {
     handleSubmit = (e) => {
         this.setState({setOpen: false})
         const params = {}
-        if (this.state.minprice) { params.minprice = this.state.minprice }
-        if (this.state.maxprice < 500) {params.maxprice = this.state.maxprice}
-        if (this.state.namesearch) {params.namesearch = this.state.namesearch}
-        if (this.state.authorsearch) {params.authorsearch = this.state.authorsearch}
-        // console.log(params)
+        
+        if (this.state.minprice) { params.min_price = this.state.minprice}
+        if (this.state.maxprice < 500) {params.max_price = this.state.maxprice}
+        if (this.state.namesearch) {params.title = this.state.namesearch}
+        if (this.state.authorsearch) {params.authorName = this.state.authorsearch}
+        console.log(params)
 
         axios 
-          .post("http://localhost:8000/api/v1/search/",  { 
-              name_search: params.namesearch,
-              author_search: params.authorsearch,
-              minprice: params.minprice,
-              maxprice: params.maxprice
-          }) 
+          .get("http://localhost:8000/api/v1/book-advertise/post/",  { params }) 
         .then((res) => { 
               
               var a = this.state.lists

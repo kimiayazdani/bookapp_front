@@ -92,8 +92,8 @@ export default class ProfileElse extends Component {
         console.log(maxRating)
         console.log(this.state.average_rating)
         console.log(this.state.number_rating)
-        axios.post("http://127.0.0.1:8000/api/v1/account/rating/"+this.state.username+"/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}, {
-            rating: rating
+        axios.post("http://127.0.0.1:8000/api/v1/account/"+this.state.username+"/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}, {
+            rate: rating
         }).then((res)=>{
             this.setState({average_rating:res.data.average_rating, number_rating: res.data.number_rating})
           }).catch((err) => {})
@@ -140,8 +140,8 @@ export default class ProfileElse extends Component {
                 
             });
 
-         axios.get("http://127.0.0.1:8000/api/v1/account/rating/"+this.state.username+"/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
-            this.setState({average_rating:res.data.average_rating, number_rating:res.data.number_rating, prev_rating: res.data.prev_rating})
+         axios.get("http://127.0.0.1:8000/api/v1/account/"+this.state.username+"/get/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({average_rating:res.data.rating, number_rating:res.data.number_rating, prev_rating: res.data.prev_rating})
           }).catch((err) => {})
 
     };
