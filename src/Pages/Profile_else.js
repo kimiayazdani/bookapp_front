@@ -171,7 +171,7 @@ export default class ProfileElse extends Component {
             <Card fluid color='green'>
             <Card.Content dir='rtl'>
                 <Card.Header dir ='ltr'>{this.state.logged_in && <Button secondary onClick={this.redirectChat.bind(this)}>مکالمه‌ی خصوصی</Button>}{this.state.username} </Card.Header>
-                {this.state.logged_in===false? <Rating dir='ltr' defaultRating={this.state.prev_rating} maxRating={5} onRate={this.handleRate} />:  <Rating dir='ltr' defaultRating={this.state.average_rating} maxRating={5} disabled/>} 
+                {this.state.logged_in===false?   <Rating dir='ltr' defaultRating={this.state.average_rating} maxRating={5} disabled/> : <Rating dir='ltr' defaultRating={this.state.prev_rating} maxRating={5} onRate={this.handleRate} />} 
                 <br/>
                 میانگین: {this.state.average_rating} در {this.state.number_rating} نفر
             </Card.Content>
