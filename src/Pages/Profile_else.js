@@ -50,7 +50,7 @@ export default class ProfileElse extends Component {
         topass: 1,
         logged_in: false,
         redirectchat: false,
-        average_rating: 3.3,
+        average_rating: 1,
         number_rating: 20,
         prev_rating: 0
 
