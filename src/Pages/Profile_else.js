@@ -50,7 +50,7 @@ export default class ProfileElse extends Component {
         topass: 1,
         logged_in: false,
         redirectchat: false,
-        average_rating: 2.5,
+        average_rating: 3.3,
         number_rating: 20,
         prev_rating: 0
 
@@ -92,9 +92,9 @@ export default class ProfileElse extends Component {
         console.log(maxRating)
         console.log(this.state.average_rating)
         console.log(this.state.number_rating)
-        axios.post("http://127.0.0.1:8000/api/v1/account/rate/"+this.state.username+"/post/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}, {
+        axios.post("http://127.0.0.1:8000/api/v1/account/rate/"+this.state.username+"/post/", {
             rate: rating
-        }).then((res)=>{
+        },  { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
             
           }).catch((err) => {})
 
@@ -173,7 +173,7 @@ export default class ProfileElse extends Component {
             <Card fluid color='green'>
             <Card.Content dir='rtl'>
                 <Card.Header dir ='ltr'>{this.state.logged_in && <Button secondary onClick={this.redirectChat.bind(this)}>مکالمه‌ی خصوصی</Button>}{this.state.username} </Card.Header>
-                {this.state.logged_in===false?   <Rating dir='ltr' defaultRating={this.state.average_rating} maxRating={5} disabled/> : <Rating dir='ltr' defaultRating={this.state.prev_rating} maxRating={5} onRate={this.handleRate} />} 
+                {this.state.logged_in===false?   <Rating dir='ltr' defaultRating={Math.floor(this.state.average_rating)} maxRating={5} disabled/> : <Rating dir='ltr' defaultRating={Math.floor(this.state.prev_rating)} maxRating={5} onRate={this.handleRate} />} 
                 <br/>
                 میانگین: {this.state.average_rating} در {this.state.number_rating} نفر
             </Card.Content>
