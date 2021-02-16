@@ -145,7 +145,7 @@ export default class ProfileElse extends Component {
             this.setState({number_rating:res.data.number_rating})
             this.setState({prev_rating: res.data.prev_rating})
           }).catch((err) => {})
-         this.setState({average_rating:2})
+         
 
 
          if (this.state.logged_in) {
