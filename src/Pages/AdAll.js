@@ -150,8 +150,8 @@ export default class AdAll extends Component {
         this.setState({setOpen: false})
         const params = {}
         
-        if (this.state.minprice) { params.min_price = this.state.minprice}
-        if (this.state.maxprice < 500) {params.max_price = this.state.maxprice}
+        if (this.state.minprice) { params.min_price = this.state.minprice * 1000}
+        if (this.state.maxprice < 500) {params.max_price = this.state.maxprice * 1000}
         if (this.state.namesearch) {params.title = this.state.namesearch}
         if (this.state.authorsearch) {params.authorName = this.state.authorsearch}
         console.log(params)
