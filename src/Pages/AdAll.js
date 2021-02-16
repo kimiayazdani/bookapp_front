@@ -87,7 +87,7 @@ export default class AdAll extends Component {
          axios 
           .get("http://localhost:8000/api/v1/book-advertise/post/?title="+this.state.search).then((res) => { 
               
-              var a = this.state.lists
+              var a = []
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
                         image:res.data[i].poster? res.data[i].poster: '',
@@ -160,7 +160,7 @@ export default class AdAll extends Component {
           .get("http://localhost:8000/api/v1/book-advertise/post/",  { params }) 
         .then((res) => { 
               
-              var a = this.state.lists
+              var a = []
                 for (var i = 0; i < res.data.length; i++) {
                     a.push({id: res.data[i].id, title: res.data[i].title, author: res.data[i].authorName,
                         image:res.data[i].poster? res.data[i].poster: '',
