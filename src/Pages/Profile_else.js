@@ -62,7 +62,7 @@ export default class ProfileElse extends Component {
     constructor(props) {
     super(props);
 
-    
+
                 axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
           }).then((res) => {
@@ -217,6 +217,10 @@ export default class ProfileElse extends Component {
           }).catch((err) => {})
 
 
+
+            this.render()
+            // this.forceUpdate()
+            // this.setState(this.state)
             
          
 
