@@ -53,9 +53,9 @@ export default class ProfileElse extends Component {
         topass: 1,
         logged_in: false,
         redirectchat: false,
-        average_rating: 1,
+        average_rating: 3,
         number_rating: 20,
-        prev_rating: 0
+        prev_rating: 3
 
     };
 
@@ -166,6 +166,8 @@ export default class ProfileElse extends Component {
          
 
 
+         this.render()
+            this.forceUpdate()
 
 
     }
@@ -226,10 +228,6 @@ export default class ProfileElse extends Component {
           }).catch((err) => {})
 
 
-
-            this.render()
-            this.forceUpdate()
-            this.setState(this.state)
             
          
 
