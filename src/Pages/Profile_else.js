@@ -149,9 +149,16 @@ export default class ProfileElse extends Component {
 
 
          if (this.state.logged_in) {
-            axios.get("http://127.0.0.1:8000/api/v1/account/rate/"+this.state.username+"/get/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            axios.get("http://127.0.0.1:8000/api/v1/account/rate/"+this.state.username+"/prev/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
             this.setState({prev_rating: res.data.prev_rating})
+
+            if (res.data.prev_rating == null) {
+                this.setState({prev_rating: 0})
+            }
           }).catch((err) => {})
+
+
+            
          }
 
     };
