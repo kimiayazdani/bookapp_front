@@ -164,7 +164,7 @@ export default class ProfileElse extends Component {
     redirectChat = (val) => {
         this.setState({redirectchat:true})
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         
                 axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
@@ -225,6 +225,7 @@ export default class ProfileElse extends Component {
          
 
     };
+
     render() {
         const extra = (
   <a>
