@@ -158,13 +158,22 @@ export default class ProfileElse extends Component {
           }).catch((err) => {})
 
 
+         axios.get("http://127.0.0.1:8000/api/v1/account/rate/"+this.state.username+"/get/", { headers: {'Authorization': 'Bearer  ' + localStorage.getItem('token')}}).then((res)=>{
+            this.setState({average_rating:res.data.rating})
+            this.setState({number_rating:res.data.number_rating})
+            
+          }).catch((err) => {})
+         
+
+
+
 
     }
 
     redirectChat = (val) => {
         this.setState({redirectchat:true})
     }
-    componentDidMount = () => {
+    componentWillMount = () => {
         
                 axios.post("http://127.0.0.1:8000/api/token/refresh/", { 
               refresh: localStorage.getItem('refresh_token')
@@ -219,8 +228,8 @@ export default class ProfileElse extends Component {
 
 
             this.render()
-            // this.forceUpdate()
-            // this.setState(this.state)
+            this.forceUpdate()
+            this.setState(this.state)
             
          
 
